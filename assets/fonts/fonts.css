@@ -1,0 +1,7 @@
+/* Noto Serif SC / Noto Sans SC, subset to the characters used by this project. SIL Open Font License 1.1 (see OFL.txt). */
+@font-face { font-family: 'Noto Serif SC'; font-style: normal; font-weight: 500; font-display: swap; src: url('NotoSerifSC-Medium.woff2') format('woff2'); }
+@font-face { font-family: 'Noto Serif SC'; font-style: normal; font-weight: 700; font-display: swap; src: url('NotoSerifSC-Bold.woff2') format('woff2'); }
+@font-face { font-family: 'Noto Serif SC'; font-style: normal; font-weight: 900; font-display: swap; src: url('NotoSerifSC-Black.woff2') format('woff2'); }
+@font-face { font-family: 'Noto Sans SC'; font-style: normal; font-weight: 400; font-display: swap; src: url('NotoSansSC-Regular.woff2') format('woff2'); }
+@font-face { font-family: 'Noto Sans SC'; font-style: normal; font-weight: 500; font-display: swap; src: url('NotoSansSC-Medium.woff2') format('woff2'); }
+@font-face { font-family: 'Noto Sans SC'; font-style: normal; font-weight: 700; font-display: swap; src: url('NotoSansSC-Bold.woff2') format('woff2'); }

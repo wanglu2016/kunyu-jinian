@@ -1,0 +1,1067 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>坤舆纪年</title>
+<meta name="description" content="以中国为主线的世界历史地球仪：公元前800年至2024年的政权疆域、中国纪年、同一时刻的世界大事，以及任意地点的归属履历。">
+<meta property="og:title" content="坤舆纪年 · 中国与世界历史地球仪">
+<meta property="og:description" content="转动地球，拖动时间轴，看同一时刻的世界。公元前800年—2024年。">
+<meta property="og:image" content="assets/preview.jpg">
+<meta name="theme-color" content="#0a1317">
+<link rel="icon" href="assets/icon.svg" type="image/svg+xml">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font:14px system-ui}img{max-width:100%}[hidden]{display:none!important}</style>
+<link rel="stylesheet" href="assets/fonts/fonts.css">
+<style>
+/* Layout: a full-bleed night globe; the year reads top-left like an atlas plate title, the timeline runs along the bottom edge as a scroll. */
+:root {
+  --ink: #0a1317;          /* 夜墨：页面底色 */
+  --ink-2: #0f1b20;
+  --panel: rgba(12, 22, 27, 0.80);
+  --panel-solid: #101d22;
+  --line: rgba(214, 186, 122, 0.16);
+  --line-2: rgba(214, 186, 122, 0.30);
+  --fg: #ece5d2;           /* 纸白 */
+  --fg-2: #b5b6a8;
+  --fg-3: #7d8681;
+  --gold: #d9b56a;         /* 泥金：当前年份与强调 */
+  --cinnabar: #e0603f;     /* 朱砂：中国主线 */
+  --malachite: #74b39b;    /* 石绿：可操作元素 */
+  --azurite: #5f8fb8;      /* 石青 */
+  --shadow: 0 12px 40px rgba(0, 0, 0, 0.45);
+  --serif: "Noto Serif SC", "Source Han Serif SC", "Songti SC", "STSong", serif;
+  --sans: "Noto Sans SC", "Source Han Sans SC", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+  color-scheme: dark;
+}
+html, body { height: 100%; }
+body { background: var(--ink); color: var(--fg); font-family: var(--sans); overflow: hidden; -webkit-font-smoothing: antialiased; }
+button { font: inherit; color: inherit; }
+#app { position: fixed; inset: 0; }
+#gl { position: absolute; inset: 0; width: 100%; height: 100%; display: block; touch-action: none; cursor: grab; }
+#gl.dragging { cursor: grabbing; }
+#labels { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+.lb { position: absolute; left: 0; top: 0; white-space: nowrap; font-family: var(--serif); color: var(--fg); text-shadow: 0 0 3px rgba(5,10,12,.95), 0 0 8px rgba(5,10,12,.8), 0 1px 2px rgba(0,0,0,.9); will-change: transform; transform: translate(-50%, -50%); }
+.lb.pol { font-weight: 700; letter-spacing: .08em; }
+.lb.pol.big { letter-spacing: .22em; font-weight: 900; }
+.lb.cn { color: #f6e3c8; }
+.lb.city { font-family: var(--sans); font-size: 11px; color: #e6d6ad; letter-spacing: .02em; display: flex; align-items: center; gap: 4px; transform: translate(-3px, -50%); }
+.lb.city::before { content: ""; width: 5px; height: 5px; border-radius: 50%; background: var(--gold); box-shadow: 0 0 0 1.5px rgba(10,19,23,.85); flex: none; }
+.lb.city.t1 { font-size: 12px; font-weight: 500; color: #f1dfb4; }
+.lb.city.t1::before { width: 6px; height: 6px; background: transparent; border: 1.5px solid var(--gold); }
+
+/* ---------- panels ---------- */
+.panel { background: var(--panel); backdrop-filter: blur(10px) saturate(1.1); -webkit-backdrop-filter: blur(10px) saturate(1.1); border: 1px solid var(--line); border-radius: 14px; box-shadow: var(--shadow); }
+.eyebrow { font-size: 11px; letter-spacing: .18em; color: var(--fg-3); text-transform: uppercase; }
+
+.top-left { position: absolute; top: max(18px, env(safe-area-inset-top, 0px)); left: max(20px, env(safe-area-inset-left, 0px)); width: min(420px, calc(100vw - 40px)); display: flex; flex-direction: column; gap: 18px; pointer-events: none; }
+.brand { display: flex; align-items: center; gap: 12px; pointer-events: auto; }
+.seal { width: 40px; height: 40px; border-radius: 9px; border: 1.5px solid var(--cinnabar); color: var(--cinnabar); display: grid; place-items: center; font-family: var(--serif); font-weight: 900; font-size: 15px; line-height: 1; letter-spacing: 0; background: rgba(224,96,63,.06); flex: none; }
+.seal span { display: block; writing-mode: vertical-rl; font-size: 13px; letter-spacing: .05em; }
+.brand h1 { margin: 0; font-family: var(--serif); font-weight: 900; font-size: 22px; letter-spacing: .28em; line-height: 1.1; }
+.brand p { margin: 3px 0 0; font-size: 11px; color: var(--fg-3); letter-spacing: .14em; }
+.brand p b { color: var(--gold); font-weight: 500; letter-spacing: .06em; }
+
+.yearbox { pointer-events: auto; }
+.crumbs { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 10px; font-size: 13px; letter-spacing: .12em; }
+.crumbs .cn { color: var(--cinnabar); font-weight: 700; }
+.crumbs .sep { color: var(--fg-3); }
+.crumbs .wd { color: var(--malachite); font-weight: 500; }
+.bigyear { display: flex; align-items: baseline; gap: 8px; margin-top: 6px; font-family: var(--serif); line-height: .95; }
+.bigyear .pre { font-size: 18px; font-weight: 700; color: var(--fg-2); writing-mode: vertical-rl; letter-spacing: .1em; align-self: center; }
+.bigyear .num { font-size: clamp(64px, 9vw, 104px); font-weight: 900; letter-spacing: -.01em; font-variant-numeric: tabular-nums lining-nums; color: var(--fg); }
+.bigyear .unit { font-size: 20px; font-weight: 700; color: var(--fg-2); }
+.reign { margin-top: 10px; font-family: var(--serif); font-size: 18px; font-weight: 700; color: var(--gold); line-height: 1.5; text-wrap: balance; }
+.reign .gz { color: var(--fg-2); font-weight: 500; font-size: 15px; margin-left: .3em; white-space: nowrap; }
+.coexist { margin-top: 4px; font-size: 12.5px; color: var(--fg-3); line-height: 1.6; max-width: 34em; }
+.coexist b { color: var(--fg-2); font-weight: 500; }
+
+/* card: 此时世界 */
+.card { position: absolute; left: max(20px, env(safe-area-inset-left, 0px)); bottom: calc(var(--tl-h, 150px) + 18px); width: min(420px, calc(100vw - 40px)); padding: 16px 18px 18px; }
+.card .head { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.card .tag { display: inline-flex; align-items: center; gap: 7px; font-size: 12px; color: var(--malachite); letter-spacing: .14em; }
+.card .tag i { width: 14px; height: 1px; background: var(--malachite); display: inline-block; }
+.card .range { font-size: 12px; color: var(--fg-3); font-variant-numeric: tabular-nums; }
+.card h2 { margin: 8px 0 6px; font-family: var(--serif); font-size: 19px; font-weight: 900; letter-spacing: .04em; text-wrap: balance; }
+.card p { margin: 0; font-size: 13.5px; line-height: 1.75; color: var(--fg-2); }
+
+/* sync: 同一时刻 */
+.sync { position: absolute; right: max(20px, env(safe-area-inset-right, 0px)); top: calc(max(18px, env(safe-area-inset-top, 0px)) + 58px); width: 340px; padding: 14px 6px 8px 16px; max-height: calc(100vh - var(--tl-h, 150px) - 120px); display: flex; flex-direction: column; }
+.sync .head { display: flex; align-items: baseline; justify-content: space-between; padding-right: 10px; }
+.sync h3 { margin: 0; font-family: var(--serif); font-size: 16px; font-weight: 900; letter-spacing: .14em; }
+.sync .hint { font-size: 11px; color: var(--fg-3); }
+.sync ol { list-style: none; margin: 8px 0 0; padding: 0 10px 0 0; overflow-y: auto; display: flex; flex-direction: column; gap: 2px; }
+.ev { display: grid; grid-template-columns: 80px 1fr; gap: 2px 10px; width: 100%; text-align: left; background: none; border: 0; padding: 8px 8px; border-radius: 8px; cursor: pointer; }
+.ev:hover, .ev:focus-visible { background: rgba(214,186,122,.07); outline: none; }
+.ev:focus-visible { box-shadow: inset 0 0 0 1px var(--gold); }
+.ev .rg { font-size: 11.5px; color: var(--fg-3); letter-spacing: .06em; padding-top: 2px; }
+.ev .rg.cn { color: var(--cinnabar); }
+.ev .tx { font-size: 13px; line-height: 1.5; color: var(--fg); }
+.ev .yr { grid-column: 2; font-size: 11.5px; color: var(--fg-3); font-variant-numeric: tabular-nums; }
+.ev .yr .d { color: var(--gold); margin-left: 6px; }
+.ev.now .yr .d { color: var(--malachite); }
+.ev.far { opacity: .62; }
+
+/* toolbar */
+.toolbar { position: absolute; top: max(18px, env(safe-area-inset-top, 0px)); right: max(20px, env(safe-area-inset-right, 0px)); display: flex; gap: 8px; }
+.tbtn { height: 40px; min-width: 40px; padding: 0 12px; border-radius: 10px; border: 1px solid var(--line); background: var(--panel); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); display: inline-flex; align-items: center; justify-content: center; gap: 7px; font-size: 13px; color: var(--fg); cursor: pointer; letter-spacing: .06em; }
+.tbtn:hover { border-color: var(--line-2); }
+.tbtn:focus-visible, .ctl:focus-visible, .chip:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+.tbtn[aria-pressed="true"] { border-color: var(--gold); color: var(--gold); }
+.tbtn svg { width: 17px; height: 17px; stroke: currentColor; fill: none; stroke-width: 1.6; }
+
+/* layers */
+.layers { position: absolute; top: calc(max(18px, env(safe-area-inset-top, 0px)) + 52px); right: max(20px, env(safe-area-inset-right, 0px)); width: 320px; padding: 16px 18px; z-index: 5; max-height: calc(100vh - var(--tl-h,150px) - 100px); overflow-y: auto; }
+.layers h3, .place h3 { margin: 0 0 4px; font-family: var(--serif); font-size: 16px; font-weight: 900; letter-spacing: .12em; }
+.row { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--line); font-size: 13.5px; }
+.row:last-of-type { border-bottom: 0; }
+.row small { display: block; color: var(--fg-3); font-size: 11.5px; margin-top: 2px; line-height: 1.45; }
+.sw { appearance: none; -webkit-appearance: none; width: 36px; height: 20px; border-radius: 20px; background: #26343a; position: relative; cursor: pointer; flex: none; transition: background .2s; }
+.sw::after { content: ""; position: absolute; top: 3px; left: 3px; width: 14px; height: 14px; border-radius: 50%; background: var(--fg-2); transition: transform .2s, background .2s; }
+.sw:checked { background: rgba(116,179,155,.45); }
+.sw:checked::after { transform: translateX(16px); background: var(--fg); }
+.sw:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+input[type="range"].op { width: 100%; accent-color: var(--malachite); }
+.legend { margin-top: 10px; display: grid; grid-template-columns: 1fr 1fr; gap: 6px 10px; font-size: 12px; color: var(--fg-2); }
+.legend span { display: flex; align-items: center; gap: 7px; }
+.legend i { width: 12px; height: 12px; border-radius: 3px; flex: none; }
+.legend-note { margin-top: 10px; font-size: 11.5px; color: var(--fg-3); line-height: 1.6; }
+
+/* place */
+.place { position: absolute; right: max(20px, env(safe-area-inset-right, 0px)); top: calc(max(18px, env(safe-area-inset-top, 0px)) + 52px); width: 340px; padding: 16px 8px 10px 18px; z-index: 6; max-height: calc(100vh - var(--tl-h,150px) - 100px); display: flex; flex-direction: column; }
+.place .x { position: absolute; top: 10px; right: 10px; width: 30px; height: 30px; border-radius: 8px; border: 0; background: none; color: var(--fg-2); cursor: pointer; font-size: 18px; line-height: 1; }
+.place .x:hover { color: var(--fg); background: rgba(255,255,255,.05); }
+.place .coord { font-size: 12px; color: var(--fg-3); font-variant-numeric: tabular-nums; padding-right: 32px; }
+.place .now { margin: 10px 10px 4px 0; padding: 10px 12px; border-radius: 10px; background: rgba(214,186,122,.06); border: 1px solid var(--line); font-size: 13px; color: var(--fg-2); }
+.place .now b { font-family: var(--serif); font-size: 17px; color: var(--fg); font-weight: 900; letter-spacing: .06em; }
+.place .now .mem { display: block; margin-top: 3px; font-size: 12px; color: var(--fg-3); }
+.place .note { margin: 6px 10px 2px 0; font-size: 11.5px; line-height: 1.65; color: var(--fg-3); border-left: 2px solid var(--gold); padding-left: 9px; }
+.place ol { list-style: none; margin: 8px 0 0; padding: 0 10px 0 0; overflow-y: auto; }
+.hist { display: grid; grid-template-columns: 10px 1fr auto; align-items: baseline; gap: 10px; width: 100%; background: none; border: 0; text-align: left; padding: 6px 6px; border-radius: 7px; cursor: pointer; font-size: 13px; color: var(--fg-2); }
+.hist i { width: 10px; height: 10px; border-radius: 2px; align-self: center; }
+.hist .y { font-size: 11.5px; color: var(--fg-3); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.hist:hover { background: rgba(214,186,122,.07); color: var(--fg); }
+.hist.cur { color: var(--fg); background: rgba(214,186,122,.10); }
+.hist.cur .y { color: var(--gold); }
+.empty { font-size: 12.5px; color: var(--fg-3); line-height: 1.7; padding: 8px 10px 8px 0; }
+
+/* tooltip */
+.tip { position: absolute; pointer-events: none; padding: 6px 10px; border-radius: 8px; background: rgba(8,15,18,.92); border: 1px solid var(--line-2); font-size: 12.5px; color: var(--fg); transform: translate(14px, 14px); white-space: nowrap; z-index: 7; }
+.tip b { font-family: var(--serif); font-weight: 900; letter-spacing: .05em; }
+.tip span { color: var(--fg-3); margin-left: 8px; font-variant-numeric: tabular-nums; }
+
+/* ---------- timeline ---------- */
+.timeline { position: absolute; left: max(16px, env(safe-area-inset-left, 0px)); right: max(16px, env(safe-area-inset-right, 0px)); bottom: max(14px, env(safe-area-inset-bottom, 0px)); padding: 12px 20px 12px; }
+.tl-top { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.play { width: 48px; height: 48px; border-radius: 50%; border: 0; background: var(--gold); color: #1a1408; display: grid; place-items: center; cursor: pointer; flex: none; box-shadow: 0 0 0 4px rgba(217,181,106,.12); }
+.play svg { width: 20px; height: 20px; fill: currentColor; }
+.play:focus-visible { outline: 2px solid var(--fg); outline-offset: 3px; }
+.ctlgroup { display: inline-flex; border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
+.ctl { height: 36px; padding: 0 12px; background: none; border: 0; color: var(--fg-2); cursor: pointer; font-size: 13px; display: inline-flex; align-items: center; gap: 6px; }
+.ctl + .ctl { border-left: 1px solid var(--line); }
+.ctl:hover { color: var(--fg); background: rgba(255,255,255,.03); }
+.ctl[aria-pressed="true"] { color: var(--gold); background: rgba(217,181,106,.08); }
+.ctl svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 1.8; }
+.tl-now { margin-left: auto; text-align: right; min-width: 0; }
+.tl-now .a { font-size: 11.5px; color: var(--malachite); letter-spacing: .14em; }
+.tl-now .b { font-family: var(--serif); font-size: 17px; font-weight: 900; letter-spacing: .08em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.track-wrap { position: relative; margin-top: 12px; padding-top: 4px; touch-action: none; cursor: pointer; user-select: none; -webkit-user-select: none; }
+.band { position: relative; height: 18px; border-radius: 4px; overflow: hidden; }
+.band + .band { margin-top: 3px; }
+.band .seg { position: absolute; top: 0; bottom: 0; display: flex; align-items: center; justify-content: center; overflow: hidden; font-size: 10.5px; letter-spacing: .08em; color: rgba(255,248,232,.92); white-space: nowrap; }
+.band.wd { height: 14px; }
+.band.wd .seg { font-size: 10px; color: rgba(230,240,235,.85); }
+.rail { position: relative; height: 22px; margin-top: 4px; }
+.rail .line { position: absolute; left: 0; right: 0; top: 10px; height: 2px; background: rgba(255,255,255,.10); border-radius: 2px; }
+.rail .fill { position: absolute; left: 0; top: 10px; height: 2px; background: linear-gradient(90deg, rgba(217,181,106,.35), var(--gold)); border-radius: 2px; }
+.rail .evt { position: absolute; top: 6px; width: 1px; height: 10px; background: rgba(224,96,63,.55); }
+.rail .knob { position: absolute; top: 11px; width: 18px; height: 18px; margin: -9px 0 0 -9px; border-radius: 50%; background: var(--ink); border: 2px solid var(--gold); box-shadow: 0 0 0 4px rgba(217,181,106,.18); }
+.track-wrap:focus-visible { outline: 2px solid var(--gold); outline-offset: 4px; border-radius: 6px; }
+.ticks { position: relative; height: 16px; margin-top: 2px; font-size: 11px; color: var(--fg-3); font-variant-numeric: tabular-nums; }
+.ticks span { position: absolute; transform: translateX(-50%); white-space: nowrap; }
+.ticks span:first-child { transform: none; }
+.ticks span:last-child { transform: translateX(-100%); }
+
+/* ---------- about ---------- */
+.about-back { position: absolute; inset: 0; background: rgba(4,8,10,.62); z-index: 20; display: flex; align-items: flex-start; justify-content: center; overflow-y: auto; padding-block: max(24px, env(safe-area-inset-top, 0px)) 24px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.about { position: relative; width: min(860px, 100%); background: var(--panel-solid); padding: 28px 32px 26px; border-radius: 16px; border: 1px solid var(--line); box-shadow: var(--shadow); }
+.about .x { position: absolute; top: 14px; right: 14px; width: 36px; height: 36px; border-radius: 9px; border: 0; background: none; color: var(--fg-2); cursor: pointer; font-size: 22px; }
+.about .x:hover { background: rgba(255,255,255,.05); color: var(--fg); }
+.about h2 { margin: 6px 0 0; font-family: var(--serif); font-size: 26px; font-weight: 900; letter-spacing: .1em; }
+.about .lead { margin: 18px 0 6px; padding-top: 18px; border-top: 1px solid var(--line); }
+.about .lead b { display: block; font-family: var(--serif); color: var(--gold); font-size: 16px; margin-bottom: 6px; }
+.about .lead p { margin: 0; color: var(--fg-2); font-size: 14px; line-height: 1.8; max-width: 46em; }
+.about dl { margin: 10px 0 0; }
+.about .item { display: grid; grid-template-columns: 9em 1fr; gap: 6px 24px; padding: 16px 0; border-top: 1px solid var(--line); }
+.about dt { font-family: var(--serif); font-weight: 700; font-size: 14.5px; }
+.about dd { margin: 0; font-size: 13.5px; line-height: 1.85; color: var(--fg-2); min-width: 0; }
+.about dd b { color: var(--fg); font-weight: 500; }
+.about .links { display: flex; flex-wrap: wrap; gap: 10px 18px; padding-top: 16px; border-top: 1px solid var(--line); }
+.about .links a { color: var(--malachite); font-size: 13px; text-decoration: none; }
+.about .links a:hover { text-decoration: underline; }
+.about .foot { margin-top: 16px; font-size: 12px; color: var(--fg-3); }
+
+/* loading / error */
+.loading { position: absolute; inset: 0; display: grid; place-items: center; background: var(--ink); z-index: 30; transition: opacity .5s; }
+.loading.done { opacity: 0; pointer-events: none; }
+.loading .box { text-align: center; }
+.loading .t { font-family: var(--serif); font-size: 26px; font-weight: 900; letter-spacing: .4em; padding-left: .4em; }
+.loading .s { margin-top: 14px; font-size: 12.5px; color: var(--fg-3); letter-spacing: .1em; font-variant-numeric: tabular-nums; }
+.loading .bar { margin: 14px auto 0; width: 200px; height: 2px; background: rgba(255,255,255,.08); border-radius: 2px; overflow: hidden; }
+.loading .bar i { display: block; height: 100%; width: 0; background: var(--gold); transition: width .2s; }
+
+/* mobile tabs for card/sync */
+.mtabs { display: none; }
+
+@media (max-width: 1100px) {
+  .sync { width: 300px; }
+}
+@media (max-width: 860px) {
+  .top-left { gap: 10px; width: calc(100vw - 32px); left: max(16px, env(safe-area-inset-left, 0px)); top: max(12px, env(safe-area-inset-top, 0px)); }
+  .brand h1 { font-size: 18px; }
+  .brand p { display: none; }
+  .seal { width: 34px; height: 34px; }
+  .bigyear .num { font-size: 56px; }
+  .bigyear .pre { font-size: 14px; }
+  .bigyear .unit { font-size: 16px; }
+  .reign { font-size: 15px; margin-top: 6px; }
+  .coexist { display: none; }
+  .toolbar { top: max(12px, env(safe-area-inset-top, 0px)); right: max(16px, env(safe-area-inset-right, 0px)); gap: 6px; }
+  .tbtn .lbl { display: none; }
+  .tbtn { height: 36px; min-width: 36px; padding: 0 9px; }
+  .card, .sync { display: none; }
+  .mtabs { display: block; position: absolute; left: max(12px, env(safe-area-inset-left, 0px)); right: max(12px, env(safe-area-inset-right, 0px)); bottom: calc(var(--tl-h, 150px) + 10px); padding: 0; overflow: hidden; }
+  .mtabs .tabs { display: flex; border-bottom: 1px solid var(--line); }
+  .mtabs .tabs button { flex: 1; height: 38px; background: none; border: 0; color: var(--fg-3); font-size: 13px; letter-spacing: .1em; cursor: pointer; }
+  .mtabs .tabs button[aria-selected="true"] { color: var(--gold); box-shadow: inset 0 -2px 0 var(--gold); }
+  .mtabs .tabs .fold { flex: 0 0 44px; font-size: 16px; color: var(--fg-2); }
+  .mtabs .body { padding: 10px 14px 12px; max-height: 32vh; overflow-y: auto; }
+  .mtabs.folded .body { display: none; }
+  .mtabs h2 { margin: 0 0 4px; font-family: var(--serif); font-size: 16px; font-weight: 900; }
+  .mtabs p { margin: 0; font-size: 13px; line-height: 1.7; color: var(--fg-2); }
+  .mtabs ol { list-style: none; margin: 0; padding: 0; }
+  .layers, .place { left: max(12px, env(safe-area-inset-left, 0px)); right: max(12px, env(safe-area-inset-right, 0px)); width: auto; top: auto; bottom: calc(var(--tl-h, 150px) + 10px); max-height: 52vh; }
+  .timeline { left: max(8px, env(safe-area-inset-left, 0px)); right: max(8px, env(safe-area-inset-right, 0px)); bottom: max(8px, env(safe-area-inset-bottom, 0px)); padding: 10px 12px 8px; }
+  .play { width: 42px; height: 42px; }
+  .tl-now { display: none; }
+  .ctl { padding: 0 10px; height: 34px; }
+  .band .seg { font-size: 9.5px; letter-spacing: 0; }
+  .band.wd { display: none; }
+  .about { padding: 22px 18px; }
+  .about .item { grid-template-columns: 1fr; gap: 4px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .loading, .sw, .sw::after { transition: none; }
+}
+</style>
+</head>
+<body>
+<div id="app">
+  <canvas id="gl" aria-label="可拖动旋转的历史地球；点击任意地点查看归属履历"></canvas>
+  <div id="labels" aria-hidden="true"></div>
+  <div class="tip" id="tip" hidden></div>
+
+  <div class="top-left">
+    <div class="brand">
+      <div class="seal" aria-hidden="true"><span>坤舆</span></div>
+      <div>
+        <h1>坤舆纪年</h1>
+        <p>中国与世界历史地球 <b>前800—2024</b></p>
+      </div>
+    </div>
+    <section class="yearbox" aria-live="polite">
+      <div class="crumbs"><span class="cn" id="pCn">战国</span><span class="sep">／</span><span class="wd" id="pWd">轴心时代</span></div>
+      <div class="bigyear"><span class="pre" id="yPre">公元前</span><span class="num" id="yNum">221</span><span class="unit">年</span></div>
+      <div class="reign" id="reign"></div>
+      <div class="coexist" id="coexist"></div>
+    </section>
+  </div>
+
+  <div class="toolbar">
+    <button class="tbtn" id="bAbout" type="button" title="资料与边界"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg><span class="lbl">资料与边界</span></button>
+    <button class="tbtn" id="bLayers" type="button" aria-pressed="false" title="图层"><svg viewBox="0 0 24 24"><path d="M12 3 3 8l9 5 9-5-9-5z"/><path d="m3 13 9 5 9-5"/></svg><span class="lbl">图层</span></button>
+    <button class="tbtn" id="bHome" type="button" title="回到东亚视角"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h17M12 3.5c2.6 2.4 3.8 5.2 3.8 8.5s-1.2 6.1-3.8 8.5c-2.6-2.4-3.8-5.2-3.8-8.5s1.2-6.1 3.8-8.5z"/></svg><span class="lbl">东亚</span></button>
+    <button class="tbtn" id="bFull" type="button" title="全屏"><svg viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button>
+  </div>
+
+  <aside class="sync panel" id="sync" aria-label="同一时刻">
+    <div class="head"><h3>同一时刻</h3><span class="hint">各地最近的大事 · 点击跳转</span></div>
+    <ol id="syncList"></ol>
+  </aside>
+
+  <article class="card panel" id="card">
+    <div class="head"><span class="tag"><i></i>此时世界</span><span class="range" id="cardRange"></span></div>
+    <h2 id="cardTitle"></h2>
+    <p id="cardText"></p>
+  </article>
+
+  <div class="mtabs panel" id="mtabs">
+    <div class="tabs" role="tablist">
+      <button type="button" role="tab" aria-selected="true" data-tab="card">此时世界</button>
+      <button type="button" role="tab" aria-selected="false" data-tab="sync">同一时刻</button>
+      <button type="button" class="fold" id="mFold" aria-label="收起或展开">⌄</button>
+    </div>
+    <div class="body" id="mBody"></div>
+  </div>
+
+  <div class="layers panel" id="layers" hidden>
+    <h3>图层</h3>
+    <div class="row"><label for="lyPol">疆域着色<small>数据源 Cliopatria 中的政权范围</small></label><input class="sw" type="checkbox" id="lyPol" checked></div>
+    <div class="row" style="display:block"><label for="lyOp" style="display:flex;justify-content:space-between">着色浓度 <span id="opVal">85%</span></label><input class="op" type="range" id="lyOp" min="20" max="100" value="85"></div>
+    <div class="row"><label for="lyNames">政权名称</label><input class="sw" type="checkbox" id="lyNames" checked></div>
+    <div class="row"><label for="lyCities">城市与古称<small>同一城市在不同年代显示当时的名称</small></label><input class="sw" type="checkbox" id="lyCities" checked></div>
+    <div class="row"><label for="lyGrid">经纬网</label><input class="sw" type="checkbox" id="lyGrid" checked></div>
+    <div class="row"><label for="lySoft">前现代边界柔化<small>1600 年以前用晕开的笔触画边界，1750 年后逐渐变为实线</small></label><input class="sw" type="checkbox" id="lySoft" checked></div>
+    <div class="legend" aria-label="配色">
+      <span><i style="background:#d2603f"></i>中原王朝</span>
+      <span><i style="background:#a68c5c"></i>草原政权</span>
+      <span><i style="background:#8b9c5c"></i>吐蕃·西藏</span>
+      <span><i style="background:#4f9c97"></i>朝鲜半岛</span>
+      <span><i style="background:#a9718f"></i>日本</span>
+      <span><i style="background:#9067aa"></i>罗马·拜占庭</span>
+      <span><i style="background:#3f9b8e"></i>伊朗诸王朝</span>
+      <span><i style="background:#5c9c5c"></i>阿拉伯哈里发</span>
+    </div>
+    <p class="legend-note">同一政权始终使用同一颜色。未着色的陆地表示数据源没有收录该地的国家形态，并不代表无人居住。</p>
+  </div>
+
+  <aside class="place panel" id="place" hidden aria-label="此地归属">
+    <button class="x" type="button" id="placeX" aria-label="关闭">×</button>
+    <h3>此地归属</h3>
+    <div class="coord" id="placeCoord"></div>
+    <div class="now" id="placeNow"></div>
+    <div id="placeNote"></div>
+    <ol id="placeList"></ol>
+  </aside>
+
+  <footer class="timeline panel" id="timeline">
+    <div class="tl-top">
+      <button class="play" id="bPlay" type="button" aria-label="播放"><svg viewBox="0 0 24 24" id="playIcon"><path d="M7 4.5v15l13-7.5z"/></svg></button>
+      <div class="ctlgroup">
+        <button class="ctl" id="bPrev" type="button" title="上一件中国大事"><svg viewBox="0 0 24 24"><path d="M15 5 8 12l7 7"/></svg>上一事件</button>
+        <button class="ctl" id="bNext" type="button" title="下一件中国大事">下一事件<svg viewBox="0 0 24 24"><path d="m9 5 7 7-7 7"/></svg></button>
+      </div>
+      <div class="ctlgroup" role="group" aria-label="播放速度">
+        <button class="ctl spd" type="button" data-s="0.5" aria-pressed="false">0.5×</button>
+        <button class="ctl spd" type="button" data-s="1" aria-pressed="true">1×</button>
+        <button class="ctl spd" type="button" data-s="3" aria-pressed="false">3×</button>
+        <button class="ctl spd" type="button" data-s="8" aria-pressed="false">8×</button>
+      </div>
+      <div class="tl-now"><div class="a" id="tlA">1× ＝ 每秒 10 年</div><div class="b" id="tlB"></div></div>
+    </div>
+    <div class="track-wrap" id="track" tabindex="0" role="slider" aria-label="年份" aria-valuemin="-800" aria-valuemax="2024" aria-valuenow="-221">
+      <div class="band cn" id="bandCn"></div>
+      <div class="band wd" id="bandWd"></div>
+      <div class="rail"><div class="line"></div><div class="fill" id="fill"></div><div id="evts"></div><div class="knob" id="knob"></div></div>
+      <div class="ticks" id="ticks"></div>
+    </div>
+  </footer>
+
+  <div class="about-back" id="about" hidden>
+    <div class="about" role="dialog" aria-modal="true" aria-labelledby="aboutH">
+      <button class="x" type="button" id="aboutX" aria-label="关闭">×</button>
+      <div class="eyebrow">资料 · 画法 · 局限</div>
+      <h2 id="aboutH">资料与边界</h2>
+      <div class="lead"><b>地图上的色块是“当时的势力范围”，不是精确国界。</b>
+        <p>前现代国家大多没有今天意义上的边界线：游牧政权的控制范围随季节和部族联盟变化，羁縻、朝贡、藩属关系也无法用一条线表示。这里把一个学术数据集里的政权范围画到地球上，帮助对照“同一时刻的世界”，读图时请把边界当作近似。</p></div>
+      <dl>
+        <div class="item"><dt>疆域</dt><dd>Seshat 全球历史数据库发布的 <b>Cliopatria</b>（v0.21，CC BY 4.0；Bennett 等，《Scientific Data》2025）。原始数据覆盖前3400—2024年，这里截取前800年以后的 1521 个政权、11936 个时段。为便于在浏览器中流畅播放，形状按约 0.045° 简化；同一政权相邻两个时段形状差异小于 2% 时，沿用前一时段的形状。</dd></div>
+        <div class="item"><dt>收录范围</dt><dd>数据源只收录有文字记载的政权，一般要求面积在 5000 平方公里以上、存续 50 年以上，因此许多诸侯小国、城邦和短命政权没有出现；夏朝等传说时代政权不在其中。非洲、美洲、东南亚和太平洋地区的资料明显少于欧亚大陆。</dd></div>
+        <div class="item"><dt>中文译名</dt><dd>1521 个政权的中文名由 Claude 编写。中国史上的政权采用通行史称；外国政权优先用中文史书或通行译名（如安息、大秦、白衣大食），音译名可能有多种写法。数据源中同一英文条目指不同政权的情况（如 Later Zhou 同时指东周与后周）已按年代分开命名。</dd></div>
+        <div class="item"><dt>中国纪年</dt><dd>前140年（汉武帝建元元年）以后的年号取自 <b>china-chronology</b>（据 CBDB 中国历代人物传记资料库整理，MIT 许可）。此前的周王、鲁公、秦王与汉初帝王纪年按通行年表编写，前841年共和元年以前的年代仍有争议。农历年与公历年并不完全重合，改元当年会显示“旧年号→新年号”，干支按公历年对应。</dd></div>
+        <div class="item"><dt>事件与解说</dt><dd>“同一时刻”中的约 280 件大事、“此时世界”中的 37 段解说和城市古称由 Claude 编写，年份前标“约”的为近似年代。城市只标主要名称，同一城市的别称、行政区名称未一一列出。</dd></div>
+        <div class="item"><dt>底图</dt><dd>地形色彩由 NASA Blue Marble 影像重新调色而成，海岸、湖泊与主要河流来自 Natural Earth（公共领域）。这是<b>今天的</b>地形和海岸线：古代海岸线、黄河改道、湖泊变迁等都没有还原。</dd></div>
+        <div class="item"><dt>边界画法</dt><dd>同一政权在整个时间轴上使用同一颜色，中原王朝统一用朱红色系。1600年以前的边界以晕开的笔触绘制，1750年后逐渐变为实线，用来提示近代以前“边界”概念本身的模糊。政权从属与联盟关系（如“南宋臣属于金”）在地点履历中以文字注明，不另画线。</dd></div>
+        <div class="item"><dt>争议与局限</dt><dd>数据源对部分地区的处理与中国学界通行看法不同。例如它直到1794年才把西藏画入清朝疆域，1912—1950年也把西藏单独绘出；1949年以后把台湾单独绘出。点击相关地区时会显示说明。<b>1912年以后的边界取自国外数据源，未经中国地图审核，不能作为国界依据。</b></dd></div>
+        <div class="item"><dt>播放</dt><dd>1× 为每秒 10 年。疆域在数据记录的变化年份直接切换，用淡入淡出过渡，不做多边形渐变，以免暗示“逐步蚕食”。时间轴按非线性比例绘制，近现代部分更宽。</dd></div>
+      </dl>
+      <div class="links">
+        <a href="https://wanglu2016.github.io/kunyu-jinian/video.html" target="_blank" rel="noopener">使用讲解视频 ↗</a>
+        <a href="https://github.com/wanglu2016/kunyu-jinian" target="_blank" rel="noopener">本项目源代码 ↗</a>
+        <a href="https://github.com/Seshat-Global-History-Databank/cliopatria" target="_blank" rel="noopener">Cliopatria 数据集 ↗</a>
+        <a href="https://doi.org/10.1038/s41597-025-04516-9" target="_blank" rel="noopener">Scientific Data 论文 ↗</a>
+        <a href="https://seshat-db.com/" target="_blank" rel="noopener">Seshat 全球历史数据库 ↗</a>
+        <a href="https://github.com/e-cloud/china_chronology" target="_blank" rel="noopener">china-chronology 年号库 ↗</a>
+        <a href="https://projects.iq.harvard.edu/cbdb" target="_blank" rel="noopener">CBDB ↗</a>
+        <a href="https://www.naturalearthdata.com/" target="_blank" rel="noopener">Natural Earth ↗</a>
+      </div>
+      <div class="foot">所有数据随页面一次载入；页面不收集任何信息。疆域数据 © Seshat Global History Databank，CC BY 4.0，经简化与中文化处理。</div>
+    </div>
+  </div>
+
+  <div class="loading" id="loading"><div class="box"><div class="t">坤舆纪年</div><div class="bar"><i id="ldBar"></i></div><div class="s" id="ldTxt">正在载入疆域数据</div></div></div>
+</div>
+
+<script>
+(() => {
+'use strict';
+const $ = (id) => document.getElementById(id);
+const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+const D2R = Math.PI / 180;
+const REDUCED = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* ---------------- state ---------------- */
+const S = {
+  year: -221, iyear: -221, playing: false, speed: 1,
+  lon: 108, lat: 30, dist: 2.9, vlon: 0, vlat: 0,
+  show: { pol: true, names: true, cities: true, grid: true, soft: true }, op: 0.85,
+  sel: null, // {lon, lat}
+  hoverRow: -1, selRow: -1,
+};
+let D = null;           // data.json
+let G = null;           // decoded geometries
+let nameSpan = null;    // per name idx: [from, to]
+let eventsByRegion = null, cnEvents = null;
+
+/* ---------------- formatting ---------------- */
+const fy = (y) => y < 0 ? '前' + (-y) : String(y);
+const fyFull = (y) => y < 0 ? '公元前' + (-y) + '年' : '公元' + y + '年';
+const nz = (y) => (y === 0 ? 1 : y);
+const yearSpan = (a, b) => a === b ? fy(a) : fy(a) + '—' + fy(b);
+
+/* ---------------- non-linear time scale ---------------- */
+const TY = [-800, -200, 600, 1300, 1800, 2024];
+const TX = [0, 0.2, 0.42, 0.62, 0.84, 1];
+function y2x(y) { for (let i = 0; i < TY.length - 1; i++) if (y <= TY[i + 1]) return TX[i] + (y - TY[i]) / (TY[i + 1] - TY[i]) * (TX[i + 1] - TX[i]); return 1; }
+function x2y(x) { for (let i = 0; i < TX.length - 1; i++) if (x <= TX[i + 1]) return TY[i] + (x - TX[i]) / (TX[i + 1] - TX[i]) * (TY[i + 1] - TY[i]); return 2024; }
+
+/* ---------------- loading ---------------- */
+function setLoad(p, t) { $('ldBar').style.width = Math.round(p * 100) + '%'; if (t) $('ldTxt').textContent = t; }
+async function fetchProgress(url, kind, w0, w1) {
+  const r = await fetch(url);
+  if (!r.ok) throw new Error(url + ' ' + r.status);
+  const len = +r.headers.get('content-length') || 0;
+  if (!r.body || !len) { const b = await r.arrayBuffer(); setLoad(w1); return b; }
+  const rd = r.body.getReader(); const chunks = []; let got = 0;
+  for (;;) { const { done, value } = await rd.read(); if (done) break; chunks.push(value); got += value.length; setLoad(w0 + (w1 - w0) * Math.min(1, got / len)); }
+  const out = new Uint8Array(got); let o = 0; for (const c of chunks) { out.set(c, o); o += c.length; }
+  return out.buffer;
+}
+function loadScript(src) { return new Promise((res, rej) => { const s = document.createElement('script'); s.src = src; s.onload = res; s.onerror = () => rej(new Error('无法载入 ' + src)); document.head.appendChild(s); }); }
+function loadImage(src) { return new Promise((res, rej) => { const im = new Image(); im.onload = () => res(im); im.onerror = () => rej(new Error(src)); im.src = src; }); }
+
+/* ---------------- geometry decode ---------------- */
+function decodeGeoms(buf, offs, Q) {
+  const u8 = new Uint8Array(buf); const out = new Array(offs.length);
+  for (let g = 0; g < offs.length; g++) {
+    let p = offs[g];
+    const uv = () => { let r = 0, s = 0, b; do { b = u8[p++]; r += (b & 0x7f) * Math.pow(2, s); s += 7; } while (b & 0x80); return r; };
+    const sv = () => { const z = uv(); return (z % 2) ? -(z + 1) / 2 : z / 2; };
+    let lx = 0, ly = 0, x0 = 1e9, y0 = 1e9, x1 = -1e9, y1 = -1e9;
+    const np = uv(); const polys = [];
+    for (let i = 0; i < np; i++) {
+      const nr = uv(); const rings = [];
+      for (let j = 0; j < nr; j++) {
+        const n = uv(); const a = new Float32Array(n * 2);
+        for (let k = 0; k < n; k++) {
+          lx += sv(); ly += sv(); const X = lx * Q, Y = ly * Q;
+          a[2 * k] = X; a[2 * k + 1] = Y;
+          if (X < x0) x0 = X; if (X > x1) x1 = X; if (Y < y0) y0 = Y; if (Y > y1) y1 = Y;
+        }
+        rings.push(a);
+      }
+      polys.push(rings);
+    }
+    out[g] = { polys, bb: [x0, y0, x1, y1], path: null };
+  }
+  return out;
+}
+function pip(g, lon, lat) {
+  const bb = g.bb; if (lon < bb[0] || lon > bb[2] || lat < bb[1] || lat > bb[3]) return false;
+  let inside = false;
+  for (const rings of g.polys) for (const a of rings) {
+    const n = a.length / 2;
+    for (let i = 0, j = n - 1; i < n; j = i++) {
+      const xi = a[2 * i], yi = a[2 * i + 1], xj = a[2 * j], yj = a[2 * j + 1];
+      if ((yi > lat) !== (yj > lat) && lon < (xj - xi) * (lat - yi) / (yj - yi) + xi) inside = !inside;
+    }
+  }
+  return inside;
+}
+
+/* ---------------- active rows ---------------- */
+function activeRows(y) {
+  const out = [];
+  const R = D.rows;
+  for (let i = 0; i < R.length; i++) { const r = R[i]; if (r[1] <= y && y <= r[2]) out.push(i); }
+  out.sort((a, b) => R[b][4] - R[a][4]);
+  return out;
+}
+
+/* ---------------- WebGL ---------------- */
+const canvas = $('gl');
+const gl = canvas.getContext('webgl2', { antialias: false, alpha: false, premultipliedAlpha: false });
+const VS = `#version 300 es
+in vec2 p; void main(){ gl_Position = vec4(p, 0., 1.); }`;
+const FS = `#version 300 es
+precision highp float;
+uniform vec2 uRes, uCtr; uniform mat3 uRot; uniform float uDist, uTan;
+uniform sampler2D uBase, uLand, uPolA, uPolB;
+uniform float uMix, uOp, uGrid;
+uniform vec3 uSel; uniform float uSelOn;
+out vec4 o;
+const float PI = 3.141592653589793;
+void main(){
+  vec2 p = (gl_FragCoord.xy - uCtr) / (0.5 * uRes.y);
+  vec3 ro = vec3(0., 0., uDist);
+  vec3 rd = normalize(vec3(p * uTan, -1.));
+  float b = dot(ro, rd); float c = dot(ro, ro) - 1.; float h = b * b - c;
+  float vig = length((gl_FragCoord.xy - 0.5 * uRes) / uRes.y);
+  vec3 bg = mix(vec3(0.052, 0.088, 0.104), vec3(0.028, 0.050, 0.060), smoothstep(0.2, 1.1, vig));
+  if (h < 0.) {
+    float dmin = sqrt(max(dot(ro, ro) - b * b, 0.));
+    float g = exp(-(dmin - 1.) * 26.) * 0.55 + exp(-(dmin - 1.) * 7.) * 0.10;
+    o = vec4(bg + vec3(0.36, 0.62, 0.66) * g * 0.55, 1.); return;
+  }
+  float t = -b - sqrt(h); vec3 P = ro + rd * t;
+  vec3 M = transpose(uRot) * P;
+  float lat = asin(clamp(M.y, -1., 1.)); float lon = atan(M.x, M.z);
+  vec2 uv = vec2(lon / (2. * PI) + .5, .5 - lat / PI);
+  vec2 uv2 = vec2(fract(uv.x + .5), uv.y);
+  vec2 dx = dFdx(uv), dy = dFdy(uv), dx2 = dFdx(uv2), dy2 = dFdy(uv2);
+  if (abs(dx2.x) < abs(dx.x)) dx.x = dx2.x; if (abs(dy2.x) < abs(dy.x)) dy.x = dy2.x;
+  vec3 base = textureGrad(uBase, uv, dx, dy).rgb;
+  float land = textureGrad(uLand, uv, dx, dy).r;
+  vec4 pa = textureGrad(uPolA, uv, dx, dy), pb = textureGrad(uPolB, uv, dx, dy);
+  vec4 pol = mix(pa, pb, uMix);
+  float k = uOp * smoothstep(0.2, 0.7, land);
+  vec3 col = base * (1. - pol.a * k) + pol.rgb * k;
+  if (uGrid > 0.) {
+    float dlat = lat * 180. / PI; float dlon = lon * 180. / PI;
+    float wlat = fwidth(dlat) * 0.9 + 1e-4; float wlon = wlat / max(cos(lat), 0.08);
+    float fl = abs(fract(dlat / 15. + .5) - .5) * 15.; float fo = abs(fract(dlon / 15. + .5) - .5) * 15.;
+    float ln = max(1. - smoothstep(0., 1., fl / wlat), 1. - smoothstep(0., 1., fo / wlon));
+    float eq = 1. - smoothstep(0., 1.3, abs(dlat) / wlat);
+    col = mix(col, vec3(0.78, 0.74, 0.6), ln * 0.10 * uGrid + eq * 0.16 * uGrid);
+  }
+  vec3 N = P; vec3 L = normalize(vec3(-0.35, 0.45, 0.85));
+  float diff = 0.70 + 0.38 * max(dot(N, L), 0.);
+  float mu = max(dot(N, -rd), 0.);
+  col *= diff * (0.78 + 0.22 * pow(mu, 0.5));
+  col += pow(1. - mu, 3.) * vec3(0.30, 0.55, 0.60) * 0.45;
+  if (uSelOn > 0.) {
+    float d = acos(clamp(dot(normalize(M), uSel), -1., 1.));
+    float w = fwidth(d) * 1.2;
+    float r0 = 0.011 * (uDist - 0.9);
+    float ring = 1. - smoothstep(0., w * 1.5, abs(d - r0));
+    float dot0 = 1. - smoothstep(0., w * 1.5, d - r0 * 0.25);
+    col = mix(col, vec3(0.96, 0.82, 0.48), max(ring, dot0) * 0.95);
+  }
+  o = vec4(col, 1.);
+}`;
+function sh(type, src) { const s = gl.createShader(type); gl.shaderSource(s, src); gl.compileShader(s); if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) throw new Error(gl.getShaderInfoLog(s)); return s; }
+let prog, U = {}, texBase, texLand, texPol = [null, null], polFront = 0, mix = 1, mixTarget = 1;
+let OW = 4096, OH = 2048; let ocan, octx;
+function initGL() {
+  prog = gl.createProgram(); gl.attachShader(prog, sh(gl.VERTEX_SHADER, VS)); gl.attachShader(prog, sh(gl.FRAGMENT_SHADER, FS)); gl.linkProgram(prog);
+  if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) throw new Error(gl.getProgramInfoLog(prog));
+  gl.useProgram(prog);
+  const buf = gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER, buf); gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 3, -1, -1, 3]), gl.STATIC_DRAW);
+  const loc = gl.getAttribLocation(prog, 'p'); gl.enableVertexAttribArray(loc); gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
+  for (const n of ['uRes', 'uCtr', 'uRot', 'uDist', 'uTan', 'uBase', 'uLand', 'uPolA', 'uPolB', 'uMix', 'uOp', 'uGrid', 'uSel', 'uSelOn']) U[n] = gl.getUniformLocation(prog, n);
+  gl.uniform1i(U.uBase, 0); gl.uniform1i(U.uLand, 1); gl.uniform1i(U.uPolA, 2); gl.uniform1i(U.uPolB, 3);
+  const maxT = gl.getParameter(gl.MAX_TEXTURE_SIZE);
+  const small = Math.min(innerWidth, innerHeight) < 700 || maxT < 4096;
+  if (small) { OW = 2048; OH = 1024; }
+  ocan = document.createElement('canvas'); ocan.width = OW; ocan.height = OH; octx = ocan.getContext('2d');
+}
+const aniso = gl && (gl.getExtension('EXT_texture_filter_anisotropic'));
+function mkTex(unit, src, wrapS) {
+  const t = gl.createTexture(); gl.activeTexture(gl.TEXTURE0 + unit); gl.bindTexture(gl.TEXTURE_2D, t);
+  gl.pixelStorei(gl.UNPACK_PREMULTIPLY_ALPHA_WEBGL, true);
+  if (src) gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, src);
+  else gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, 1, 1, 0, gl.RGBA, gl.UNSIGNED_BYTE, new Uint8Array([0, 0, 0, 0]));
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, wrapS || gl.REPEAT);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR_MIPMAP_LINEAR);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+  if (aniso) gl.texParameterf(gl.TEXTURE_2D, aniso.TEXTURE_MAX_ANISOTROPY_EXT, Math.min(8, gl.getParameter(aniso.MAX_TEXTURE_MAX_ANISOTROPY_EXT)));
+  if (src) gl.generateMipmap(gl.TEXTURE_2D);
+  return t;
+}
+function uploadOverlay(slot) {
+  gl.activeTexture(gl.TEXTURE2 + slot); gl.bindTexture(gl.TEXTURE_2D, texPol[slot]);
+  gl.pixelStorei(gl.UNPACK_PREMULTIPLY_ALPHA_WEBGL, true);
+  gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, ocan);
+  gl.generateMipmap(gl.TEXTURE_2D);
+}
+
+/* rotation: R = Rx(lat) * Ry(-lon) */
+function rotMat(lon, lat) {
+  const a = -lon * D2R, b = lat * D2R;
+  const ca = Math.cos(a), sa = Math.sin(a), cb = Math.cos(b), sb = Math.sin(b);
+  // Ry(a) = [[ca,0,sa],[0,1,0],[-sa,0,ca]]; Rx(b) = [[1,0,0],[0,cb,-sb],[0,sb,cb]]
+  return [
+    [ca, 0, sa],
+    [sb * sa, cb, -sb * ca],
+    [-cb * sa, sb, cb * ca],
+  ];
+}
+let R = rotMat(S.lon, S.lat);
+const FOV_TAN = Math.tan(18 * D2R);
+function fitDist() { const W = canvas.clientWidth || innerWidth, H = canvas.clientHeight || innerHeight; const frac = W < H ? 1.08 : 0.94; const r = H / (FOV_TAN * frac * Math.min(W, H)); return Math.sqrt(1 + r * r); }
+const ctrFrac = () => (canvas.clientWidth < canvas.clientHeight ? 0.40 : 0.47);
+const ZMIN = 1.35; const zmax = () => fitDist() * 1.9;
+function project(lon, lat, out) {
+  const cl = Math.cos(lat * D2R), mx = cl * Math.sin(lon * D2R), my = Math.sin(lat * D2R), mz = cl * Math.cos(lon * D2R);
+  const px = R[0][0] * mx + R[0][1] * my + R[0][2] * mz;
+  const py = R[1][0] * mx + R[1][1] * my + R[1][2] * mz;
+  const pz = R[2][0] * mx + R[2][1] * my + R[2][2] * mz;
+  const vis = pz - 1 / S.dist;
+  const q = S.dist - pz;
+  const H = canvas.clientHeight, W = canvas.clientWidth;
+  out.x = W / 2 + (px / q) / FOV_TAN * (H / 2);
+  out.y = H * ctrFrac() - (py / q) / FOV_TAN * (H / 2);
+  out.v = vis;
+  return out;
+}
+function pick(clientX, clientY) {
+  const rect = canvas.getBoundingClientRect();
+  const H = rect.height, W = rect.width;
+  const px = (clientX - rect.left - W / 2) / (H / 2), py = -(clientY - rect.top - H * ctrFrac()) / (H / 2);
+  let dx = px * FOV_TAN, dy = py * FOV_TAN, dz = -1; const l = Math.hypot(dx, dy, dz); dx /= l; dy /= l; dz /= l;
+  const oz = S.dist; const b = oz * dz; const c = oz * oz - 1; const h = b * b - c; if (h < 0) return null;
+  const t = -b - Math.sqrt(h); const X = dx * t, Y = dy * t, Z = oz + dz * t;
+  // M = R^T P
+  const mx = R[0][0] * X + R[1][0] * Y + R[2][0] * Z, my = R[0][1] * X + R[1][1] * Y + R[2][1] * Z, mz = R[0][2] * X + R[1][2] * Y + R[2][2] * Z;
+  return { lat: Math.asin(clamp(my, -1, 1)) / D2R, lon: Math.atan2(mx, mz) / D2R };
+}
+
+/* ---------------- overlay drawing ---------------- */
+function hexA(hex, a) { const n = parseInt(hex.slice(1), 16); return `rgba(${n >> 16},${(n >> 8) & 255},${n & 255},${a})`; }
+function lighten(hex, k) { const n = parseInt(hex.slice(1), 16); const r = n >> 16, g = (n >> 8) & 255, b = n & 255; const m = (v, t) => Math.round(v + (t - v) * k); return `rgb(${m(r, 239)},${m(g, 228)},${m(b, 204)})`; }
+function pathOf(gi) {
+  const g = G[gi]; if (g.path) return g.path;
+  const p = new Path2D(); const sx = OW / 360, sy = OH / 180;
+  for (const rings of g.polys) for (const a of rings) {
+    p.moveTo((a[0] + 180) * sx, (90 - a[1]) * sy);
+    for (let k = 2; k < a.length; k += 2) p.lineTo((a[k] + 180) * sx, (90 - a[k + 1]) * sy);
+    p.closePath();
+  }
+  g.path = p; return p;
+}
+let drawnKey = '', drawnSel = -1, lastDraw = 0, pendingDraw = false, curActive = [];
+function softness(y) { if (!S.show.soft) return 0; return clamp((1750 - y) / 150, 0, 1); }
+function drawOverlay() {
+  const y = S.iyear; const act = curActive; const ctx = octx;
+  ctx.clearRect(0, 0, OW, OH);
+  const sc = OW / 4096;
+  for (const i of act) { const r = D.rows[i]; const nm = D.names[r[0]]; ctx.fillStyle = hexA(nm.c, 0.62); ctx.fill(pathOf(r[3]), 'evenodd'); }
+  const s = softness(y);
+  ctx.lineJoin = 'round';
+  // dark hairline separates neighbours
+  ctx.strokeStyle = 'rgba(8,13,15,0.55)'; ctx.lineWidth = 1.6 * sc;
+  for (const i of act) ctx.stroke(pathOf(D.rows[i][3]));
+  for (const i of act) {
+    const r = D.rows[i]; const nm = D.names[r[0]]; const p = pathOf(r[3]); const lc = lighten(nm.c, 0.45);
+    if (s > 0) {
+      ctx.globalAlpha = 0.16 * s; ctx.strokeStyle = lc; ctx.lineWidth = 7 * sc; ctx.stroke(p);
+      ctx.globalAlpha = 0.30 * s; ctx.lineWidth = 3.4 * sc; ctx.stroke(p);
+    }
+    ctx.globalAlpha = 0.55 + 0.4 * (1 - s); ctx.strokeStyle = lc; ctx.lineWidth = (1.1 + 0.4 * (1 - s)) * sc; ctx.stroke(p);
+  }
+  ctx.globalAlpha = 1;
+  if (S.selRow >= 0 && act.includes(S.selRow)) {
+    const p = pathOf(D.rows[S.selRow][3]);
+    ctx.strokeStyle = 'rgba(245,214,140,0.95)'; ctx.lineWidth = 3.2 * sc; ctx.setLineDash([9 * sc, 5 * sc]); ctx.stroke(p); ctx.setLineDash([]);
+  }
+  const back = 1 - polFront;
+  uploadOverlay(back);
+  polFront = back;
+  // crossfade: uMix 0 shows A (slot0), 1 shows B (slot1)
+  mixTarget = polFront; if (REDUCED) mix = mixTarget;
+  drawnKey = act.join(','); drawnSel = S.selRow; lastDraw = performance.now();
+}
+function requestOverlay(force) {
+  const key = curActive.join(',');
+  if (!force && key === drawnKey && S.selRow === drawnSel) return;
+  pendingDraw = true;
+}
+
+/* ---------------- labels ---------------- */
+const labelsEl = $('labels');
+const pool = new Map();   // key -> element
+function labelEl(key, cls, text, size) {
+  let el = pool.get(key);
+  if (!el) { el = document.createElement('div'); el.className = 'lb ' + cls; labelsEl.appendChild(el); pool.set(key, el); }
+  if (el._t !== text) { el.textContent = text; el._t = text; }
+  if (size && el._s !== size) { el.style.fontSize = size + 'px'; el._s = size; }
+  return el;
+}
+const tmp = { x: 0, y: 0, v: 0 };
+let labelsDirty = true;
+let obstacleEls = [];
+function isChina(lon, lat) { return lon > 72 && lon < 136 && lat > 17 && lat < 55; }
+function layoutLabels() {
+  const W = canvas.clientWidth, H = canvas.clientHeight;
+  const placed = []; const used = new Set();
+  const cr = canvas.getBoundingClientRect();
+  for (const el of obstacleEls) { if (!el || el.hidden || !el.offsetParent) continue; const r = el.getBoundingClientRect(); if (r.width && r.height) placed.push([r.left - cr.left - 4, r.top - cr.top - 4, r.right - cr.left + 4, r.bottom - cr.top + 4]); }
+  const pxPerRad = (H / 2) / FOV_TAN / (S.dist - 1);
+  const cands = [];
+  if (S.show.names) {
+    const seen = new Set();
+    for (const i of curActive) {
+      const r = D.rows[i]; if (seen.has(r[0])) continue; seen.add(r[0]);
+      const [lon, lat] = D.lab[r[3]]; project(lon, lat, tmp); if (tmp.v < 0.06) continue;
+      const areaK = Math.max(r[4], 1) * 1000; // km2
+      const sizePx = Math.sqrt(areaK) / 6371 * pxPerRad * Math.min(1, tmp.v * 2);
+      const cn = isChina(lon, lat);
+      const nm = D.names[r[0]];
+      const core = nm.c === '#d2603f' || cn && areaK > 6e5;
+      if (sizePx < (cn ? 22 : 34) && !(core && sizePx > 12)) continue;
+      const fs = clamp(10.5 + 2.3 * Math.log10(areaK / 2e4), 11, 21) * (cn ? 1.08 : 1);
+      cands.push({ key: 'p' + r[0], cls: 'pol' + (areaK > 1.5e6 ? ' big' : '') + (cn ? ' cn' : ''), text: nm.zh, fs: Math.round(fs), x: tmp.x, y: tmp.y, pr: sizePx * (cn ? 3 : 1) + (core ? 1e4 : 0), w: 0 });
+    }
+  }
+  if (S.show.cities) {
+    const y = S.iyear;
+    for (let ci = 0; ci < D.cities.length; ci++) {
+      const c = D.cities[ci]; const tier = c[3];
+      const fd = fitDist(); if (tier === 3 && S.dist > fd * 0.62) continue; if (tier === 2 && S.dist > fd * 0.84) continue;
+      let name = null; for (const s of c[2]) if (s[0] <= y && y <= s[1]) { name = s[2]; break; }
+      if (!name) continue;
+      project(c[0], c[1], tmp); if (tmp.v < 0.08) continue;
+      const cn = isChina(c[0], c[1]);
+      cands.push({ key: 'c' + ci, cls: 'city t' + tier, text: name, fs: 0, x: tmp.x, y: tmp.y, pr: (tier === 1 ? 900 : tier === 2 ? 60 : 20) * (cn ? 2.5 : 1), city: true });
+    }
+  }
+  cands.sort((a, b) => b.pr - a.pr);
+  const maxN = W < 700 ? 34 : 70;
+  for (const c of cands) {
+    if (placed.length >= maxN) break;
+    const len = [...c.text].length;
+    let w, h, x0, y0;
+    if (c.city) { w = len * 12 + 10; h = 15; x0 = c.x - 3; y0 = c.y - h / 2; }
+    else { const ls = c.cls.includes('big') ? 0.22 : 0.08; w = len * c.fs * (1 + ls) + 4; h = c.fs * 1.3; x0 = c.x - w / 2; y0 = c.y - h / 2; }
+    if (x0 < 4 || y0 < 4 || x0 + w > W - 4 || y0 + h > H - 4) continue;
+    let hit = false;
+    for (const b of placed) if (x0 < b[2] && x0 + w > b[0] && y0 < b[3] && y0 + h > b[1]) { hit = true; break; }
+    if (hit) continue;
+    placed.push([x0 - 3, y0 - 2, x0 + w + 3, y0 + h + 2]);
+    const el = labelEl(c.key, c.cls, c.text, c.fs || 0);
+    if (el.className !== 'lb ' + c.cls) el.className = 'lb ' + c.cls;
+    el.style.transform = c.city ? `translate(${(c.x - 3).toFixed(1)}px,${(c.y - 7.5).toFixed(1)}px)` : `translate(${(c.x).toFixed(1)}px,${(c.y).toFixed(1)}px) translate(-50%,-50%)`;
+    el.hidden = false; used.add(c.key);
+  }
+  for (const [k, el] of pool) if (!used.has(k)) el.hidden = true;
+}
+
+/* ---------------- UI: year panels ---------------- */
+function chronOf(y) { return D.chron[String(y)]; }
+function cardOf(y) { for (const c of D.cards) if (c[0] <= y && y <= c[1]) return c; return D.cards[D.cards.length - 1]; }
+const RG = {};
+function syncItems(y) {
+  const items = [];
+  for (const [code, label] of D.regions) {
+    const evs = eventsByRegion[code]; let best = null, bd = 1e9;
+    for (const e of evs) { const d = Math.abs(e[0] - y); if (d < bd || (d === bd && e[0] <= y)) { bd = d; best = e; } }
+    const win = code === 'cn' ? 40 : 60;
+    if (best && bd <= win) items.push({ code, label, e: best, d: best[0] - y });
+  }
+  return items;
+}
+function evButton(it) {
+  const e = it.e; const b = document.createElement('button'); b.type = 'button';
+  b.className = 'ev' + (it.d === 0 ? ' now' : '') + (Math.abs(it.d) > 25 ? ' far' : '');
+  const dtx = it.d === 0 ? '同年' : (it.d < 0 ? '早' + (-it.d) + '年' : '晚' + it.d + '年');
+  b.innerHTML = `<span class="rg ${it.code === 'cn' ? 'cn' : ''}"></span><span class="tx"></span><span class="yr"></span>`;
+  b.children[0].textContent = it.label; b.children[1].textContent = e[2];
+  b.children[2].textContent = (e[3] ? '约' : '') + fy(e[0]) + '年'; const s = document.createElement('span'); s.className = 'd'; s.textContent = dtx; b.children[2].appendChild(s);
+  b.addEventListener('click', () => setYear(e[0], true));
+  return b;
+}
+let lastPanelYear = null, mTab = 'card';
+function updatePanels() {
+  const y = S.iyear; if (y === lastPanelYear) return; lastPanelYear = y;
+  const c = chronOf(y);
+  $('pCn').textContent = '中国 · ' + c.p; $('pWd').textContent = '世界 · ' + c.w;
+  $('yPre').textContent = y < 0 ? '公元前' : '公元'; $('yNum').textContent = Math.abs(y);
+  const reign = $('reign'); reign.textContent = c.m.length ? c.m.join(' · ') : (y > 1949 ? '中华人民共和国' : '');
+  const gz = document.createElement('span'); gz.className = 'gz'; gz.textContent = c.g + '年'; reign.appendChild(gz);
+  const co = $('coexist');
+  if (c.o.length) { co.innerHTML = '<b>并立：</b>'; co.appendChild(document.createTextNode(c.o.slice(0, 8).join('、') + (c.o.length > 8 ? ' 等' : ''))); co.hidden = false; } else { co.textContent = ''; co.hidden = true; }
+  const cd = cardOf(y);
+  $('cardTitle').textContent = cd[2]; $('cardText').textContent = cd[3]; $('cardRange').textContent = yearSpan(cd[0], cd[1]);
+  const list = $('syncList'); list.textContent = '';
+  const items = syncItems(y);
+  for (const it of items) { const li = document.createElement('li'); li.appendChild(evButton(it)); list.appendChild(li); }
+  $('tlB').textContent = `${fyFull(y)} · ${c.p}`;
+  const tr = $('track'); tr.setAttribute('aria-valuenow', y); tr.setAttribute('aria-valuetext', fyFull(y));
+  renderMobile();
+  updatePlaceCurrent();
+}
+function renderMobile() {
+  const body = $('mBody'); body.textContent = '';
+  const y = S.iyear;
+  if (mTab === 'card') {
+    const cd = cardOf(y); const h = document.createElement('h2'); h.textContent = cd[2]; const p = document.createElement('p'); p.textContent = cd[3]; body.append(h, p);
+  } else {
+    const ol = document.createElement('ol'); for (const it of syncItems(y)) { const li = document.createElement('li'); li.appendChild(evButton(it)); ol.appendChild(li); } body.appendChild(ol);
+  }
+}
+
+/* ---------------- timeline ---------------- */
+const BANDC = { '西周': '#b4613f', '春秋': '#9e5536', '战国': '#b4613f', '秦': '#8e3a2a', '西汉': '#c4553a', '新': '#97452f', '东汉': '#b04c35',
+  '三国': '#9a6a3a', '西晋': '#b4553b', '东晋十六国': '#995038', '南北朝': '#a5803c', '隋': '#b84f38', '唐': '#cf5e3d', '五代十国': '#9a5539',
+  '北宋': '#c8693f', '南宋': '#a95937', '元': '#a94c38', '明': '#c9533a', '清': '#c9843a', '中华民国': '#a34640', '中华人民共和国': '#c94a39' };
+function buildTimeline() {
+  const bc = $('bandCn'), bw = $('bandWd');
+  for (const [a, b, n] of D.cnb) {
+    const s = document.createElement('div'); s.className = 'seg'; const x0 = y2x(a), x1 = y2x(b + 1);
+    s.style.left = (x0 * 100) + '%'; s.style.width = ((x1 - x0) * 100) + '%'; s.style.background = BANDC[n] || '#8a6a4a'; s.title = `${n} ${yearSpan(a, b)}`;
+    s.dataset.n = n; bc.appendChild(s);
+  }
+  const wc = ['#2f5d55', '#2a4f5a', '#2f5d55', '#2a4f5a', '#2f5d55', '#2a4f5a', '#2f5d55', '#2a4f5a', '#2f5d55'];
+  D.wdb.forEach(([a, b, n], i) => { const s = document.createElement('div'); s.className = 'seg'; const x0 = y2x(a), x1 = y2x(b + 1); s.style.left = (x0 * 100) + '%'; s.style.width = ((x1 - x0) * 100) + '%'; s.style.background = wc[i % wc.length]; s.title = `${n} ${yearSpan(a, b)}`; s.dataset.n = n; bw.appendChild(s); });
+  const ev = $('evts');
+  for (const e of cnEvents) { const t = document.createElement('div'); t.className = 'evt'; t.style.left = (y2x(e[0]) * 100) + '%'; ev.appendChild(t); }
+  layoutBandText();
+}
+function layoutBandText() {
+  const W = $('bandCn').clientWidth;
+  for (const s of document.querySelectorAll('.band .seg')) { const w = parseFloat(s.style.width) / 100 * W; const n = s.dataset.n; const need = [...n].length * 11 + 6; s.textContent = w >= need ? n : (w >= 16 ? [...n][0] : ''); }
+  const ticks = $('ticks'); ticks.textContent = '';
+  const TK = W < 520 ? [-800, -221, 589, 1279, 1644, 2024] : W < 900 ? [-800, -500, -221, 1, 618, 960, 1368, 1644, 1912, 2024] : [-800, -500, -221, 1, 220, 589, 907, 1279, 1500, 1644, 1840, 1912, 2024];
+  for (const y of TK) { const s = document.createElement('span'); s.style.left = (y2x(y) * 100) + '%'; s.textContent = y === 1 ? '公元1' : fy(y); ticks.appendChild(s); }
+  document.documentElement.style.setProperty('--tl-h', $('timeline').offsetHeight + 'px');
+}
+function updateTimeline() { const x = y2x(S.year) * 100; $('knob').style.left = x + '%'; $('fill').style.width = x + '%'; }
+
+/* ---------------- year control ---------------- */
+function setYear(y, snap) {
+  y = clamp(y, -800, 2024); S.year = y; const iy = nz(Math.round(y));
+  if (iy !== S.iyear || snap) {
+    S.iyear = iy; curActive = activeRows(iy); requestOverlay(); labelsDirty = true; updatePanels();
+  }
+  updateTimeline();
+}
+function setPlaying(p) {
+  S.playing = p; $('bPlay').setAttribute('aria-label', p ? '暂停' : '播放');
+  $('playIcon').innerHTML = p ? '<path d="M6.5 4.5h4v15h-4zM13.5 4.5h4v15h-4z"/>' : '<path d="M7 4.5v15l13-7.5z"/>';
+  if (p && S.year >= 2024) setYear(-800, true);
+}
+
+/* ---------------- place history ---------------- */
+function nearestCity(lon, lat, y) {
+  let best = null, bd = 1e9;
+  for (const c of D.cities) { const d = Math.hypot((c[0] - lon) * Math.cos(lat * D2R), c[1] - lat); if (d < bd) { bd = d; best = c; } }
+  if (!best || bd > 1.4) return null;
+  const segs = best[2]; let nm = null; for (const s of segs) if (s[0] <= y && y <= s[1]) nm = s[2];
+  const last = segs[segs.length - 1][2];
+  return { now: nm, modern: last };
+}
+let placeRows = [];
+function openPlace(lon, lat) {
+  S.sel = { lon, lat };
+  const hits = new Set(); for (let g = 0; g < G.length; g++) if (pip(G[g], lon, lat)) hits.add(g);
+  const rows = []; D.rows.forEach((r, i) => { if (hits.has(r[3])) rows.push(i); });
+  rows.sort((a, b) => D.rows[a][1] - D.rows[b][1] || D.rows[a][4] - D.rows[b][4]);
+  // merge consecutive same-name rows
+  const merged = [];
+  for (const i of rows) {
+    const r = D.rows[i]; const last = merged.length ? merged.filter(m => m.n === r[0]).pop() : null;
+    if (last && r[1] <= last.b + 1) { last.b = Math.max(last.b, r[2]); last.rows.push(i); }
+    else merged.push({ n: r[0], a: r[1], b: r[2], rows: [i] });
+  }
+  merged.sort((x, y) => x.a - y.a);
+  placeRows = merged;
+  const ns = lat >= 0 ? '北纬' : '南纬', ew = lon >= 0 ? '东经' : '西经';
+  const nc = nearestCity(lon, lat, S.iyear);
+  $('placeCoord').textContent = `${ns}${Math.abs(lat).toFixed(1)}° ${ew}${Math.abs(lon).toFixed(1)}°` + (nc ? `（今${nc.modern}附近）` : '');
+  const ol = $('placeList'); ol.textContent = '';
+  if (!merged.length) { const li = document.createElement('li'); li.className = 'empty'; li.textContent = '前800年以来，数据源没有在这一点记录过任何政权。海洋、极地，或资料稀疏的地区都会出现这种情况。'; ol.appendChild(li); }
+  for (const m of merged) {
+    const li = document.createElement('li'); const b = document.createElement('button'); b.type = 'button'; b.className = 'hist';
+    const nm = D.names[m.n];
+    b.innerHTML = '<i></i><span></span><span class="y"></span>'; b.children[0].style.background = nm.c; b.children[1].textContent = nm.zh; b.children[2].textContent = yearSpan(m.a, m.b);
+    b.addEventListener('click', () => { setYear(m.a, true); });
+    m.el = b; li.appendChild(b); ol.appendChild(li);
+  }
+  $('layers').hidden = true; $('bLayers').setAttribute('aria-pressed', 'false');
+  $('place').hidden = false; $('sync').hidden = true; labelsDirty = true;
+  updatePlaceCurrent();
+  const cur = merged.find(m => m.el.classList.contains('cur')); if (cur) cur.el.scrollIntoView({ block: 'nearest' });
+}
+function updatePlaceCurrent() {
+  if (!S.sel || $('place').hidden) { if (S.selRow !== -1) { S.selRow = -1; requestOverlay(); } return; }
+  const y = S.iyear; let now = [];
+  for (const m of placeRows) { const on = m.a <= y && y <= m.b; m.el.classList.toggle('cur', on); if (on) now.push(m); }
+  const box = $('placeNow'); box.textContent = '';
+  const note = $('placeNote'); note.textContent = '';
+  let selRow = -1;
+  if (!now.length) { box.innerHTML = `${fyFull(y)}，数据源未记录此地属于哪个政权。`; }
+  else {
+    const lead = document.createElement('div'); lead.textContent = fyFull(y) + '，此地属于'; box.appendChild(lead);
+    now.forEach((m, k) => {
+      const nm = D.names[m.n]; const b = document.createElement('b'); b.textContent = nm.zh; if (k) box.appendChild(document.createTextNode(' 、 ')); box.appendChild(b);
+      const row = m.rows.map(i => D.rows[i]).find(r => r[1] <= y && y <= r[2]);
+      const ri = m.rows.find(i => D.rows[i][1] <= y && y <= D.rows[i][2]); if (k === 0 && ri !== undefined) selRow = ri;
+      if (row && row[5] >= 0) { const s = document.createElement('span'); s.className = 'mem'; s.textContent = '所属关系：' + D.aggs[row[5]]; box.appendChild(s); }
+      if (nm.note) { const d = document.createElement('div'); d.className = 'note'; d.textContent = nm.note; note.appendChild(d); }
+    });
+    if (now.length > 1) { const s = document.createElement('span'); s.className = 'mem'; s.textContent = '数据源中有多个政权的范围在此重叠。'; box.appendChild(s); }
+  }
+  if (selRow !== S.selRow) { S.selRow = selRow; requestOverlay(); }
+}
+function closePlace() { $('place').hidden = true; S.sel = null; $('sync').hidden = false; updatePlaceCurrent(); labelsDirty = true; }
+
+/* ---------------- interaction ---------------- */
+let drag = null; const pointers = new Map(); let pinch0 = null;
+canvas.addEventListener('pointerdown', (e) => {
+  canvas.setPointerCapture(e.pointerId); pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+  if (pointers.size === 2) { const [a, b] = [...pointers.values()]; pinch0 = { d: Math.hypot(a.x - b.x, a.y - b.y), dist: S.dist }; drag = null; return; }
+  drag = { x: e.clientX, y: e.clientY, x0: e.clientX, y0: e.clientY, t: performance.now(), moved: 0 };
+  S.vlon = S.vlat = 0; canvas.classList.add('dragging'); $('tip').hidden = true;
+});
+canvas.addEventListener('pointermove', (e) => {
+  if (pointers.has(e.pointerId)) pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+  if (pinch0 && pointers.size === 2) { const [a, b] = [...pointers.values()]; const d = Math.hypot(a.x - b.x, a.y - b.y); S.dist = clamp(pinch0.dist * pinch0.d / Math.max(d, 1), ZMIN, zmax()); labelsDirty = true; return; }
+  if (drag) {
+    const dx = e.clientX - drag.x, dy = e.clientY - drag.y; drag.x = e.clientX; drag.y = e.clientY; drag.moved += Math.abs(dx) + Math.abs(dy);
+    const k = (S.dist - 1) * FOV_TAN / (canvas.clientHeight / 2) / D2R * 1.05;
+    S.lon -= dx * k / Math.max(Math.cos(S.lat * D2R), 0.3); S.lat = clamp(S.lat + dy * k, -75, 80);
+    const now = performance.now(); const dt = Math.max(now - drag.t, 1); drag.t = now;
+    S.vlon = -dx * k / dt * 16; S.vlat = dy * k / dt * 16; labelsDirty = true;
+  } else if (e.pointerType === 'mouse') hover(e);
+});
+function endPointer(e) {
+  pointers.delete(e.pointerId);
+  if (pointers.size < 2) pinch0 = null;
+  if (drag && pointers.size === 0) {
+    canvas.classList.remove('dragging');
+    if (drag.moved < 6) { const p = pick(e.clientX, e.clientY); if (p) { openPlace(p.lon, p.lat); } S.vlon = S.vlat = 0; }
+    drag = null;
+  }
+}
+canvas.addEventListener('pointerup', endPointer); canvas.addEventListener('pointercancel', endPointer);
+canvas.addEventListener('pointerleave', () => { $('tip').hidden = true; });
+canvas.addEventListener('wheel', (e) => { e.preventDefault(); S.dist = clamp(S.dist * Math.exp(e.deltaY * 0.0012), ZMIN, zmax()); labelsDirty = true; }, { passive: false });
+let hoverT = 0;
+function hover(e) {
+  const now = performance.now(); if (now - hoverT < 40) return; hoverT = now;
+  const p = pick(e.clientX, e.clientY); const tip = $('tip');
+  if (!p || !S.show.pol) { tip.hidden = true; return; }
+  let best = -1;
+  for (let k = curActive.length - 1; k >= 0; k--) { const i = curActive[k]; if (pip(G[D.rows[i][3]], p.lon, p.lat)) { best = i; break; } }
+  if (best < 0) { tip.hidden = true; return; }
+  const r = D.rows[best]; const nm = D.names[r[0]]; const sp = nameSpan[r[0]];
+  tip.innerHTML = '<b></b><span></span>'; tip.children[0].textContent = nm.zh; tip.children[1].textContent = yearSpan(sp[0], sp[1]);
+  tip.style.left = e.clientX + 'px'; tip.style.top = e.clientY + 'px'; tip.hidden = false;
+}
+
+// timeline scrub
+const track = $('track'); let scrub = false;
+function scrubAt(e) { const r = $('bandCn').getBoundingClientRect(); const x = clamp((e.clientX - r.left) / r.width, 0, 1); setYear(x2y(x)); }
+track.addEventListener('pointerdown', (e) => { scrub = true; track.setPointerCapture(e.pointerId); setPlaying(false); scrubAt(e); });
+track.addEventListener('pointermove', (e) => { if (scrub) scrubAt(e); });
+track.addEventListener('pointerup', () => { scrub = false; setYear(S.iyear, true); pendingDraw = true; });
+track.addEventListener('pointercancel', () => { scrub = false; });
+track.addEventListener('keydown', (e) => {
+  const st = e.shiftKey ? 10 : 1;
+  if (e.key === 'ArrowRight' || e.key === 'ArrowUp') { setYear(nz(S.iyear + st) === S.iyear ? S.iyear + st + 1 : S.iyear + st, true); e.preventDefault(); }
+  else if (e.key === 'ArrowLeft' || e.key === 'ArrowDown') { setYear(S.iyear - st === 0 ? -1 : S.iyear - st, true); e.preventDefault(); }
+  else if (e.key === 'Home') { setYear(-800, true); e.preventDefault(); } else if (e.key === 'End') { setYear(2024, true); e.preventDefault(); }
+});
+document.addEventListener('keydown', (e) => {
+  if (e.target.closest && e.target.closest('input,button,[role="slider"]')) return;
+  if (e.key === ' ') { setPlaying(!S.playing); e.preventDefault(); }
+  if (e.key === 'ArrowRight') { setYear(S.iyear + 1 === 0 ? 1 : S.iyear + 1, true); }
+  if (e.key === 'ArrowLeft') { setYear(S.iyear - 1 === 0 ? -1 : S.iyear - 1, true); }
+  if (e.key === 'Escape') { $('about').hidden = true; if (!$('place').hidden) closePlace(); }
+});
+$('bPlay').addEventListener('click', () => setPlaying(!S.playing));
+$('bPrev').addEventListener('click', () => { const y = S.iyear; let t = null; for (const e of cnEvents) if (e[0] < y) t = e[0]; if (t !== null) { setPlaying(false); setYear(t, true); } });
+$('bNext').addEventListener('click', () => { const y = S.iyear; const e = cnEvents.find(e => e[0] > y); if (e) { setPlaying(false); setYear(e[0], true); } });
+for (const b of document.querySelectorAll('.spd')) b.addEventListener('click', () => {
+  S.speed = +b.dataset.s; for (const o of document.querySelectorAll('.spd')) o.setAttribute('aria-pressed', o === b ? 'true' : 'false');
+  $('tlA').textContent = `${b.textContent} ＝ 每秒 ${S.speed * 10} 年`;
+});
+$('bAbout').addEventListener('click', () => { $('about').hidden = false; $('aboutX').focus(); });
+$('aboutX').addEventListener('click', () => { $('about').hidden = true; $('bAbout').focus(); });
+$('about').addEventListener('click', (e) => { if (e.target === $('about')) $('about').hidden = true; });
+$('bLayers').addEventListener('click', () => { const h = !$('layers').hidden; $('layers').hidden = h; $('bLayers').setAttribute('aria-pressed', String(!h)); if (!h) { closePlace(); $('sync').hidden = true; } else $('sync').hidden = false; labelsDirty = true; });
+$('placeX').addEventListener('click', closePlace);
+let flyTo = null;
+$('bHome').addEventListener('click', () => { flyTo = { lon: 108, lat: 30, dist: fitDist(), t0: performance.now(), from: { lon: S.lon, lat: S.lat, dist: S.dist } }; });
+$('bFull').addEventListener('click', () => { const d = document; try { if (!d.fullscreenElement) d.documentElement.requestFullscreen().catch(() => {}); else d.exitFullscreen().catch(() => {}); } catch (_) {} });
+const bindSw = (id, key, cb) => $(id).addEventListener('change', (e) => { S.show[key] = e.target.checked; labelsDirty = true; if (cb) cb(); });
+bindSw('lyPol', 'pol'); bindSw('lyNames', 'names'); bindSw('lyCities', 'cities'); bindSw('lyGrid', 'grid'); bindSw('lySoft', 'soft', () => requestOverlay(true) || (pendingDraw = true));
+$('lyOp').addEventListener('input', (e) => { S.op = e.target.value / 100; $('opVal').textContent = e.target.value + '%'; });
+for (const b of document.querySelectorAll('.mtabs [data-tab]')) b.addEventListener('click', () => { mTab = b.dataset.tab; for (const o of document.querySelectorAll('.mtabs [data-tab]')) o.setAttribute('aria-selected', String(o === b)); $('mtabs').classList.remove('folded'); renderMobile(); });
+$('mFold').addEventListener('click', () => { $('mtabs').classList.toggle('folded'); $('mFold').textContent = $('mtabs').classList.contains('folded') ? '⌃' : '⌄'; });
+
+/* ---------------- render loop ---------------- */
+function resize() {
+  const dpr = Math.min(devicePixelRatio || 1, 2); const w = Math.round(canvas.clientWidth * dpr), h = Math.round(canvas.clientHeight * dpr);
+  if (canvas.width !== w || canvas.height !== h) { canvas.width = w; canvas.height = h; gl.viewport(0, 0, w, h); labelsDirty = true; }
+}
+addEventListener('resize', () => { layoutBandText(); labelsDirty = true; });
+let last = performance.now(), lastLon = null, lastLat = null, lastDist = null;
+function frame(now) {
+  const dt = Math.min(now - last, 100) / 1000; last = now;
+  resize();
+  if (S.playing && !scrub) {
+    let y = S.year + dt * 10 * S.speed; if (S.year < 0 && y >= 0) y += 1;
+    if (y >= 2024) { y = 2024; setPlaying(false); }
+    setYear(y);
+  }
+  if (flyTo) {
+    const k = clamp((now - flyTo.t0) / 900, 0, 1); const e = k < .5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2;
+    let dl = ((flyTo.lon - flyTo.from.lon) % 360 + 540) % 360 - 180;
+    S.lon = flyTo.from.lon + dl * e; S.lat = flyTo.from.lat + (flyTo.lat - flyTo.from.lat) * e; S.dist = flyTo.from.dist + (flyTo.dist - flyTo.from.dist) * e;
+    if (k >= 1) flyTo = null;
+  } else if (!drag && (Math.abs(S.vlon) > 0.002 || Math.abs(S.vlat) > 0.002)) {
+    S.lon += S.vlon; S.lat = clamp(S.lat + S.vlat, -75, 80); const f = REDUCED ? 0 : Math.pow(0.9, dt * 60); S.vlon *= f; S.vlat *= f;
+  }
+  if (S.lon !== lastLon || S.lat !== lastLat || S.dist !== lastDist) { R = rotMat(S.lon, S.lat); lastLon = S.lon; lastLat = S.lat; lastDist = S.dist; labelsDirty = true; }
+  if (pendingDraw && now - lastDraw > ((S.playing || scrub) ? 140 : 0)) { pendingDraw = false; drawOverlay(); }
+  if (mix !== mixTarget) { const st = dt / 0.32; mix = mix < mixTarget ? Math.min(mixTarget, mix + st) : Math.max(mixTarget, mix - st); }
+  gl.uniform2f(U.uRes, canvas.width, canvas.height); gl.uniform2f(U.uCtr, canvas.width / 2, canvas.height * (1 - ctrFrac()));
+  const m = R; gl.uniformMatrix3fv(U.uRot, false, [m[0][0], m[1][0], m[2][0], m[0][1], m[1][1], m[2][1], m[0][2], m[1][2], m[2][2]]);
+  gl.uniform1f(U.uDist, S.dist); gl.uniform1f(U.uTan, FOV_TAN);
+  gl.uniform1f(U.uMix, mix); gl.uniform1f(U.uOp, S.show.pol ? S.op : 0); gl.uniform1f(U.uGrid, S.show.grid ? 1 : 0);
+  if (S.sel) { const cl = Math.cos(S.sel.lat * D2R); gl.uniform3f(U.uSel, cl * Math.sin(S.sel.lon * D2R), Math.sin(S.sel.lat * D2R), cl * Math.cos(S.sel.lon * D2R)); gl.uniform1f(U.uSelOn, $('place').hidden ? 0 : 1); } else gl.uniform1f(U.uSelOn, 0);
+  gl.drawArrays(gl.TRIANGLES, 0, 3);
+  if (labelsDirty) { labelsDirty = false; layoutLabels(); }
+  requestAnimationFrame(frame);
+}
+
+/* ---------------- boot ---------------- */
+async function boot() {
+  if (!gl) { $('ldTxt').textContent = '这个浏览器不支持 WebGL2，无法显示三维地球。请换用较新版本的 Chrome、Edge、Safari 或 Firefox。'; return; }
+  try {
+    initGL();
+    setLoad(0.02, '正在载入疆域数据');
+    let done = 0; const step = () => { done++; setLoad(0.05 + 0.75 * done / 3); };
+    await Promise.all(['assets/data.js', 'assets/geo.js', 'assets/textures.js'].map(src => loadScript(src).then(step)));
+    const dj = window.__KUNYU_DATA;
+    const bin = atob(window.__KUNYU_GEO); const u8 = new Uint8Array(bin.length); for (let i = 0; i < bin.length; i++) u8[i] = bin.charCodeAt(i);
+    const gb = u8.buffer; window.__KUNYU_GEO = null;
+    const [base, land] = await Promise.all([loadImage(window.__KUNYU_TEX.base), loadImage(window.__KUNYU_TEX.land)]);
+    D = dj; setLoad(0.85, '正在解析 7185 个疆域形状');
+    await new Promise(r => setTimeout(r, 20));
+    G = decodeGeoms(gb, D.offs, D.Q);
+    nameSpan = D.names.map(() => [1e9, -1e9]); for (const r of D.rows) { const s = nameSpan[r[0]]; s[0] = Math.min(s[0], r[1]); s[1] = Math.max(s[1], r[2]); }
+    eventsByRegion = {}; for (const [c] of D.regions) eventsByRegion[c] = [];
+    for (const e of D.events) eventsByRegion[e[1]].push(e);
+    cnEvents = eventsByRegion.cn.slice().sort((a, b) => a[0] - b[0]);
+    setLoad(0.92, '正在准备地球');
+    texBase = mkTex(0, base); texLand = mkTex(1, land);
+    texPol[0] = mkTex(2, null); texPol[1] = mkTex(3, null);
+    S.dist = fitDist();
+    buildTimeline();
+    obstacleEls = ['card', 'sync', 'timeline', 'layers', 'place', 'mtabs'].map($).concat([document.querySelector('.yearbox'), document.querySelector('.brand'), document.querySelector('.toolbar')]);
+    setYear(-221, true);
+    drawOverlay(); mix = mixTarget;
+    setLoad(1, '');
+    $('loading').classList.add('done');
+    requestAnimationFrame(frame);
+  } catch (err) {
+    console.error(err); $('ldTxt').textContent = '载入失败：' + (err && err.message ? err.message : err) + '。请刷新页面重试。';
+  }
+}
+boot();
+})();
+</script>
+</body>
+</html>

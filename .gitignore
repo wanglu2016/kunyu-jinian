@@ -1,0 +1,9 @@
+tools/input/
+tools/out/
+tools/*.json
+tools/*.geojson
+tools/*.bin
+tools/preview_base.jpg
+__pycache__/
+.DS_Store
+dist/

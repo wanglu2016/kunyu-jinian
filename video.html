@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>坤舆纪年 · 使用讲解</title>
+<meta name="description" content="3分钟看懂坤舆纪年：转动地球、拖动时间轴、看中国纪年与同一时刻的世界、点击任意地点查看归属履历。">
+<meta property="og:image" content="assets/video-poster.jpg">
+<meta name="theme-color" content="#0a1317">
+<link rel="icon" href="assets/icon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/fonts/fonts.css">
+<style>
+:root {
+  --ink: #0a1317; --panel: #101d22; --line: rgba(214, 186, 122, 0.18);
+  --fg: #ece5d2; --fg-2: #b5b6a8; --fg-3: #7d8681; --gold: #d9b56a; --cinnabar: #e0603f; --malachite: #74b39b;
+  --serif: "Noto Serif SC", "Songti SC", "STSong", serif;
+  --sans: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+  color-scheme: dark;
+}
+body { margin: 0; background: var(--ink); color: var(--fg); font-family: var(--sans); -webkit-font-smoothing: antialiased; }
+main { max-width: 1080px; margin: 0 auto; padding-block: max(28px, env(safe-area-inset-top, 0px)) 40px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+header { display: flex; align-items: center; gap: 14px; }
+.seal { width: 44px; height: 44px; border-radius: 10px; border: 1.5px solid var(--cinnabar); color: var(--cinnabar); display: grid; place-items: center; font-family: var(--serif); font-weight: 900; font-size: 14px; writing-mode: vertical-rl; background: rgba(224, 96, 63, .06); flex: none; }
+h1 { margin: 0; font-family: var(--serif); font-weight: 900; font-size: clamp(24px, 4vw, 32px); letter-spacing: .2em; }
+header p { margin: 4px 0 0; color: var(--fg-3); font-size: 13px; letter-spacing: .1em; }
+.player { margin-top: 24px; border-radius: 14px; overflow: hidden; border: 1px solid var(--line); background: #000; aspect-ratio: 16 / 9; }
+video { display: block; width: 100%; height: 100%; }
+.actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 18px; }
+.btn { display: inline-flex; align-items: center; gap: 8px; height: 44px; padding: 0 18px; border-radius: 10px; text-decoration: none; font-size: 15px; letter-spacing: .06em; border: 1px solid var(--line); color: var(--fg); background: var(--panel); }
+.btn.primary { background: var(--gold); color: #1a1408; border-color: var(--gold); font-weight: 700; }
+.btn:hover { border-color: var(--gold); }
+.btn:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+section { margin-top: 30px; padding-top: 22px; border-top: 1px solid var(--line); }
+h2 { margin: 0 0 12px; font-family: var(--serif); font-size: 18px; font-weight: 900; letter-spacing: .12em; }
+ol { margin: 0; padding-left: 1.4em; color: var(--fg-2); line-height: 1.9; font-size: 14.5px; max-width: 46em; }
+ol b { color: var(--fg); font-weight: 500; }
+.note { margin-top: 16px; color: var(--fg-3); font-size: 12.5px; line-height: 1.8; max-width: 52em; }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <div class="seal" aria-hidden="true">坤舆</div>
+    <div>
+      <h1>坤舆纪年 · 使用讲解</h1>
+      <p>3分07秒 · 1080p · 中文配音与字幕</p>
+    </div>
+  </header>
+  <div class="player">
+    <video controls preload="metadata" playsinline poster="assets/video-poster.jpg" src="video/kunyu-jinian-guide.mp4">
+      你的浏览器不能直接播放这个视频，请用下方按钮下载后观看。
+    </video>
+  </div>
+  <div class="actions">
+    <a class="btn primary" href="index.html">打开地球仪</a>
+    <a class="btn" href="video/kunyu-jinian-guide.mp4" download="坤舆纪年_使用讲解.mp4">下载视频（41 MB）</a>
+  </div>
+  <section>
+    <h2>视频里讲了什么</h2>
+    <ol>
+      <li><b>转动与缩放：</b>拖动地球旋转，滚轮或双指捏合缩放。</li>
+      <li><b>看懂颜色：</b>每块颜色是当时的一个政权，中原王朝用朱红色系。</li>
+      <li><b>时间轴：</b>朝代彩带与世界分期，拖动滑块、播放、调速、按大事跳转。</li>
+      <li><b>中国纪年：</b>左上角显示年号或王公纪年，分裂时期并列显示。</li>
+      <li><b>同一时刻：</b>同一段时间里世界各地发生的事，以及这个时代的大势。</li>
+      <li><b>地点履历：</b>点击任意地点，查看两千多年来它先后属于哪些政权，城市名称也随年代变化。</li>
+      <li><b>图层与读图须知：</b>打开或关闭图层；色块是势力范围，不是精确国界。</li>
+    </ol>
+    <p class="note">配音为离线语音合成的女声，背景音乐为程序生成。画面录自本网页的实际操作。</p>
+  </section>
+</main>
+</body>
+</html>
