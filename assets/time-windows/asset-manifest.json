@@ -48,5 +48,30 @@
     "image": "images/daxing.webp",
     "thumbnail": "thumbs/daxing.webp",
     "sha256": "f29af014f4b5bbe3dea8762562db62c9313b37f2c474b9a6230593b3ab642d64"
+  },
+  "changan-650": {
+    "image": "images/changan-650.webp",
+    "thumbnail": "thumbs/changan-650.webp",
+    "sha256": "8fbd5c83f9946e1da5fecbde4cf4b1eb20a346ae98258a2379cbb60e877d0940"
+  },
+  "changan-750": {
+    "image": "images/changan-750.webp",
+    "thumbnail": "thumbs/changan-750.webp",
+    "sha256": "d23e4e23eb8effd2d0c4f8e23af9e037132149e1854014bc97ff385d521f1af1"
+  },
+  "yangzhou-tang": {
+    "image": "images/yangzhou-tang.webp",
+    "thumbnail": "thumbs/yangzhou-tang.webp",
+    "sha256": "01f5bf3297539256f84b61f59f0d046f7774dad0d3ca8dd88639f42a02126b2d"
+  },
+  "bianjing": {
+    "image": "images/bianjing.webp",
+    "thumbnail": "thumbs/bianjing.webp",
+    "sha256": "134d53a84c28d6224ce4f14faa80a6fae21bee3dc20fdad470fae1c096107ca9"
+  },
+  "linan": {
+    "image": "images/linan.webp",
+    "thumbnail": "thumbs/linan.webp",
+    "sha256": "cf6f2d44c71b942ab5b5b18f9556d4e3887d6bf3fbbdce7fb8abfe5bab8bff2a"
   }
 }
