@@ -7,6 +7,8 @@ meta = json.load(open('geoms_meta.json'))
 zh = json.load(open('zh_names.json'))
 extra = json.load(open('extra_meta.json'))
 src = json.load(open('input/cliopatria.geojson'))
+# 今地名表（places.py 生成）：[中文名, 经度, 纬度]
+PLACES = [[n, float(lo), float(la)] for n, lo, la in (l.rstrip('\n').split('\t') for l in open('places.tsv', encoding='utf8') if l.strip())]
 area = {}
 for f in src['features']:
     p = f['properties']
@@ -261,8 +263,9 @@ for y in [-800,-722,-551,-475,-260,-256,-221,-210,-207,-206,-202,-180,-141,-140,
 data = {
     'Q': meta['Q'], 'offs': meta['offs'], 'lab': meta['labels'], 'rows': rows, 'names': names, 'aggs': aggnames,
     'chron': {str(k): v for k, v in chron.items()},
-    'events': [[y, r, t, a] for y, r, t, a in EVENTS], 'cards': CARDS, 'cnb': CN_BANDS, 'wdb': WORLD_BANDS,
+    'events': [list(e) for e in EVENTS], 'cards': CARDS, 'cnb': CN_BANDS, 'wdb': WORLD_BANDS,
     'cities': [[lo, la, segs, t] for lo, la, segs, t in CITIES], 'regions': REGIONS,
+    'places': PLACES,
 }
 json.dump(data, open('out/data.json', 'w'), ensure_ascii=False, separators=(',', ':'))
 shutil.copy('geoms.bin', 'out/geo.bin')

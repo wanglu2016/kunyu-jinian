@@ -200,6 +200,107 @@ input[type="range"].op { width: 100%; accent-color: var(--malachite); }
 .about .links a:hover { text-decoration: underline; }
 .about .foot { margin-top: 16px; font-size: 12px; color: var(--fg-3); }
 
+/* ---------- events on the globe ---------- */
+.evm { position: absolute; left: 0; top: 0; pointer-events: auto; background: none; border: 0; padding: 0; margin: 0; cursor: pointer; display: flex; align-items: center; gap: 7px; white-space: nowrap; font-family: var(--sans); color: #f3ead6; will-change: transform; }
+.evm i { width: 9px; height: 9px; flex: none; position: relative; transform: rotate(45deg); background: #f3ead6; box-shadow: 0 0 0 1.5px rgba(10,19,23,.9), 0 0 9px rgba(243,234,214,.55); }
+.evm.cn { color: var(--cinnabar); }
+.evm.cn i { background: var(--cinnabar); box-shadow: 0 0 0 1.5px rgba(10,19,23,.9), 0 0 10px rgba(224,96,63,.8); }
+.evm.far { opacity: .5; }
+.evm span { display: none; font-size: 12px; line-height: 1; padding: 6px 9px; border-radius: 7px; background: rgba(8,15,18,.88); border: 1px solid var(--line-2); color: var(--fg); max-width: 26em; overflow: hidden; text-overflow: ellipsis; }
+.evm.r span, .evm.l span { display: block; }
+.evm.l { flex-direction: row-reverse; }
+.evm.hot i::after { content: ""; position: absolute; inset: -7px; border: 1.5px solid currentColor; border-radius: 50%; opacity: 0; animation: evpulse 1.8s ease-out infinite; }
+@keyframes evpulse { 0% { transform: scale(.35); opacity: .9; } 100% { transform: scale(1.5); opacity: 0; } }
+.ev .yr .pl { color: var(--fg-2); }
+.ev .yr .d { white-space: nowrap; }
+
+/* ---------- search ---------- */
+.search { position: absolute; top: max(18px, env(safe-area-inset-top, 0px)); left: 50%; transform: translateX(-50%); width: min(560px, calc(100vw - 24px)); z-index: 12; padding: 10px; display: flex; flex-direction: column; max-height: calc(100vh - var(--tl-h, 150px) - 60px); }
+.search .q { display: flex; align-items: center; gap: 8px; padding: 0 6px 0 10px; height: 44px; border-radius: 10px; background: rgba(255,255,255,.05); border: 1px solid var(--line); }
+.search .q:focus-within { border-color: var(--gold); }
+.search .q svg { width: 18px; height: 18px; stroke: var(--fg-3); fill: none; stroke-width: 1.7; flex: none; }
+.search input { flex: 1; min-width: 0; height: 100%; background: none; border: 0; outline: none; color: var(--fg); font: 15px var(--sans); }
+.search input::placeholder { color: var(--fg-3); }
+.search .x { width: 32px; height: 32px; border-radius: 8px; border: 0; background: none; color: var(--fg-2); cursor: pointer; font-size: 18px; flex: none; }
+.search .x:hover { color: var(--fg); background: rgba(255,255,255,.05); }
+.search ol { list-style: none; margin: 8px 0 0; padding: 0; overflow-y: auto; }
+.sr { display: grid; grid-template-columns: 44px 1fr; align-items: baseline; gap: 2px 10px; width: 100%; text-align: left; background: none; border: 0; padding: 8px; border-radius: 8px; cursor: pointer; }
+.sr:hover, .sr.on { background: rgba(214,186,122,.09); }
+.sr .tg { font-size: 11px; color: var(--malachite); letter-spacing: .08em; }
+.sr .tg.cn { color: var(--cinnabar); }
+.sr .nm { font-family: var(--serif); font-weight: 700; font-size: 15px; color: var(--fg); }
+.sr .sub { grid-column: 2; font-size: 12px; color: var(--fg-3); font-variant-numeric: tabular-nums; line-height: 1.5; }
+.search .hint { margin: 10px 4px 4px; font-size: 12px; color: var(--fg-3); line-height: 1.9; }
+.chip { display: inline-block; margin: 0 6px 6px 0; padding: 3px 10px; border-radius: 20px; border: 1px solid var(--line-2); background: none; color: var(--fg-2); font-size: 12.5px; cursor: pointer; }
+.chip:hover { color: var(--fg); border-color: var(--gold); }
+
+/* ---------- more menu / favourites ---------- */
+.menu { position: absolute; top: calc(max(18px, env(safe-area-inset-top, 0px)) + 52px); right: max(20px, env(safe-area-inset-right, 0px)); width: 300px; padding: 8px; z-index: 6; max-height: calc(100vh - var(--tl-h,150px) - 100px); overflow-y: auto; }
+.mi { display: flex; align-items: center; gap: 10px; width: 100%; padding: 10px 10px; border: 0; background: none; border-radius: 8px; text-align: left; font-size: 13.5px; color: var(--fg); cursor: pointer; text-decoration: none; }
+.mi:hover { background: rgba(214,186,122,.08); }
+.mi small { margin-left: auto; color: var(--fg-3); font-size: 11.5px; }
+.mi svg { width: 17px; height: 17px; stroke: var(--fg-2); fill: none; stroke-width: 1.6; flex: none; }
+.menu h4 { margin: 8px 10px 4px; padding-top: 10px; border-top: 1px solid var(--line); font-size: 11px; font-weight: 500; letter-spacing: .16em; color: var(--fg-3); }
+.fav { display: flex; align-items: center; }
+.fav .mi { font-size: 13px; padding: 8px 10px; color: var(--fg-2); min-width: 0; }
+.fav .mi span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.fav .del { width: 30px; height: 30px; flex: none; border: 0; background: none; color: var(--fg-3); border-radius: 7px; cursor: pointer; font-size: 16px; }
+.fav .del:hover { color: var(--cinnabar); background: rgba(255,255,255,.05); }
+.narrow { display: none; }
+.pbtn { margin: 8px 10px 2px 0; height: 34px; padding: 0 12px; border-radius: 9px; border: 1px solid var(--line-2); background: none; color: var(--malachite); font-size: 12.5px; cursor: pointer; align-self: flex-start; flex: none; }
+.pbtn:hover { border-color: var(--malachite); }
+.toast { position: absolute; left: 50%; bottom: calc(var(--tl-h, 150px) + 34px); transform: translateX(-50%); padding: 9px 16px; border-radius: 22px; background: rgba(8,15,18,.94); border: 1px solid var(--line-2); font-size: 13px; color: var(--fg); z-index: 40; pointer-events: none; opacity: 0; transition: opacity .25s; white-space: nowrap; max-width: calc(100vw - 32px); overflow: hidden; text-overflow: ellipsis; }
+.toast.on { opacity: 1; }
+
+/* ---------- daily guess ---------- */
+.guesshead { pointer-events: none; text-shadow: 0 0 3px rgba(5,10,12,.95), 0 0 9px rgba(5,10,12,.85), 0 1px 2px rgba(0,0,0,.9); }
+.guesshead h2 { margin: 8px 0 6px; font-family: var(--serif); font-weight: 900; font-size: clamp(26px, 3.4vw, 38px); letter-spacing: .06em; line-height: 1.2; }
+.guesshead p { margin: 0; font-size: 13px; line-height: 1.75; color: var(--fg-2); max-width: 30em; }
+.guesshead .eyebrow { color: var(--gold); }
+.tries { list-style: none; margin: 12px 0 0; padding: 0; display: flex; flex-direction: column; gap: 5px; }
+.tries li { display: flex; align-items: center; gap: 9px; font-size: 13px; color: var(--fg-2); font-variant-numeric: tabular-nums; }
+.tries li b { font-family: var(--serif); font-weight: 700; color: var(--fg); min-width: 6.2em; }
+.tries i, .gmark { width: 12px; height: 12px; border-radius: 3px; flex: none; background: #7a2f2a; }
+.tries i.k1, .gmark.k1 { background: #c0672f; } .tries i.k2, .gmark.k2 { background: #d9b56a; } .tries i.k3, .gmark.k3 { background: #74b39b; } .tries i.k4, .gmark.k4 { background: #f3ead6; box-shadow: 0 0 0 2px var(--malachite); }
+.tl-guess { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.gyear { min-width: 9.5em; text-align: center; line-height: 1.2; }
+.gyear b { display: block; font-family: var(--serif); font-size: 22px; font-weight: 900; font-variant-numeric: tabular-nums; letter-spacing: .04em; }
+.gyear span { font-size: 11.5px; color: var(--cinnabar); letter-spacing: .12em; }
+.gbtn { height: 40px; padding: 0 18px; border-radius: 10px; border: 0; background: var(--gold); color: #1a1408; font-size: 14px; font-weight: 700; cursor: pointer; letter-spacing: .06em; }
+.gbtn:disabled { opacity: .45; cursor: default; }
+.gbtn.ghost { background: none; color: var(--fg); border: 1px solid var(--line-2); font-weight: 500; }
+.gbtn:focus-visible { outline: 2px solid var(--fg); outline-offset: 2px; }
+.tl-guess .sp { margin-left: auto; }
+.gmark { position: absolute; top: 5px; margin-left: -6px; }
+.gcard { position: relative; width: min(520px, 100%); background: var(--panel-solid); padding: 26px 28px 24px; border-radius: 16px; border: 1px solid var(--line); box-shadow: var(--shadow); margin-top: 6vh; }
+.gcard .x, .hcard .x { position: absolute; top: 12px; right: 12px; width: 36px; height: 36px; border-radius: 9px; border: 0; background: none; color: var(--fg-2); cursor: pointer; font-size: 22px; }
+.gcard .x:hover, .hcard .x:hover { background: rgba(255,255,255,.05); color: var(--fg); }
+.gcard h2, .hcard h2 { margin: 6px 0 0; font-family: var(--serif); font-size: 26px; font-weight: 900; letter-spacing: .08em; }
+.gans { margin: 16px 0 0; padding: 14px 16px; border-radius: 12px; background: rgba(214,186,122,.07); border: 1px solid var(--line); }
+.gans b { display: block; font-family: var(--serif); font-size: 30px; font-weight: 900; font-variant-numeric: tabular-nums; }
+.gans span { font-family: var(--serif); font-weight: 700; color: var(--gold); font-size: 15px; }
+.gcard p { margin: 12px 0 0; font-size: 13px; line-height: 1.75; color: var(--fg-2); }
+.gcard p b { color: var(--fg); font-family: var(--serif); }
+.gstats { margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--line); font-size: 12.5px; color: var(--fg-3); }
+.gbtns { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
+
+/* ---------- hometown poster ---------- */
+.hcard { position: relative; width: min(620px, 100%); background: var(--panel-solid); padding: 26px 28px 24px; border-radius: 16px; border: 1px solid var(--line); box-shadow: var(--shadow); }
+.hcard p { margin: 10px 0 0; font-size: 13px; line-height: 1.75; color: var(--fg-2); }
+.hcard label { display: block; margin: 16px 0 6px; font-size: 12px; color: var(--fg-3); letter-spacing: .1em; }
+.hcard input[type="text"], .hcard input[type="number"] { width: 100%; box-sizing: border-box; height: 42px; padding: 0 12px; border-radius: 10px; border: 1px solid var(--line-2); background: rgba(255,255,255,.04); color: var(--fg); font: 15px var(--sans); outline: none; }
+.hcard input:focus { border-color: var(--gold); }
+.hrow { display: grid; grid-template-columns: 1fr 1fr; gap: 0 14px; }
+.hsug { display: flex; flex-wrap: wrap; margin-top: 8px; min-height: 4px; }
+.hpick { margin-top: 6px; font-size: 13px; color: var(--gold); min-height: 1.4em; }
+.hcard .small { font-size: 11.5px; color: var(--fg-3); line-height: 1.7; }
+.hout { margin-top: 18px; }
+.hout img { display: block; width: 100%; border-radius: 10px; border: 1px solid var(--line); }
+
+body.guessing .yearbox, body.guessing .card, body.guessing .sync, body.guessing .mtabs, body.guessing .toolbar, body.guessing .tl-top,
+body.guessing .place, body.guessing .layers, body.guessing .menu, body.guessing .search { display: none !important; }
+body:not(.guessing) .guesshead, body:not(.guessing) .tl-guess, body:not(.guessing) #gMarks { display: none !important; }
+
 /* loading / error */
 .loading { position: absolute; inset: 0; display: grid; place-items: center; background: var(--ink); z-index: 30; transition: opacity .5s; }
 .loading.done { opacity: 0; pointer-events: none; }
@@ -212,6 +313,9 @@ input[type="range"].op { width: 100%; accent-color: var(--malachite); }
 /* mobile tabs for card/sync */
 .mtabs { display: none; }
 
+@media (max-width: 1180px) {
+  .tbtn .lbl { display: none; }
+}
 @media (max-width: 1100px) {
   .sync { width: 300px; }
 }
@@ -239,7 +343,26 @@ input[type="range"].op { width: 100%; accent-color: var(--malachite); }
   .mtabs h2 { margin: 0 0 4px; font-family: var(--serif); font-size: 16px; font-weight: 900; }
   .mtabs p { margin: 0; font-size: 13px; line-height: 1.7; color: var(--fg-2); }
   .mtabs ol { list-style: none; margin: 0; padding: 0; }
-  .layers, .place { left: max(12px, env(safe-area-inset-left, 0px)); right: max(12px, env(safe-area-inset-right, 0px)); width: auto; top: auto; bottom: calc(var(--tl-h, 150px) + 10px); max-height: 52vh; }
+  .layers, .place, .menu { left: max(12px, env(safe-area-inset-left, 0px)); right: max(12px, env(safe-area-inset-right, 0px)); width: auto; top: auto; bottom: calc(var(--tl-h, 150px) + 10px); max-height: 52vh; }
+  .tbtn.wide { display: none; }
+  .narrow { display: flex; }
+  .search { top: max(8px, env(safe-area-inset-top, 0px)); max-height: 62vh; }
+  .evm span { max-width: 10.5em; }
+  .guesshead h2 { font-size: 24px; margin: 4px 0 4px; }
+  .guesshead p { font-size: 12px; line-height: 1.6; }
+  .tries { margin-top: 8px; gap: 2px 14px; flex-direction: row; flex-wrap: wrap; }
+  .tries li { font-size: 12px; gap: 6px; }
+  .tries li b { min-width: 0; }
+  .tries li span { color: var(--fg); }
+  .guesshead .tries .lg { display: none; }
+  .tl-guess { gap: 8px; }
+  .tl-guess .ctl { padding: 0 9px; }
+  .gyear { min-width: 7.2em; order: -1; flex: 1 0 100%; display: flex; align-items: baseline; justify-content: center; gap: 10px; }
+  .gyear b { font-size: 20px; }
+  .gbtn { height: 36px; padding: 0 14px; font-size: 13px; }
+  .gcard, .hcard { padding: 22px 18px 20px; }
+  .gcard { margin-top: 2vh; }
+  .hrow { grid-template-columns: 1fr; }
   .timeline { left: max(8px, env(safe-area-inset-left, 0px)); right: max(8px, env(safe-area-inset-right, 0px)); bottom: max(8px, env(safe-area-inset-bottom, 0px)); padding: 10px 12px 8px; }
   .play { width: 42px; height: 42px; }
   .tl-now { display: none; }
@@ -250,7 +373,8 @@ input[type="range"].op { width: 100%; accent-color: var(--malachite); }
   .about .item { grid-template-columns: 1fr; gap: 4px; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .loading, .sw, .sw::after { transition: none; }
+  .loading, .sw, .sw::after, .toast { transition: none; }
+  .evm.hot i::after { animation: none; opacity: .7; }
 }
 </style>
 </head>
@@ -274,13 +398,39 @@ input[type="range"].op { width: 100%; accent-color: var(--malachite); }
       <div class="reign" id="reign"></div>
       <div class="coexist" id="coexist"></div>
     </section>
+    <section class="guesshead" id="guessHead" aria-live="polite">
+      <div class="eyebrow" id="gTitle">每日一猜</div>
+      <h2>这是哪一年的世界？</h2>
+      <p id="gTip"></p>
+      <ol class="tries" id="gTries"></ol>
+    </section>
   </div>
 
   <div class="toolbar">
-    <button class="tbtn" id="bAbout" type="button" title="资料与边界"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg><span class="lbl">资料与边界</span></button>
+    <button class="tbtn" id="bSearch" type="button" title="搜索年份、年号、政权、城市、大事（快捷键 /）"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/></svg><span class="lbl">搜索</span></button>
+    <button class="tbtn" id="bGuess" type="button" title="每日一猜：看疆域猜年份"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M9.6 9.4a2.5 2.5 0 1 1 3.6 2.3c-.8.4-1.2 1-1.2 1.9M12 16.6v.4"/></svg><span class="lbl">每日一猜</span></button>
     <button class="tbtn" id="bLayers" type="button" aria-pressed="false" title="图层"><svg viewBox="0 0 24 24"><path d="M12 3 3 8l9 5 9-5-9-5z"/><path d="m3 13 9 5 9-5"/></svg><span class="lbl">图层</span></button>
-    <button class="tbtn" id="bHome" type="button" title="回到东亚视角"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h17M12 3.5c2.6 2.4 3.8 5.2 3.8 8.5s-1.2 6.1-3.8 8.5c-2.6-2.4-3.8-5.2-3.8-8.5s1.2-6.1 3.8-8.5z"/></svg><span class="lbl">东亚</span></button>
-    <button class="tbtn" id="bFull" type="button" title="全屏"><svg viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button>
+    <button class="tbtn wide" id="bHome" type="button" title="回到东亚视角"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h17M12 3.5c2.6 2.4 3.8 5.2 3.8 8.5s-1.2 6.1-3.8 8.5c-2.6-2.4-3.8-5.2-3.8-8.5s1.2-6.1 3.8-8.5z"/></svg><span class="lbl">东亚</span></button>
+    <button class="tbtn wide" id="bAbout" type="button" title="资料与边界"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg><span class="lbl">资料与边界</span></button>
+    <button class="tbtn" id="bMore" type="button" aria-pressed="false" title="收藏、分享、家乡长图等"><svg viewBox="0 0 24 24"><path d="M5 12h.01M12 12h.01M19 12h.01" stroke-width="2.6" stroke-linecap="round"/></svg></button>
+  </div>
+
+  <div class="search panel" id="search" hidden role="dialog" aria-label="搜索">
+    <div class="q"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/></svg><input id="sQ" type="text" inputmode="search" autocomplete="off" spellcheck="false" placeholder="年份、年号、政权、城市、大事…" aria-label="搜索"><button class="x" type="button" id="sX" aria-label="关闭搜索">×</button></div>
+    <ol id="sList"></ol>
+    <div class="hint" id="sHint">试试：<button class="chip" type="button">贞观三年</button><button class="chip" type="button">甲午</button><button class="chip" type="button">前221</button><button class="chip" type="button">拜占庭</button><button class="chip" type="button">长安</button><button class="chip" type="button">郑州</button><button class="chip" type="button">赤壁</button><br>年号会换算成公元年；城市古称和今天的地名都能搜。</div>
+  </div>
+
+  <div class="menu panel" id="more" hidden>
+    <button class="mi" id="mFav" type="button"><svg viewBox="0 0 24 24"><path d="m12 4 2.4 5 5.4.7-4 3.8 1 5.4-4.8-2.6-4.8 2.6 1-5.4-4-3.8 5.4-.7z"/></svg>收藏当前画面</button>
+    <button class="mi" id="mShare" type="button"><svg viewBox="0 0 24 24"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></svg>复制当前画面的链接</button>
+    <button class="mi" id="mPoster" type="button"><svg viewBox="0 0 24 24"><path d="M6 3.5h12v17H6zM9 8h6M9 11.5h6M9 15h4"/></svg>家乡三千年<small>生成长图</small></button>
+    <button class="mi narrow" id="mEast" type="button"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h17M12 3.5c2.6 2.4 3.8 5.2 3.8 8.5s-1.2 6.1-3.8 8.5c-2.6-2.4-3.8-5.2-3.8-8.5s1.2-6.1 3.8-8.5z"/></svg>回到东亚视角</button>
+    <button class="mi" id="bFull" type="button"><svg viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>全屏</button>
+    <button class="mi narrow" id="mAbout" type="button"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg>资料与边界</button>
+    <a class="mi" href="https://wanglu2016.github.io/kunyu-jinian/video.html" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M4 6h11v12H4zM15 10.5l5-3v9l-5-3"/></svg>使用讲解视频<small>↗</small></a>
+    <h4>我的收藏</h4>
+    <div id="favList"></div>
   </div>
 
   <aside class="sync panel" id="sync" aria-label="同一时刻">
@@ -309,6 +459,7 @@ input[type="range"].op { width: 100%; accent-color: var(--malachite); }
     <div class="row" style="display:block"><label for="lyOp" style="display:flex;justify-content:space-between">着色浓度 <span id="opVal">85%</span></label><input class="op" type="range" id="lyOp" min="20" max="100" value="85"></div>
     <div class="row"><label for="lyNames">政权名称</label><input class="sw" type="checkbox" id="lyNames" checked></div>
     <div class="row"><label for="lyCities">城市与古称<small>同一城市在不同年代显示当时的名称</small></label><input class="sw" type="checkbox" id="lyCities" checked></div>
+    <div class="row"><label for="lyEv">历史大事<small>在事发地点标出当年前后的大事，播放时依次亮起</small></label><input class="sw" type="checkbox" id="lyEv" checked></div>
     <div class="row"><label for="lyGrid">经纬网</label><input class="sw" type="checkbox" id="lyGrid" checked></div>
     <div class="row"><label for="lySoft">前现代边界柔化<small>1600 年以前用晕开的笔触画边界，1750 年后逐渐变为实线</small></label><input class="sw" type="checkbox" id="lySoft" checked></div>
     <div class="legend" aria-label="配色">
@@ -330,6 +481,7 @@ input[type="range"].op { width: 100%; accent-color: var(--malachite); }
     <div class="coord" id="placeCoord"></div>
     <div class="now" id="placeNow"></div>
     <div id="placeNote"></div>
+    <button class="pbtn" type="button" id="placePoster">把这里的履历做成长图</button>
     <ol id="placeList"></ol>
   </aside>
 
@@ -348,10 +500,23 @@ input[type="range"].op { width: 100%; accent-color: var(--malachite); }
       </div>
       <div class="tl-now"><div class="a" id="tlA">1× ＝ 每秒 10 年</div><div class="b" id="tlB"></div></div>
     </div>
+    <div class="tl-guess" id="guessBar">
+      <div class="ctlgroup" role="group" aria-label="微调年份">
+        <button class="ctl gstep" type="button" data-d="-100">−100</button>
+        <button class="ctl gstep" type="button" data-d="-10">−10</button>
+        <button class="ctl gstep" type="button" data-d="-1">−1</button>
+        <button class="ctl gstep" type="button" data-d="1">+1</button>
+        <button class="ctl gstep" type="button" data-d="10">+10</button>
+        <button class="ctl gstep" type="button" data-d="100">+100</button>
+      </div>
+      <div class="gyear"><b id="gYear"></b><span id="gEra"></span></div>
+      <button class="gbtn" type="button" id="gSubmit">提交</button>
+      <button class="gbtn ghost sp" type="button" id="gQuit">退出</button>
+    </div>
     <div class="track-wrap" id="track" tabindex="0" role="slider" aria-label="年份" aria-valuemin="-800" aria-valuemax="2024" aria-valuenow="-221">
       <div class="band cn" id="bandCn"></div>
       <div class="band wd" id="bandWd"></div>
-      <div class="rail"><div class="line"></div><div class="fill" id="fill"></div><div id="evts"></div><div class="knob" id="knob"></div></div>
+      <div class="rail"><div class="line"></div><div class="fill" id="fill"></div><div id="evts"></div><div id="gMarks"></div><div class="knob" id="knob"></div></div>
       <div class="ticks" id="ticks"></div>
     </div>
   </footer>
@@ -368,7 +533,9 @@ input[type="range"].op { width: 100%; accent-color: var(--malachite); }
         <div class="item"><dt>收录范围</dt><dd>数据源只收录有文字记载的政权，一般要求面积在 5000 平方公里以上、存续 50 年以上，因此许多诸侯小国、城邦和短命政权没有出现；夏朝等传说时代政权不在其中。非洲、美洲、东南亚和太平洋地区的资料明显少于欧亚大陆。</dd></div>
         <div class="item"><dt>中文译名</dt><dd>1521 个政权的中文名由 Claude 编写。中国史上的政权采用通行史称；外国政权优先用中文史书或通行译名（如安息、大秦、白衣大食），音译名可能有多种写法。数据源中同一英文条目指不同政权的情况（如 Later Zhou 同时指东周与后周）已按年代分开命名。</dd></div>
         <div class="item"><dt>中国纪年</dt><dd>前140年（汉武帝建元元年）以后的年号取自 <b>china-chronology</b>（据 CBDB 中国历代人物传记资料库整理，MIT 许可）。此前的周王、鲁公、秦王与汉初帝王纪年按通行年表编写，前841年共和元年以前的年代仍有争议。农历年与公历年并不完全重合，改元当年会显示“旧年号→新年号”，干支按公历年对应。</dd></div>
-        <div class="item"><dt>事件与解说</dt><dd>“同一时刻”中的约 280 件大事、“此时世界”中的 37 段解说和城市古称由 Claude 编写，年份前标“约”的为近似年代。城市只标主要名称，同一城市的别称、行政区名称未一一列出。</dd></div>
+        <div class="item"><dt>事件与解说</dt><dd>“同一时刻”中的约 360 件大事、“此时世界”中的 37 段解说和城市古称由 Claude 编写，年份前标“约”的为近似年代。城市只标主要名称，同一城市的别称、行政区名称未一一列出。每件大事在地球上标出的<b>地点</b>也由 Claude 编写：战役、会盟标在事发地，制度、著作一类标在当时的都城或成书地；远征、迁徙只能取起点或最有代表性的一处，个别古地名的今地有争议。</dd></div>
+        <div class="item"><dt>今地名</dt><dd>搜索和“家乡三千年”里的今天的城市名取自 <b>Natural Earth</b> 的 populated places（公共领域），收录中国 400 余处、其他国家的首都和百万人口以上城市，只用名称和坐标。县一级的小地方多半搜不到，可以直接在地球上点选。</dd></div>
+        <div class="item"><dt>每日一猜</dt><dd>每天一道题，所有人同一天看到同一年（按设备的本地日期）。题目只从前750年到1900年之间选，差 10 年以内算猜中。成绩只记在你自己的浏览器里。</dd></div>
         <div class="item"><dt>底图</dt><dd>地形色彩由 NASA Blue Marble 影像重新调色而成，海岸、湖泊与主要河流来自 Natural Earth（公共领域）。这是<b>今天的</b>地形和海岸线：古代海岸线、黄河改道、湖泊变迁等都没有还原。</dd></div>
         <div class="item"><dt>边界画法</dt><dd>同一政权在整个时间轴上使用同一颜色，中原王朝统一用朱红色系。1600年以前的边界以晕开的笔触绘制，1750年后逐渐变为实线，用来提示近代以前“边界”概念本身的模糊。政权从属与联盟关系（如“南宋臣属于金”）在地点履历中以文字注明，不另画线。</dd></div>
         <div class="item"><dt>争议与局限</dt><dd>数据源对部分地区的处理与中国学界通行看法不同。例如它直到1794年才把西藏画入清朝疆域，1912—1950年也把西藏单独绘出；1949年以后把台湾单独绘出。点击相关地区时会显示说明。<b>1912年以后的边界取自国外数据源，未经中国地图审核，不能作为国界依据。</b></dd></div>
@@ -384,9 +551,53 @@ input[type="range"].op { width: 100%; accent-color: var(--malachite); }
         <a href="https://projects.iq.harvard.edu/cbdb" target="_blank" rel="noopener">CBDB ↗</a>
         <a href="https://www.naturalearthdata.com/" target="_blank" rel="noopener">Natural Earth ↗</a>
       </div>
-      <div class="foot">所有数据随页面一次载入；页面不收集任何信息。疆域数据 © Seshat Global History Databank，CC BY 4.0，经简化与中文化处理。</div>
+      <div class="foot">所有数据随页面一次载入；页面不收集任何信息。收藏、上次看到的位置、每日一猜的成绩和长图里填的内容只保存在你自己浏览器的本地存储里，不会上传；“用我现在的位置”只在你点击时向浏览器要一次定位，同样不离开本机。疆域数据 © Seshat Global History Databank，CC BY 4.0，经简化与中文化处理。</div>
     </div>
   </div>
+
+  <div class="about-back" id="guessDone" hidden>
+    <div class="gcard" role="dialog" aria-modal="true" aria-labelledby="gdH">
+      <button class="x" type="button" id="gdX" aria-label="关闭">×</button>
+      <div class="eyebrow" id="gdEyebrow"></div>
+      <h2 id="gdH"></h2>
+      <div class="gans"><b id="gdYear"></b><span id="gdReign"></span></div>
+      <p id="gdCard"></p>
+      <ol class="tries" id="gdTries"></ol>
+      <div class="gstats" id="gdStats"></div>
+      <div class="gbtns">
+        <button class="gbtn" type="button" id="gdShare">复制成绩</button>
+        <button class="gbtn ghost" type="button" id="gdGo">去这一年看看</button>
+        <button class="gbtn ghost" type="button" id="gdAgain">再来一题（练习）</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="about-back" id="poster" hidden>
+    <div class="hcard" role="dialog" aria-modal="true" aria-labelledby="hH">
+      <button class="x" type="button" id="hX" aria-label="关闭">×</button>
+      <div class="eyebrow">前800 — 1911</div>
+      <h2 id="hH">家乡三千年</h2>
+      <p>选一个地方，把它自公元前800年以来先后属于哪些政权、叫过什么名字，画成一张可以保存的长图。</p>
+      <label for="hQ">地点</label>
+      <input type="text" id="hQ" autocomplete="off" spellcheck="false" placeholder="输入城市名，如 郑州、泉州、成都">
+      <div class="hsug" id="hSug"></div>
+      <div class="hpick" id="hPick"></div>
+      <div class="small">找不到？先关掉这个窗口，在地球上点一下那个地方，再点履历面板里的“做成长图”。<button class="chip" type="button" id="hGeo" style="margin:0 0 0 6px">用我现在的位置</button></div>
+      <div class="hrow">
+        <div><label for="hName">图上的标题</label><input type="text" id="hName" maxlength="12" autocomplete="off" placeholder="如 西安"></div>
+        <div><label for="hBirth">出生年份（可选）</label><input type="number" id="hBirth" min="1900" max="2024" inputmode="numeric" placeholder="如 1990"></div>
+      </div>
+      <div class="gbtns"><button class="gbtn" type="button" id="hMake" disabled>生成长图</button></div>
+      <div class="hout" id="hOut" hidden>
+        <img id="hImg" alt="生成的长图">
+        <div class="gbtns"><button class="gbtn" type="button" id="hSave">保存图片</button><button class="gbtn ghost" type="button" id="hShare" hidden>分享</button></div>
+        <p class="small">手机上也可以长按图片保存。</p>
+      </div>
+      <p class="small">长图只画到1911年：1912年以后的边界取自国外数据源，未经中国地图审核，不用于分享。地点、标题和出生年份只保存在这台设备的浏览器里。</p>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
   <div class="loading" id="loading"><div class="box"><div class="t">坤舆纪年</div><div class="bar"><i id="ldBar"></i></div><div class="s" id="ldTxt">正在载入疆域数据</div></div></div>
 </div>
@@ -403,9 +614,10 @@ const REDUCED = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const S = {
   year: -221, iyear: -221, playing: false, speed: 1,
   lon: 108, lat: 30, dist: 2.9, vlon: 0, vlat: 0,
-  show: { pol: true, names: true, cities: true, grid: true, soft: true }, op: 0.85,
+  show: { pol: true, names: true, cities: true, grid: true, soft: true, ev: true }, op: 0.85,
   sel: null, // {lon, lat}
   hoverRow: -1, selRow: -1,
+  guess: null, // 每日一猜进行中时的状态，见 startGuess
 };
 let D = null;           // data.json
 let G = null;           // decoded geometries
@@ -691,14 +903,21 @@ const tmp = { x: 0, y: 0, v: 0 };
 let labelsDirty = true;
 let obstacleEls = [];
 function isChina(lon, lat) { return lon > 72 && lon < 136 && lat > 17 && lat < 55; }
+function obstacleRects() {
+  const out = []; const cr = canvas.getBoundingClientRect();
+  for (const el of obstacleEls) { if (!el || el.hidden || !el.offsetParent) continue; const r = el.getBoundingClientRect(); if (r.width && r.height) out.push([r.left - cr.left - 4, r.top - cr.top - 4, r.right - cr.left + 4, r.bottom - cr.top + 4]); }
+  return out;
+}
 function layoutLabels() {
   const W = canvas.clientWidth, H = canvas.clientHeight;
-  const placed = []; const used = new Set();
-  const cr = canvas.getBoundingClientRect();
-  for (const el of obstacleEls) { if (!el || el.hidden || !el.offsetParent) continue; const r = el.getBoundingClientRect(); if (r.width && r.height) placed.push([r.left - cr.left - 4, r.top - cr.top - 4, r.right - cr.left + 4, r.bottom - cr.top + 4]); }
+  const placed = obstacleRects(); const used = new Set(); const nObs = placed.length;
+  // 每日一猜：名字先藏起来，猜错两次后显示城市，四次后显示政权名
+  const g = S.guess; const showNames = g ? (g.done || g.tries.length >= 4) : S.show.names; const showCities = g ? (g.done || g.tries.length >= 2) : S.show.cities;
+  layoutEvents(placed, nObs, W, H);
+  const nFixed = placed.length - nObs;
   const pxPerRad = (H / 2) / FOV_TAN / (S.dist - 1);
   const cands = [];
-  if (S.show.names) {
+  if (showNames) {
     const seen = new Set();
     for (const i of curActive) {
       const r = D.rows[i]; if (seen.has(r[0])) continue; seen.add(r[0]);
@@ -713,7 +932,7 @@ function layoutLabels() {
       cands.push({ key: 'p' + r[0], cls: 'pol' + (areaK > 1.5e6 ? ' big' : '') + (cn ? ' cn' : ''), text: nm.zh, fs: Math.round(fs), x: tmp.x, y: tmp.y, pr: sizePx * (cn ? 3 : 1) + (core ? 1e4 : 0), w: 0 });
     }
   }
-  if (S.show.cities) {
+  if (showCities) {
     const y = S.iyear;
     for (let ci = 0; ci < D.cities.length; ci++) {
       const c = D.cities[ci]; const tier = c[3];
@@ -726,7 +945,7 @@ function layoutLabels() {
     }
   }
   cands.sort((a, b) => b.pr - a.pr);
-  const maxN = W < 700 ? 34 : 70;
+  const maxN = (W < 700 ? 34 : 70) + nFixed;
   for (const c of cands) {
     if (placed.length >= maxN) break;
     const len = [...c.text].length;
@@ -766,8 +985,10 @@ function evButton(it) {
   const dtx = it.d === 0 ? '同年' : (it.d < 0 ? '早' + (-it.d) + '年' : '晚' + it.d + '年');
   b.innerHTML = `<span class="rg ${it.code === 'cn' ? 'cn' : ''}"></span><span class="tx"></span><span class="yr"></span>`;
   b.children[0].textContent = it.label; b.children[1].textContent = e[2];
-  b.children[2].textContent = (e[3] ? '约' : '') + fy(e[0]) + '年'; const s = document.createElement('span'); s.className = 'd'; s.textContent = dtx; b.children[2].appendChild(s);
-  b.addEventListener('click', () => setYear(e[0], true));
+  b.children[2].textContent = (e[3] ? '约' : '') + fy(e[0]) + '年';
+  if (e[6]) { const pl = document.createElement('span'); pl.className = 'pl'; pl.textContent = ' · ' + e[6]; b.children[2].appendChild(pl); }
+  const s = document.createElement('span'); s.className = 'd'; s.textContent = dtx; b.children[2].appendChild(s);
+  b.addEventListener('click', () => focusEvent(e));
   return b;
 }
 let lastPanelYear = null, mTab = 'card';
@@ -783,10 +1004,10 @@ function updatePanels() {
   const cd = cardOf(y);
   $('cardTitle').textContent = cd[2]; $('cardText').textContent = cd[3]; $('cardRange').textContent = yearSpan(cd[0], cd[1]);
   const list = $('syncList'); list.textContent = '';
-  const items = syncItems(y);
+  const items = syncItems(y); evNow = eventsNear(y, items);
   for (const it of items) { const li = document.createElement('li'); li.appendChild(evButton(it)); list.appendChild(li); }
   $('tlB').textContent = `${fyFull(y)} · ${c.p}`;
-  const tr = $('track'); tr.setAttribute('aria-valuenow', y); tr.setAttribute('aria-valuetext', fyFull(y));
+  if (!S.guess) { const tr = $('track'); tr.setAttribute('aria-valuenow', y); tr.setAttribute('aria-valuetext', fyFull(y)); }
   renderMobile();
   updatePlaceCurrent();
 }
@@ -825,34 +1046,28 @@ function layoutBandText() {
   for (const y of TK) { const s = document.createElement('span'); s.style.left = (y2x(y) * 100) + '%'; s.textContent = y === 1 ? '公元1' : fy(y); ticks.appendChild(s); }
   document.documentElement.style.setProperty('--tl-h', $('timeline').offsetHeight + 'px');
 }
-function updateTimeline() { const x = y2x(S.year) * 100; $('knob').style.left = x + '%'; $('fill').style.width = x + '%'; }
+function updateTimeline() { const x = y2x(S.guess ? S.guess.y : S.year) * 100; $('knob').style.left = x + '%'; $('fill').style.width = x + '%'; }
 
 /* ---------------- year control ---------------- */
 function setYear(y, snap) {
   y = clamp(y, -800, 2024); S.year = y; const iy = nz(Math.round(y));
   if (iy !== S.iyear || snap) {
-    S.iyear = iy; curActive = activeRows(iy); requestOverlay(); labelsDirty = true; updatePanels();
+    S.iyear = iy; if (evFocus && evFocus[0] !== iy) evFocus = null;
+    curActive = activeRows(iy); requestOverlay(); labelsDirty = true; updatePanels();
   }
   updateTimeline();
 }
 function setPlaying(p) {
+  if (S.guess) p = false;
+  if (p !== S.playing && D) { S.playing = p; evNow = eventsNear(S.iyear); labelsDirty = true; }
   S.playing = p; $('bPlay').setAttribute('aria-label', p ? '暂停' : '播放');
   $('playIcon').innerHTML = p ? '<path d="M6.5 4.5h4v15h-4zM13.5 4.5h4v15h-4z"/>' : '<path d="M7 4.5v15l13-7.5z"/>';
   if (p && S.year >= 2024) setYear(-800, true);
 }
 
 /* ---------------- place history ---------------- */
-function nearestCity(lon, lat, y) {
-  let best = null, bd = 1e9;
-  for (const c of D.cities) { const d = Math.hypot((c[0] - lon) * Math.cos(lat * D2R), c[1] - lat); if (d < bd) { bd = d; best = c; } }
-  if (!best || bd > 1.4) return null;
-  const segs = best[2]; let nm = null; for (const s of segs) if (s[0] <= y && y <= s[1]) nm = s[2];
-  const last = segs[segs.length - 1][2];
-  return { now: nm, modern: last };
-}
 let placeRows = [];
-function openPlace(lon, lat) {
-  S.sel = { lon, lat };
+function historyAt(lon, lat) {
   const hits = new Set(); for (let g = 0; g < G.length; g++) if (pip(G[g], lon, lat)) hits.add(g);
   const rows = []; D.rows.forEach((r, i) => { if (hits.has(r[3])) rows.push(i); });
   rows.sort((a, b) => D.rows[a][1] - D.rows[b][1] || D.rows[a][4] - D.rows[b][4]);
@@ -864,10 +1079,13 @@ function openPlace(lon, lat) {
     else merged.push({ n: r[0], a: r[1], b: r[2], rows: [i] });
   }
   merged.sort((x, y) => x.a - y.a);
-  placeRows = merged;
-  const ns = lat >= 0 ? '北纬' : '南纬', ew = lon >= 0 ? '东经' : '西经';
-  const nc = nearestCity(lon, lat, S.iyear);
-  $('placeCoord').textContent = `${ns}${Math.abs(lat).toFixed(1)}° ${ew}${Math.abs(lon).toFixed(1)}°` + (nc ? `（今${nc.modern}附近）` : '');
+  return merged;
+}
+function openPlace(lon, lat) {
+  S.sel = { lon, lat };
+  const merged = placeRows = historyAt(lon, lat);
+  const near = nearPlace(lon, lat, 1.2);
+  $('placeCoord').textContent = coordText(lon, lat) + (near ? `（今${near}附近）` : '');
   const ol = $('placeList'); ol.textContent = '';
   if (!merged.length) { const li = document.createElement('li'); li.className = 'empty'; li.textContent = '前800年以来，数据源没有在这一点记录过任何政权。海洋、极地，或资料稀疏的地区都会出现这种情况。'; ol.appendChild(li); }
   for (const m of merged) {
@@ -877,8 +1095,7 @@ function openPlace(lon, lat) {
     b.addEventListener('click', () => { setYear(m.a, true); });
     m.el = b; li.appendChild(b); ol.appendChild(li);
   }
-  $('layers').hidden = true; $('bLayers').setAttribute('aria-pressed', 'false');
-  $('place').hidden = false; $('sync').hidden = true; labelsDirty = true;
+  sidePanel('place');
   updatePlaceCurrent();
   const cur = merged.find(m => m.el.classList.contains('cur')); if (cur) cur.el.scrollIntoView({ block: 'nearest' });
 }
@@ -903,7 +1120,7 @@ function updatePlaceCurrent() {
   }
   if (selRow !== S.selRow) { S.selRow = selRow; requestOverlay(); }
 }
-function closePlace() { $('place').hidden = true; S.sel = null; $('sync').hidden = false; updatePlaceCurrent(); labelsDirty = true; }
+function closePlace() { sidePanel(null); }
 
 /* ---------------- interaction ---------------- */
 let drag = null; const pointers = new Map(); let pinch0 = null;
@@ -911,7 +1128,7 @@ canvas.addEventListener('pointerdown', (e) => {
   canvas.setPointerCapture(e.pointerId); pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
   if (pointers.size === 2) { const [a, b] = [...pointers.values()]; pinch0 = { d: Math.hypot(a.x - b.x, a.y - b.y), dist: S.dist }; drag = null; return; }
   drag = { x: e.clientX, y: e.clientY, x0: e.clientX, y0: e.clientY, t: performance.now(), moved: 0 };
-  S.vlon = S.vlat = 0; canvas.classList.add('dragging'); $('tip').hidden = true;
+  S.vlon = S.vlat = 0; flyTo = null; canvas.classList.add('dragging'); $('tip').hidden = true; closeSearch();
 });
 canvas.addEventListener('pointermove', (e) => {
   if (pointers.has(e.pointerId)) pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
@@ -929,7 +1146,7 @@ function endPointer(e) {
   if (pointers.size < 2) pinch0 = null;
   if (drag && pointers.size === 0) {
     canvas.classList.remove('dragging');
-    if (drag.moved < 6) { const p = pick(e.clientX, e.clientY); if (p) { openPlace(p.lon, p.lat); } S.vlon = S.vlat = 0; }
+    if (drag.moved < 6 && !S.guess) { const p = pick(e.clientX, e.clientY); if (p) { openPlace(p.lon, p.lat); } S.vlon = S.vlat = 0; }
     drag = null;
   }
 }
@@ -940,34 +1157,53 @@ let hoverT = 0;
 function hover(e) {
   const now = performance.now(); if (now - hoverT < 40) return; hoverT = now;
   const p = pick(e.clientX, e.clientY); const tip = $('tip');
-  if (!p || !S.show.pol) { tip.hidden = true; return; }
+  if (!p || !S.show.pol || S.guess) { tip.hidden = true; return; }
   let best = -1;
   for (let k = curActive.length - 1; k >= 0; k--) { const i = curActive[k]; if (pip(G[D.rows[i][3]], p.lon, p.lat)) { best = i; break; } }
   if (best < 0) { tip.hidden = true; return; }
   const r = D.rows[best]; const nm = D.names[r[0]]; const sp = nameSpan[r[0]];
   tip.innerHTML = '<b></b><span></span>'; tip.children[0].textContent = nm.zh; tip.children[1].textContent = yearSpan(sp[0], sp[1]);
-  tip.style.left = e.clientX + 'px'; tip.style.top = e.clientY + 'px'; tip.hidden = false;
+  placeTip(tip, e.clientX, e.clientY);
 }
 
 // timeline scrub
 const track = $('track'); let scrub = false;
-function scrubAt(e) { const r = $('bandCn').getBoundingClientRect(); const x = clamp((e.clientX - r.left) / r.width, 0, 1); setYear(x2y(x)); }
+function scrubAt(e) { const r = $('bandCn').getBoundingClientRect(); const x = clamp((e.clientX - r.left) / r.width, 0, 1); if (S.guess) setGuessYear(x2y(x)); else setYear(x2y(x)); }
 track.addEventListener('pointerdown', (e) => { scrub = true; track.setPointerCapture(e.pointerId); setPlaying(false); scrubAt(e); });
 track.addEventListener('pointermove', (e) => { if (scrub) scrubAt(e); });
-track.addEventListener('pointerup', () => { scrub = false; setYear(S.iyear, true); pendingDraw = true; });
+track.addEventListener('pointerup', () => { scrub = false; if (S.guess) return; setYear(S.iyear, true); pendingDraw = true; });
 track.addEventListener('pointercancel', () => { scrub = false; });
 track.addEventListener('keydown', (e) => {
-  const st = e.shiftKey ? 10 : 1;
-  if (e.key === 'ArrowRight' || e.key === 'ArrowUp') { setYear(nz(S.iyear + st) === S.iyear ? S.iyear + st + 1 : S.iyear + st, true); e.preventDefault(); }
-  else if (e.key === 'ArrowLeft' || e.key === 'ArrowDown') { setYear(S.iyear - st === 0 ? -1 : S.iyear - st, true); e.preventDefault(); }
-  else if (e.key === 'Home') { setYear(-800, true); e.preventDefault(); } else if (e.key === 'End') { setYear(2024, true); e.preventDefault(); }
+  const st = e.shiftKey ? 10 : 1; const cur = S.guess ? S.guess.y : S.iyear;
+  const go = (y) => { if (S.guess) setGuessYear(y); else setYear(y, true); e.preventDefault(); };
+  if (e.key === 'ArrowRight' || e.key === 'ArrowUp') go(stepYear(cur, st));
+  else if (e.key === 'ArrowLeft' || e.key === 'ArrowDown') go(stepYear(cur, -st));
+  else if (e.key === 'Home') go(-800); else if (e.key === 'End') go(2024);
+  else if (e.key === 'Enter' && S.guess) { submitGuess(); e.preventDefault(); }
 });
+function escapeAll() {
+  if (!$('search').hidden) { closeSearch(); $('bSearch').focus(); }
+  else if (!$('poster').hidden) closePoster();
+  else if (!$('guessDone').hidden) exitGuess(false);
+  else if (!$('about').hidden) $('about').hidden = true;
+  else if (S.guess) exitGuess(false);
+  else if (!$('more').hidden || !$('layers').hidden || !$('place').hidden) sidePanel(null);
+}
 document.addEventListener('keydown', (e) => {
-  if (e.target.closest && e.target.closest('input,button,[role="slider"]')) return;
+  if (e.key === 'Escape') { escapeAll(); return; }
+  if (e.key === 'k' && (e.ctrlKey || e.metaKey)) { openSearch(); e.preventDefault(); return; }
+  if (e.target.closest && e.target.closest('input,textarea,button,a,[role="slider"]')) return;
+  if (!$('about').hidden || !$('poster').hidden || !$('guessDone').hidden) return;
+  if (S.guess) {
+    if (e.key === 'ArrowRight') setGuessYear(stepYear(S.guess.y, e.shiftKey ? 10 : 1));
+    else if (e.key === 'ArrowLeft') setGuessYear(stepYear(S.guess.y, e.shiftKey ? -10 : -1));
+    else if (e.key === 'Enter') submitGuess();
+    return;
+  }
+  if (e.key === '/') { openSearch(); e.preventDefault(); return; }
   if (e.key === ' ') { setPlaying(!S.playing); e.preventDefault(); }
-  if (e.key === 'ArrowRight') { setYear(S.iyear + 1 === 0 ? 1 : S.iyear + 1, true); }
-  if (e.key === 'ArrowLeft') { setYear(S.iyear - 1 === 0 ? -1 : S.iyear - 1, true); }
-  if (e.key === 'Escape') { $('about').hidden = true; if (!$('place').hidden) closePlace(); }
+  if (e.key === 'ArrowRight') setYear(stepYear(S.iyear, 1), true);
+  if (e.key === 'ArrowLeft') setYear(stepYear(S.iyear, -1), true);
 });
 $('bPlay').addEventListener('click', () => setPlaying(!S.playing));
 $('bPrev').addEventListener('click', () => { const y = S.iyear; let t = null; for (const e of cnEvents) if (e[0] < y) t = e[0]; if (t !== null) { setPlaying(false); setYear(t, true); } });
@@ -979,13 +1215,13 @@ for (const b of document.querySelectorAll('.spd')) b.addEventListener('click', (
 $('bAbout').addEventListener('click', () => { $('about').hidden = false; $('aboutX').focus(); });
 $('aboutX').addEventListener('click', () => { $('about').hidden = true; $('bAbout').focus(); });
 $('about').addEventListener('click', (e) => { if (e.target === $('about')) $('about').hidden = true; });
-$('bLayers').addEventListener('click', () => { const h = !$('layers').hidden; $('layers').hidden = h; $('bLayers').setAttribute('aria-pressed', String(!h)); if (!h) { closePlace(); $('sync').hidden = true; } else $('sync').hidden = false; labelsDirty = true; });
+$('bLayers').addEventListener('click', () => { sidePanel($('layers').hidden ? 'layers' : null); });
 $('placeX').addEventListener('click', closePlace);
 let flyTo = null;
-$('bHome').addEventListener('click', () => { flyTo = { lon: 108, lat: 30, dist: fitDist(), t0: performance.now(), from: { lon: S.lon, lat: S.lat, dist: S.dist } }; });
+$('bHome').addEventListener('click', () => fly(108, 30, fitDist()));
 $('bFull').addEventListener('click', () => { const d = document; try { if (!d.fullscreenElement) d.documentElement.requestFullscreen().catch(() => {}); else d.exitFullscreen().catch(() => {}); } catch (_) {} });
 const bindSw = (id, key, cb) => $(id).addEventListener('change', (e) => { S.show[key] = e.target.checked; labelsDirty = true; if (cb) cb(); });
-bindSw('lyPol', 'pol'); bindSw('lyNames', 'names'); bindSw('lyCities', 'cities'); bindSw('lyGrid', 'grid'); bindSw('lySoft', 'soft', () => requestOverlay(true) || (pendingDraw = true));
+bindSw('lyPol', 'pol'); bindSw('lyNames', 'names'); bindSw('lyCities', 'cities'); bindSw('lyEv', 'ev'); bindSw('lyGrid', 'grid'); bindSw('lySoft', 'soft', () => requestOverlay(true) || (pendingDraw = true));
 $('lyOp').addEventListener('input', (e) => { S.op = e.target.value / 100; $('opVal').textContent = e.target.value + '%'; });
 for (const b of document.querySelectorAll('.mtabs [data-tab]')) b.addEventListener('click', () => { mTab = b.dataset.tab; for (const o of document.querySelectorAll('.mtabs [data-tab]')) o.setAttribute('aria-selected', String(o === b)); $('mtabs').classList.remove('folded'); renderMobile(); });
 $('mFold').addEventListener('click', () => { $('mtabs').classList.toggle('folded'); $('mFold').textContent = $('mtabs').classList.contains('folded') ? '⌃' : '⌄'; });
@@ -997,10 +1233,20 @@ function resize() {
 }
 addEventListener('resize', () => { layoutBandText(); labelsDirty = true; });
 let last = performance.now(), lastLon = null, lastLat = null, lastDist = null;
+// o：长图快照用的临时取景（正方形画布、指定旋转和距离、不画疆域）；平时不传
+function drawScene(o) {
+  const W = o ? o.size : canvas.width, H = o ? o.size : canvas.height; const m = o ? o.rot : R;
+  gl.uniform2f(U.uRes, W, H); gl.uniform2f(U.uCtr, W / 2, o ? H / 2 : H * (1 - ctrFrac()));
+  gl.uniformMatrix3fv(U.uRot, false, [m[0][0], m[1][0], m[2][0], m[0][1], m[1][1], m[2][1], m[0][2], m[1][2], m[2][2]]);
+  gl.uniform1f(U.uDist, o ? o.dist : S.dist); gl.uniform1f(U.uTan, o ? o.tan : FOV_TAN);
+  gl.uniform1f(U.uMix, mix); gl.uniform1f(U.uOp, o ? 0 : (S.show.pol ? S.op : 0)); gl.uniform1f(U.uGrid, o || S.show.grid ? 1 : 0);
+  if (!o && S.sel) { const cl = Math.cos(S.sel.lat * D2R); gl.uniform3f(U.uSel, cl * Math.sin(S.sel.lon * D2R), Math.sin(S.sel.lat * D2R), cl * Math.cos(S.sel.lon * D2R)); gl.uniform1f(U.uSelOn, $('place').hidden ? 0 : 1); } else gl.uniform1f(U.uSelOn, 0);
+  gl.drawArrays(gl.TRIANGLES, 0, 3);
+}
 function frame(now) {
   const dt = Math.min(now - last, 100) / 1000; last = now;
   resize();
-  if (S.playing && !scrub) {
+  if (S.playing && !scrub && !S.guess) {
     let y = S.year + dt * 10 * S.speed; if (S.year < 0 && y >= 0) y += 1;
     if (y >= 2024) { y = 2024; setPlaying(false); }
     setYear(y);
@@ -1016,15 +1262,606 @@ function frame(now) {
   if (S.lon !== lastLon || S.lat !== lastLat || S.dist !== lastDist) { R = rotMat(S.lon, S.lat); lastLon = S.lon; lastLat = S.lat; lastDist = S.dist; labelsDirty = true; }
   if (pendingDraw && now - lastDraw > ((S.playing || scrub) ? 140 : 0)) { pendingDraw = false; drawOverlay(); }
   if (mix !== mixTarget) { const st = dt / 0.32; mix = mix < mixTarget ? Math.min(mixTarget, mix + st) : Math.max(mixTarget, mix - st); }
-  gl.uniform2f(U.uRes, canvas.width, canvas.height); gl.uniform2f(U.uCtr, canvas.width / 2, canvas.height * (1 - ctrFrac()));
-  const m = R; gl.uniformMatrix3fv(U.uRot, false, [m[0][0], m[1][0], m[2][0], m[0][1], m[1][1], m[2][1], m[0][2], m[1][2], m[2][2]]);
-  gl.uniform1f(U.uDist, S.dist); gl.uniform1f(U.uTan, FOV_TAN);
-  gl.uniform1f(U.uMix, mix); gl.uniform1f(U.uOp, S.show.pol ? S.op : 0); gl.uniform1f(U.uGrid, S.show.grid ? 1 : 0);
-  if (S.sel) { const cl = Math.cos(S.sel.lat * D2R); gl.uniform3f(U.uSel, cl * Math.sin(S.sel.lon * D2R), Math.sin(S.sel.lat * D2R), cl * Math.cos(S.sel.lon * D2R)); gl.uniform1f(U.uSelOn, $('place').hidden ? 0 : 1); } else gl.uniform1f(U.uSelOn, 0);
-  gl.drawArrays(gl.TRIANGLES, 0, 3);
+  drawScene();
   if (labelsDirty) { labelsDirty = false; layoutLabels(); }
   requestAnimationFrame(frame);
 }
+
+/* ================= additions: helpers ================= */
+const ay = (y) => (y < 0 ? y + 1 : y);                    // 天文纪年：前1年记作 0，便于跨公元算年数
+function stepYear(y, d) { const a = ay(y) + d; return clamp(a <= 0 ? a - 1 : a, -800, 2024); }
+const normLon = (l) => ((l + 180) % 360 + 360) % 360 - 180;
+function coordText(lon, lat) { return `${lat >= 0 ? '北纬' : '南纬'}${Math.abs(lat).toFixed(1)}° ${lon >= 0 ? '东经' : '西经'}${Math.abs(lon).toFixed(1)}°`; }
+function nearPlace(lon, lat, maxDeg) {   // 最近的今地名：今地名表和（至今仍在的）历史城市里取更近的一个
+  let best = null, bd = maxDeg; const k = Math.cos(lat * D2R);
+  for (const p of (D.places || [])) { const d = Math.hypot((p[1] - lon) * k, p[2] - lat); if (d < bd) { bd = d; best = p[0]; } }
+  for (const c of D.cities) { const last = c[2][c[2].length - 1]; if (last[1] < 2024) continue; const d = Math.hypot((c[0] - lon) * k, c[1] - lat); if (d < bd) { bd = d; best = last[2]; } }
+  return best;
+}
+let toastT = 0;
+function toast(msg) { const t = $('toast'); t.textContent = msg; t.classList.add('on'); clearTimeout(toastT); toastT = setTimeout(() => t.classList.remove('on'), 2600); }
+async function copyText(txt) {
+  try { await navigator.clipboard.writeText(txt); return true; } catch (_) {}
+  try { const ta = document.createElement('textarea'); ta.value = txt; ta.style.cssText = 'position:fixed;left:-99px;top:0;opacity:0'; document.body.appendChild(ta); ta.select(); const ok = document.execCommand('copy'); ta.remove(); return ok; } catch (_) { return false; }
+}
+function placeTip(tip, x, y) { tip.style.left = x + 'px'; tip.style.top = y + 'px'; tip.style.transform = x > innerWidth * 0.62 ? 'translate(calc(-100% - 12px), 14px)' : ''; tip.hidden = false; }
+
+/* ---------------- local store（只存在这台设备的浏览器里） ---------------- */
+const LS_KEY = 'kunyu-jinian:v1';
+let store = { last: null, favs: [], guess: {}, home: null };
+try {
+  const o = JSON.parse(localStorage.getItem(LS_KEY) || 'null');
+  if (o && typeof o === 'object') { store = Object.assign(store, o); if (!Array.isArray(store.favs)) store.favs = []; if (!store.guess || typeof store.guess !== 'object') store.guess = {}; }
+} catch (_) {}
+function saveStore() { try { localStorage.setItem(LS_KEY, JSON.stringify(store)); } catch (_) {} }
+
+/* ---------------- view state ⇄ URL ---------------- */
+const CANON = 'https://wanglu2016.github.io/kunyu-jinian/';
+const shareBase = () => (/^https?:$/.test(location.protocol) ? location.origin + location.pathname : CANON);
+function getState() {
+  return { y: S.iyear, lon: +normLon(S.lon).toFixed(1), lat: +S.lat.toFixed(1), z: +(S.dist / fitDist()).toFixed(2),
+    p: S.sel && !$('place').hidden ? [+S.sel.lon.toFixed(2), +S.sel.lat.toFixed(2)] : null };
+}
+function stateHash(st) { return `#y=${st.y}&v=${st.lon},${st.lat},${st.z}` + (st.p ? `&p=${st.p[0]},${st.p[1]}` : ''); }
+function parseHash(h) {
+  if (!h || h.length < 3) return null; const o = {};
+  for (const kv of h.replace(/^#/, '').split('&')) { const i = kv.indexOf('='); if (i > 0) o[kv.slice(0, i)] = kv.slice(i + 1); }
+  const st = {}; const y = parseInt(o.y, 10);
+  if (Number.isFinite(y) && y !== 0 && y >= -800 && y <= 2024) st.y = y;
+  if (o.v) { const a = o.v.split(',').map(Number); if (a.length >= 2 && a.every(Number.isFinite)) { st.lon = normLon(a[0]); st.lat = clamp(a[1], -75, 80); st.z = clamp(a[2] || 1, 0.3, 2); } }
+  if (o.p) { const a = o.p.split(',').map(Number); if (a.length === 2 && a.every(Number.isFinite) && Math.abs(a[1]) <= 90) st.p = [normLon(a[0]), a[1]]; }
+  return (st.y !== undefined || st.lon !== undefined) ? st : null;
+}
+const cleanState = (st) => { try { return st ? parseHash(stateHash(st)) : null; } catch (_) { return null; } };
+function fly(lon, lat, dist) { flyTo = { lon, lat: clamp(lat, -75, 80), dist: dist || S.dist, t0: performance.now(), from: { lon: S.lon, lat: S.lat, dist: S.dist } }; S.vlon = S.vlat = 0; }
+function applyState(st, animate) {
+  if (!st) return; setPlaying(false);
+  if (st.y !== undefined) setYear(st.y, true);
+  if (st.lon !== undefined) {
+    const d = clamp((st.z || 1) * fitDist(), ZMIN, zmax());
+    if (animate) fly(st.lon, st.lat, d); else { S.lon = st.lon; S.lat = st.lat; S.dist = d; S.vlon = S.vlat = 0; flyTo = null; }
+  }
+  if (st.p) openPlace(st.p[0], st.p[1]); else if (!$('place').hidden) closePlace();
+}
+let lastSig = '';
+function syncUrl() {
+  if (!D || S.guess || S.playing || drag || scrub || flyTo || pinch0) return;
+  const st = getState(); const sig = stateHash(st); if (sig === lastSig) return; lastSig = sig;
+  try { history.replaceState(null, '', sig); } catch (_) {}
+  store.last = st; saveStore();
+}
+function onHash() {
+  if (S.guess) return;
+  if (/^#guess\b/.test(location.hash)) { startGuess(true); return; }
+  const st = parseHash(location.hash); if (st && location.hash !== lastSig) applyState(st, true);
+}
+
+/* ---------------- side panels（图层 / 更多 / 此地归属 三选一，都不开时显示“同一时刻”） ---------------- */
+function sidePanel(which) {
+  $('layers').hidden = which !== 'layers'; $('bLayers').setAttribute('aria-pressed', String(which === 'layers'));
+  $('more').hidden = which !== 'more'; $('bMore').setAttribute('aria-pressed', String(which === 'more'));
+  if (which === 'place') $('place').hidden = false;
+  else if (!$('place').hidden) { $('place').hidden = true; S.sel = null; updatePlaceCurrent(); }
+  $('sync').hidden = which !== null; labelsDirty = true;
+}
+
+/* ---------------- events on the globe ---------------- */
+const evPool = new Map(); let evNow = new Map(), evFocus = null;
+const hotSpan = () => clamp(12 * S.speed, 8, 45);
+function eventsNear(y, items) {
+  const out = new Map(); const A = ay(y);
+  for (const it of (items || syncItems(y))) out.set(it.e, it.d);
+  const back = S.playing ? hotSpan() : 3;
+  for (const e of D.events) { const d = ay(e[0]) - A; if (d >= -back && d <= 3 && !out.has(e)) out.set(e, d); }
+  return out;
+}
+function evEl(e) {
+  let el = evPool.get(e);
+  if (!el) {
+    el = document.createElement('button'); el.type = 'button'; el.className = 'evm'; el.tabIndex = -1;
+    el.innerHTML = '<i></i><span></span>'; el.children[1].textContent = e[2];
+    el.addEventListener('click', () => focusEvent(e, false));
+    el.addEventListener('pointerenter', (ev) => {
+      if (ev.pointerType !== 'mouse') return; const tip = $('tip'); tip.innerHTML = '<b></b><span></span>';
+      tip.children[0].textContent = e[2]; tip.children[1].textContent = (e[3] ? '约' : '') + fy(e[0]) + '年 · ' + e[6]; placeTip(tip, ev.clientX, ev.clientY);
+    });
+    el.addEventListener('pointerleave', () => { $('tip').hidden = true; });
+    labelsEl.appendChild(el); evPool.set(e, el);
+  }
+  return el;
+}
+function layoutEvents(placed, nObs, W, H) {
+  const used = new Set();
+  if (S.show.ev && !S.guess) {
+    const span = hotSpan(); const maxLen = W < 700 ? 10 : 26;
+    const list = [...evNow].map(([e, d]) => ({ e, d, hot: S.playing ? (d <= 0 && -d <= span) : (d === 0 || e === evFocus) }));
+    list.sort((a, b) => (b.hot - a.hot) || (Math.abs(a.d) - Math.abs(b.d)) || ((b.e[1] === 'cn') - (a.e[1] === 'cn')));
+    for (const it of list) {
+      const e = it.e; if (e[4] === undefined) continue;
+      project(e[4], e[5], tmp); if (tmp.v < 0.05) continue;
+      const x = tmp.x, y = tmp.y; if (x < 8 || y < 8 || x > W - 8 || y > H - 8) continue;
+      let covered = false; for (let k = 0; k < nObs; k++) { const b = placed[k]; if (x > b[0] && x < b[2] && y > b[1] && y < b[3]) { covered = true; break; } }
+      if (covered) continue;
+      let side = '';
+      if (it.hot) {
+        const w = Math.min([...e[2]].length, maxLen) * 12.5 + 34, h = 26;
+        const fits = (x0) => x0 > 4 && x0 + w < W - 4 && !placed.some(b => x0 < b[2] && x0 + w > b[0] && y - h / 2 < b[3] && y + h / 2 > b[1]);
+        if (fits(x + 4)) { side = 'r'; placed.push([x - 7, y - h / 2, x + 4 + w, y + h / 2]); }
+        else if (fits(x - 4 - w)) { side = 'l'; placed.push([x - 4 - w, y - h / 2, x + 7, y + h / 2]); }
+      }
+      if (!side) placed.push([x - 8, y - 8, x + 8, y + 8]);
+      const el = evEl(e);
+      const cls = 'evm' + (e[1] === 'cn' ? ' cn' : '') + (it.hot ? ' hot' : '') + (side ? ' ' + side : '') + (!it.hot && Math.abs(it.d) > 3 ? ' far' : '');
+      if (el.className !== cls) el.className = cls;
+      el.style.transform = side === 'l' ? `translate(${(x + 4.5).toFixed(1)}px,${y.toFixed(1)}px) translate(-100%,-50%)` : `translate(${(x - 4.5).toFixed(1)}px,${y.toFixed(1)}px) translate(0,-50%)`;
+      el.hidden = false; used.add(e);
+    }
+  }
+  for (const [e, el] of evPool) if (!used.has(e)) el.hidden = true;
+}
+function focusEvent(e, wantFly) {
+  setPlaying(false); setYear(e[0], true); evFocus = e; labelsDirty = true;
+  if (wantFly === false || e[4] === undefined) return;
+  project(e[4], e[5], tmp); const W = canvas.clientWidth, H = canvas.clientHeight;
+  const hidden = obstacleRects().some(b => tmp.x > b[0] && tmp.x < b[2] && tmp.y > b[1] && tmp.y < b[3]);
+  if (tmp.v < 0.45 || hidden || tmp.x < W * 0.1 || tmp.x > W * 0.9 || tmp.y < H * 0.1 || tmp.y > H * 0.9) fly(e[4], e[5]);
+}
+
+/* ---------------- search ---------------- */
+function zhNum(n) {
+  const Z = '零一二三四五六七八九';
+  if (n === 1) return '元'; if (n < 10) return Z[n]; if (n < 20) return '十' + (n % 10 ? Z[n % 10] : '');
+  return Z[Math.floor(n / 10)] + '十' + (n % 10 ? Z[n % 10] : '');
+}
+let SX = null;
+function buildSearch() {
+  if (SX) return SX;
+  const eraY = []; const eraSpan = new Map();
+  const NUM = /^(.+?)(元|十[一二三四五六七八九]?|[一二三四五六七八九]十[一二三四五六七八九]?|[一二三四五六七八九])年$/;
+  for (let y = -800; y <= 2024; y++) {
+    const c = D.chron[y]; if (!c) continue;
+    for (const full of c.m.concat(c.o)) full.split('→').forEach((part, k) => {
+      const t = part.replace(/（.*?）/g, ''); const m = NUM.exec(t); if (!m) return;
+      eraY.push({ t, key: m[1], y, full, bare: k > 0 });
+    });
+  }
+  const span = (key, y) => { const s = eraSpan.get(key); if (!s) eraSpan.set(key, [y, y]); else { if (y < s[0]) s[0] = y; if (y > s[1]) s[1] = y; } };
+  for (const e of eraY) if (!e.bare) span(e.key, e.y);
+  // 改元当年写作“汉更始三年→建武元年”，后半段不带朝代名：并入紧接着开始的同名年号（建武 → 汉建武）
+  for (const e of eraY) if (e.bare) {
+    for (const [k2, s2] of eraSpan) if (k2 !== e.key && k2.endsWith(e.key) && e.y >= s2[0] - 1 && e.y <= s2[1]) { e.key = k2; break; }
+    span(e.key, e.y);
+  }
+  const pols = []; D.names.forEach((n, i) => { const sp = nameSpan[i]; if (sp[1] >= sp[0]) pols.push({ i, zh: n.zh, en: (n.en || '').toLowerCase(), enRaw: n.en || '', sp }); });
+  const gz = new Map(); for (let y = -800; y <= 2024; y++) { const c = D.chron[y]; if (!c) continue; if (!gz.has(c.g)) gz.set(c.g, []); gz.get(c.g).push(y); }
+  SX = { eraY, eraSpan, pols, gz }; return SX;
+}
+function yearSub(y) { const c = chronOf(y); return [c.p, c.m[0], c.g + '年'].filter(Boolean).join(' · '); }
+function gotoPolity(ni) {
+  const y = S.iyear; let best = -1, bestA = -1, cur = -1;
+  D.rows.forEach((r, i) => { if (r[0] !== ni) return; if (r[1] <= y && y <= r[2]) cur = i; if (r[4] > bestA) { bestA = r[4]; best = i; } });
+  const i = cur >= 0 ? cur : best; if (i < 0) return; const r = D.rows[i];
+  setPlaying(false); if (cur < 0) setYear(r[1], true);
+  const [lon, lat] = D.lab[r[3]]; const rad = Math.sqrt(Math.max(r[4], 1) * 1000 / Math.PI) / 6371;
+  fly(lon, lat, clamp(1 + rad / (0.38 * FOV_TAN), ZMIN, fitDist())); openPlace(lon, lat);
+}
+function gotoPoint(lon, lat, seg) {
+  setPlaying(false); const y = S.iyear;
+  if (seg && !(seg[0] <= y && y <= seg[1])) setYear(clamp(y, seg[0], seg[1]), true);
+  fly(lon, lat, Math.min(S.dist, fitDist() * 0.6)); openPlace(lon, lat);
+}
+function runSearch(raw) {
+  const X = buildSearch(); const out = [];
+  const q = raw.trim().replace(/\s+/g, '').replace(/[０-９]/g, d => String.fromCharCode(d.charCodeAt(0) - 65248));
+  if (!q) return out;
+  const ql = q.toLowerCase(); const sc = (name) => (name === q ? 0 : name.startsWith(q) ? 1 : 2);
+  const add = (order, tag, name, sub, score, go, cn) => out.push({ order, tag, name, sub, score, go, cn });
+  const goYear = (y) => () => { setPlaying(false); setYear(y, true); };
+  // 年份
+  const ym = /^(公元前|公元|前|bc|ad|-)?(\d{1,4})年?$/i.exec(q);
+  if (ym) {
+    const n = +ym[2]; const neg = /前|bc|-/i.test(ym[1] || '');
+    const cand = neg ? [-n] : (ym[1] ? [n] : (n <= 800 ? [n, -n] : [n]));
+    for (const y of cand) if (y !== 0 && y >= -800 && y <= 2024) add(0, '年份', fyFull(y), yearSub(y), 0, goYear(y));
+  }
+  // 干支
+  const gm = /^([甲乙丙丁戊己庚辛壬癸][子丑寅卯辰巳午未申酉戌亥])年?$/.exec(q);
+  if (gm && X.gz.has(gm[1])) {
+    const ys = X.gz.get(gm[1]).slice().sort((a, b) => Math.abs(a - S.iyear) - Math.abs(b - S.iyear)).slice(0, 8).sort((a, b) => a - b);
+    for (const y of ys) add(1, '干支', gm[1] + '年 · ' + fy(y), yearSub(y), 0, goYear(y));
+  }
+  // 年号：阿拉伯数字的“3年”换成“三年”
+  const qz = q.replace(/(\d{1,2})年/g, (_, n) => (+n >= 1 && +n <= 99 ? zhNum(+n) : n) + '年');
+  if ([...qz].length >= 2 && !ym) {
+    const groups = new Map();
+    for (const e of X.eraY) if (e.t.includes(qz)) { if (!groups.has(e.key)) groups.set(e.key, []); groups.get(e.key).push(e); }
+    const gs = [...groups].map(([key, es]) => ({ key, es, s: key === qz || es.some(e => e.t === qz) ? 0 : key.endsWith(qz) || es.some(e => e.t.endsWith(qz)) ? 1 : 2 }));
+    gs.sort((a, b) => a.s - b.s || a.es[0].y - b.es[0].y);
+    for (const g of gs.slice(0, 10)) {
+      if (g.es.length === 1) { const e = g.es[0]; add(2, '年号', e.t, fyFull(e.y) + ' · ' + chronOf(e.y).g + '年', g.s, goYear(e.y), true); }
+      else { const sp = X.eraSpan.get(g.key) || [g.es[0].y, g.es[g.es.length - 1].y]; add(2, '年号', g.key, yearSpan(sp[0], sp[1]) + ' · 点击到元年', g.s, goYear(sp[0]), true); }
+    }
+  }
+  // 朝代
+  for (const [a, b, n] of D.cnb) if (n.includes(q)) add(3, '朝代', n, yearSpan(a, b), sc(n), goYear(a), true);
+  // 政权
+  const ps = X.pols.filter(p => p.zh.includes(q) || (ql.length >= 3 && /^[a-z .'-]+$/.test(ql) && p.en.includes(ql)));
+  ps.sort((a, b) => sc(a.zh) - sc(b.zh) || (b.sp[1] - b.sp[0]) - (a.sp[1] - a.sp[0]));
+  for (const p of ps.slice(0, 10)) add(4, '政权', p.zh, yearSpan(p.sp[0], p.sp[1]) + ' · ' + p.enRaw, sc(p.zh), () => gotoPolity(p.i));
+  // 城市古称
+  const cs = [];
+  D.cities.forEach((c) => { const last = c[2][c[2].length - 1]; for (const s of c[2]) if (s[2].includes(q)) cs.push({ c, s, last }); });
+  cs.sort((a, b) => sc(a.s[2]) - sc(b.s[2]) || a.s[0] - b.s[0]);
+  const cityNames = new Set();
+  for (const { c, s, last } of cs.slice(0, 10)) { cityNames.add(last[2]); add(5, '城市', s[2], yearSpan(s[0], s[1]) + (s[2] !== last[2] ? ' · 今' + last[2] : ''), sc(s[2]), () => gotoPoint(c[0], c[1], s)); }
+  // 今地
+  const pl = (D.places || []).filter(p => p[0].includes(q) && !cityNames.has(p[0])); pl.sort((a, b) => sc(a[0]) - sc(b[0]));
+  for (const p of pl.slice(0, 8)) add(6, '今地', p[0], coordText(p[1], p[2]) + ' · 看这里的归属履历', sc(p[0]), () => gotoPoint(p[1], p[2], null));
+  // 大事
+  const es = D.events.filter(e => e[2].includes(q) || (e[6] && e[6].includes(q))); es.sort((a, b) => a[0] - b[0]);
+  for (const e of es.slice(0, 10)) add(7, '大事', e[2], (e[3] ? '约' : '') + fy(e[0]) + '年' + (e[6] ? ' · ' + e[6] : ''), 2, () => focusEvent(e), e[1] === 'cn');
+  out.sort((a, b) => a.score - b.score || a.order - b.order);
+  return out.slice(0, 40);
+}
+let sRes = [], sSel = -1;
+function renderSearch() {
+  const q = $('sQ').value; sRes = runSearch(q); sSel = sRes.length ? 0 : -1;
+  const ol = $('sList'); ol.textContent = '';
+  sRes.forEach((r, i) => {
+    const li = document.createElement('li'); const b = document.createElement('button'); b.type = 'button'; b.className = 'sr' + (i === sSel ? ' on' : '');
+    b.innerHTML = '<span class="tg"></span><span class="nm"></span><span class="sub"></span>';
+    b.children[0].textContent = r.tag; if (r.cn) b.children[0].classList.add('cn'); b.children[1].textContent = r.name; b.children[2].textContent = r.sub;
+    b.addEventListener('click', () => pickSearch(i)); li.appendChild(b); ol.appendChild(li);
+  });
+  if (q.trim() && !sRes.length) { const li = document.createElement('li'); li.className = 'empty'; li.style.padding = '10px'; li.textContent = '没有找到。可以换个说法：年份写“1644”或“前221”，年号写“贞观三年”，政权和城市写中文名或英文名。'; ol.appendChild(li); }
+  $('sHint').hidden = !!q.trim();
+}
+function pickSearch(i) { const r = sRes[i]; if (!r) return; closeSearch(); r.go(); }
+function openSearch() { if (S.guess) return; setPlaying(false); $('search').hidden = false; const inp = $('sQ'); inp.focus(); inp.select(); renderSearch(); labelsDirty = true; }
+function closeSearch() { if ($('search').hidden) return; $('search').hidden = true; labelsDirty = true; }
+$('bSearch').addEventListener('click', () => ($('search').hidden ? openSearch() : closeSearch()));
+$('sX').addEventListener('click', closeSearch);
+$('sQ').addEventListener('input', renderSearch);
+$('sQ').addEventListener('keydown', (e) => {
+  if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+    if (!sRes.length) return; sSel = (sSel + (e.key === 'ArrowDown' ? 1 : sRes.length - 1)) % sRes.length;
+    [...$('sList').querySelectorAll('.sr')].forEach((b, i) => { b.classList.toggle('on', i === sSel); if (i === sSel) b.scrollIntoView({ block: 'nearest' }); });
+    e.preventDefault();
+  } else if (e.key === 'Enter' && !e.isComposing) { pickSearch(sSel); e.preventDefault(); }
+});
+for (const c of $('sHint').querySelectorAll('.chip')) c.addEventListener('click', () => { $('sQ').value = c.textContent; renderSearch(); $('sQ').focus(); });
+
+/* ---------------- favourites / share ---------------- */
+function favTitle(st) {
+  let t = fy(st.y) + '年 · ' + chronOf(st.y).p;
+  if (st.p) { const n = nearPlace(st.p[0], st.p[1], 0.8); t += ' · ' + (n ? n + '附近' : coordText(st.p[0], st.p[1])); }
+  return t;
+}
+function renderFavs() {
+  const box = $('favList'); box.textContent = '';
+  if (!store.favs.length) { const d = document.createElement('div'); d.className = 'empty'; d.style.padding = '4px 10px 8px'; d.textContent = '还没有收藏。看到想留住的画面，点上面的“收藏当前画面”，下次从这里回来。'; box.appendChild(d); return; }
+  store.favs.forEach((f, i) => {
+    const row = document.createElement('div'); row.className = 'fav';
+    const b = document.createElement('button'); b.type = 'button'; b.className = 'mi'; const sp = document.createElement('span'); sp.textContent = f.t || '收藏'; b.appendChild(sp);
+    b.addEventListener('click', () => { const st = cleanState(f); sidePanel(null); applyState(st, true); });
+    const x = document.createElement('button'); x.type = 'button'; x.className = 'del'; x.textContent = '×'; x.setAttribute('aria-label', '删除收藏：' + (f.t || ''));
+    x.addEventListener('click', () => { store.favs.splice(i, 1); saveStore(); renderFavs(); });
+    row.append(b, x); box.appendChild(row);
+  });
+}
+$('bMore').addEventListener('click', () => { sidePanel($('more').hidden ? 'more' : null); });
+$('mFav').addEventListener('click', () => {
+  const st = getState(); const sig = stateHash(st);
+  if (store.favs.some(f => { try { return stateHash(f) === sig; } catch (_) { return false; } })) { toast('这个画面已经收藏过了'); return; }
+  st.t = favTitle(st); store.favs.unshift(st); store.favs = store.favs.slice(0, 30); saveStore(); renderFavs(); toast('已收藏：' + st.t);
+});
+$('mShare').addEventListener('click', async () => {
+  const url = shareBase() + stateHash(getState());
+  toast((await copyText(url)) ? '链接已复制，打开它就回到现在这个画面' : '没能自动复制，请手动复制地址栏里的链接');
+});
+$('mEast').addEventListener('click', () => { sidePanel(null); fly(108, 30, fitDist()); });
+$('mAbout').addEventListener('click', () => { sidePanel(null); $('about').hidden = false; $('aboutX').focus(); });
+$('mPoster').addEventListener('click', () => { sidePanel(null); openPoster(null); });
+
+/* ---------------- daily guess：看疆域猜年份 ---------------- */
+const G_MAX = 6, G_TOL = 10, G_LO = -750, G_HI = 1900;   // 题目只取前750—1900年
+function dayKey(d) { d = d || new Date(); return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0'); }
+function hash32(str) { let h = 2166136261; for (let i = 0; i < str.length; i++) { h ^= str.charCodeAt(i); h = Math.imul(h, 16777619); } h ^= h >>> 15; h = Math.imul(h, 2246822507); h ^= h >>> 13; h = Math.imul(h, 3266489909); h ^= h >>> 16; return h >>> 0; }
+function pickYear(n) { let y = G_LO + (n % (G_HI - G_LO)); if (y >= 0) y += 1; return y; }
+const dailyYear = (key) => pickYear(hash32('kunyu-jinian daily ' + key));
+const dayNo = (key) => Math.round((Date.parse(key + 'T00:00:00Z') - Date.parse('2026-11-01T00:00:00Z')) / 864e5) + 1;
+const gBand = (g, ans) => { const d = Math.abs(ay(g) - ay(ans)); return d <= G_TOL ? 4 : d <= 50 ? 3 : d <= 150 ? 2 : d <= 500 ? 1 : 0; };
+const G_TXT = ['相差 500 年以上', '相差 500 年以内', '相差 150 年以内', '相差 50 年以内', '猜中'];
+const G_EMO = ['🟥', '🟧', '🟨', '🟩', '🎯'];
+function triesList(ol, g) {
+  ol.textContent = '';
+  for (const t of g.tries) {
+    const k = gBand(t, g.ans); const li = document.createElement('li'); const i = document.createElement('i'); i.className = 'k' + k;
+    const b = document.createElement('b'); b.textContent = fyFull(t); const sp = document.createElement('span');
+    sp.textContent = k === 4 ? '猜中' : (ay(t) < ay(g.ans) ? '答案更晚 →' : '← 答案更早');
+    const lg = document.createElement('span'); lg.className = 'lg'; lg.textContent = k === 4 ? `只差 ${Math.abs(ay(t) - ay(g.ans))} 年` : '· ' + G_TXT[k];
+    li.append(i, b, sp, lg); ol.appendChild(li);
+  }
+}
+function renderGuess() {
+  const g = S.guess; if (!g) return; const dt = g.key.split('-'); const n = g.tries.length;
+  $('gTitle').textContent = g.daily ? `每日一猜 · ${+dt[1]}月${+dt[2]}日` : '每日一猜 · 练习题';
+  $('gTip').textContent = g.done ? (g.win ? '猜中了，名字都已显示。' : '机会用完了，名字都已显示。')
+    : n === 0 ? `地球上是某一年的疆域，名字都藏起来了。转动地球找线索，在下面的时间轴上选一个年份提交。差 ${G_TOL} 年以内算猜中，共 ${G_MAX} 次机会；答案在前750年到1900年之间。`
+    : n < 2 ? '再错一次，会显示各城市当时的名字。' : n < 4 ? '城市当时的名字已经显示。第 4 次还没中，会显示政权名。' : `政权名也显示了，还剩 ${G_MAX - n} 次机会。`;
+  triesList($('gTries'), g);
+  $('gYear').textContent = fyFull(g.y); $('gEra').textContent = chronOf(g.y).p;
+  const sb = $('gSubmit'); sb.disabled = g.done; sb.textContent = g.done ? '已结束' : `提交 · 第 ${n + 1}/${G_MAX} 次`;
+  const mk = $('gMarks'); mk.textContent = '';
+  for (const t of g.tries) { const d = document.createElement('div'); d.className = 'gmark k' + gBand(t, g.ans); d.style.left = (y2x(t) * 100) + '%'; mk.appendChild(d); }
+  const tr = $('track'); tr.setAttribute('aria-valuenow', g.y); tr.setAttribute('aria-valuetext', '所猜年份：' + fyFull(g.y));
+  updateTimeline();
+}
+function setGuessYear(y) { const g = S.guess; if (!g || g.done) return; g.y = nz(Math.round(clamp(y, -800, 2024))); renderGuess(); }
+function startGuess(daily, prev) {
+  if (S.guess) return; setPlaying(false); closeSearch(); sidePanel(null); $('about').hidden = true; $('tip').hidden = true;
+  const key = dayKey(); const rec = daily ? store.guess[key] : null; const tries = rec && Array.isArray(rec.g) ? rec.g.filter(Number.isFinite).slice(0, G_MAX) : [];
+  const st0 = prev || getState();
+  S.guess = { key, daily, ans: daily ? dailyYear(key) : pickYear(Math.floor(Math.random() * 1e9)), y: tries.length ? tries[tries.length - 1] : 600, tries, done: !!(rec && rec.done), win: !!(rec && rec.win), prev: st0 };
+  document.body.classList.add('guessing');
+  setYear(S.guess.ans, true); S.lon = 108; S.lat = 30; S.dist = fitDist(); S.vlon = S.vlat = 0; flyTo = null;
+  renderGuess(); layoutBandText(); labelsDirty = true;
+  if (S.guess.done) showGuessDone();
+}
+function submitGuess() {
+  const g = S.guess; if (!g || g.done) return;
+  if (g.tries.includes(g.y)) { toast('这一年已经猜过了，换一个年份'); return; }
+  g.tries.push(g.y);
+  if (gBand(g.y, g.ans) === 4) g.done = g.win = true; else if (g.tries.length >= G_MAX) g.done = true;
+  if (g.daily) {
+    store.guess[g.key] = { g: g.tries.slice(), done: g.done, win: g.win };
+    const keys = Object.keys(store.guess).sort(); while (keys.length > 400) delete store.guess[keys.shift()];
+    saveStore();
+  }
+  renderGuess(); labelsDirty = true;
+  if (g.done) showGuessDone();
+}
+function statsText() {
+  const keys = Object.keys(store.guess).filter(k => store.guess[k] && store.guess[k].done); const wins = keys.filter(k => store.guess[k].win).length;
+  let streak = 0; const d = new Date(); while (store.guess[dayKey(d)] && store.guess[dayKey(d)].done) { streak++; d.setDate(d.getDate() - 1); }
+  return `已玩 ${keys.length} 天 · 猜中 ${wins} 次 · 连续 ${streak} 天`;
+}
+function showGuessDone() {
+  const g = S.guess; const c = chronOf(g.ans); const cd = cardOf(g.ans);
+  $('gdEyebrow').textContent = $('gTitle').textContent + (g.daily && dayNo(g.key) > 0 ? ` · 第 ${dayNo(g.key)} 题` : '');
+  $('gdH').textContent = g.win ? `第 ${g.tries.length} 次猜中` : '这次没猜中';
+  $('gdYear').textContent = fyFull(g.ans);
+  $('gdReign').textContent = [c.m.join(' · '), c.g + '年', c.p].filter(Boolean).join(' · ');
+  const p = $('gdCard'); p.textContent = ''; const b = document.createElement('b'); b.textContent = cd[2] + '　'; p.append(b, document.createTextNode(cd[3]));
+  triesList($('gdTries'), g);
+  $('gdStats').textContent = g.daily ? statsText() + '。明天换一道新题。' : '练习题不计入成绩。';
+  $('gdShare').hidden = !g.daily;
+  $('guessDone').hidden = false; $('gdX').focus();
+}
+function guessShareText(g) {
+  const dt = g.key.split('-');
+  const row = g.tries.map(t => { const k = gBand(t, g.ans); return k === 4 ? G_EMO[4] : G_EMO[k] + (ay(t) < ay(g.ans) ? '➡️' : '⬅️'); }).join(' ');
+  return `坤舆纪年 · 每日一猜 ${+dt[1]}月${+dt[2]}日\n${row}\n${g.win ? `第 ${g.tries.length} 次猜中` : `${G_MAX} 次没猜中`}（看疆域猜年份）\n${shareBase()}#guess`;
+}
+function exitGuess(keepYear) {
+  const g = S.guess; if (!g) return; S.guess = null; document.body.classList.remove('guessing'); $('guessDone').hidden = true;
+  lastPanelYear = null;
+  if (keepYear) { setYear(g.ans, true); } else applyState(g.prev, false);
+  const tr = $('track'); tr.setAttribute('aria-valuenow', S.iyear); tr.setAttribute('aria-valuetext', fyFull(S.iyear));
+  layoutBandText(); updateTimeline(); labelsDirty = true; lastSig = '';
+}
+$('bGuess').addEventListener('click', () => startGuess(true));
+$('gSubmit').addEventListener('click', submitGuess);
+$('gQuit').addEventListener('click', () => exitGuess(false));
+for (const b of document.querySelectorAll('.gstep')) b.addEventListener('click', () => { if (S.guess) setGuessYear(stepYear(S.guess.y, +b.dataset.d)); });
+$('gdX').addEventListener('click', () => exitGuess(false));
+$('gdGo').addEventListener('click', () => exitGuess(true));
+$('gdAgain').addEventListener('click', () => { const prev = S.guess && S.guess.prev; exitGuess(false); startGuess(false, prev); });
+$('gdShare').addEventListener('click', async () => { if (S.guess) toast((await copyText(guessShareText(S.guess))) ? '成绩已复制，粘贴给朋友就行（不会泄露答案）' : '没能自动复制'); });
+
+/* ---------------- hometown poster：家乡三千年 ---------------- */
+const P_END = 1911;       // 长图只画到 1911 年，1912 年以后的边界不用于分享
+const ZODIAC = { 子: '鼠', 丑: '牛', 寅: '虎', 卯: '兔', 辰: '龙', 巳: '蛇', 午: '马', 未: '羊', 申: '猴', 酉: '鸡', 戌: '狗', 亥: '猪' };
+let hPick = null, posterBlob = null, posterUrl = '', posterName = '';
+function setHome(lon, lat, name) {
+  hPick = { lon, lat }; $('hPick').textContent = '已选：' + (name ? name + ' · ' : '') + coordText(lon, lat);
+  if (name) $('hName').value = name; $('hMake').disabled = false; $('hOut').hidden = true; $('hMake').textContent = '生成长图';
+}
+function renderHSug() {
+  const q = $('hQ').value.trim(); const box = $('hSug'); box.textContent = ''; if (!q) return;
+  const cand = [];
+  for (const p of (D.places || [])) if (p[0].includes(q)) cand.push({ n: p[0], t: p[0], lon: p[1], lat: p[2], s: p[0] === q ? 0 : p[0].startsWith(q) ? 1 : 2 });
+  for (const c of D.cities) { const last = c[2][c[2].length - 1][2]; const hit = c[2].find(s => s[2].includes(q)); if (hit && !cand.some(k => k.t === last && Math.abs(k.lon - c[0]) < 1)) cand.push({ n: hit[2] === last ? last : `${hit[2]}（今${last}）`, t: last, lon: c[0], lat: c[1], s: hit[2] === q ? 0 : 1 }); }
+  cand.sort((a, b) => a.s - b.s);
+  for (const c of cand.slice(0, 12)) { const b = document.createElement('button'); b.type = 'button'; b.className = 'chip'; b.textContent = c.n; b.addEventListener('click', () => setHome(c.lon, c.lat, c.t)); box.appendChild(b); }
+  if (!cand.length) { const d = document.createElement('span'); d.className = 'small'; d.textContent = '名表里没有这个地方，可以按下面的办法在地球上点选。'; box.appendChild(d); }
+}
+function openPoster(pre) {
+  if (S.guess) return; setPlaying(false); closeSearch();
+  $('poster').hidden = false; $('hOut').hidden = true; $('hQ').value = ''; $('hSug').textContent = '';
+  const h = pre || store.home;
+  if (h && Number.isFinite(h.lon) && Number.isFinite(h.lat)) setHome(h.lon, h.lat, h.name || nearPlace(h.lon, h.lat, 0.8) || '');
+  else { hPick = null; $('hPick').textContent = ''; $('hMake').disabled = true; }
+  if (pre && !pre.name) $('hName').value = nearPlace(pre.lon, pre.lat, 0.8) || '';
+  $('hBirth').value = store.home && store.home.birth ? store.home.birth : '';
+  $('hX').focus();
+}
+function closePoster() { $('poster').hidden = true; }
+$('hX').addEventListener('click', closePoster);
+$('poster').addEventListener('click', (e) => { if (e.target === $('poster')) closePoster(); });
+$('hQ').addEventListener('input', renderHSug);
+$('hGeo').addEventListener('click', () => {
+  if (!navigator.geolocation) { toast('这个浏览器不支持定位，请直接输入城市名'); return; }
+  toast('正在向浏览器请求位置…');
+  navigator.geolocation.getCurrentPosition(
+    (pos) => { const lon = pos.coords.longitude, lat = pos.coords.latitude; setHome(lon, lat, nearPlace(lon, lat, 0.8) || ''); toast('已取得位置'); },
+    () => toast('没能取得位置，请直接输入城市名'), { maximumAge: 6e5, timeout: 10000 });
+});
+$('placePoster').addEventListener('click', () => { if (S.sel) openPoster({ lon: S.sel.lon, lat: S.sel.lat, name: '' }); });
+function snapGlobe(lon, lat, size) {
+  const w0 = canvas.width, h0 = canvas.height; const d = 1.9, tan = 1 / (0.94 * Math.sqrt(d * d - 1));
+  canvas.width = size; canvas.height = size; gl.viewport(0, 0, size, size);
+  drawScene({ size, rot: rotMat(lon, lat), dist: d, tan });
+  const out = document.createElement('canvas'); out.width = out.height = size; out.getContext('2d').drawImage(canvas, 0, 0);
+  canvas.width = w0; canvas.height = h0; gl.viewport(0, 0, w0, h0); drawScene();
+  return out;
+}
+function drawPoster(lon, lat, name, birth) {
+  const PW = 1080, M = 72, IW = PW - 2 * M;
+  const SERIF = '"Noto Serif SC","Source Han Serif SC","Songti SC","STSong",serif', SANS = '"Noto Sans SC","Source Han Sans SC","PingFang SC","Microsoft YaHei",system-ui,sans-serif';
+  const INK = '#0a1317', FG = '#ece5d2', FG2 = '#b5b6a8', FG3 = '#7d8681', GOLD = '#d9b56a', RED = '#e0603f';
+  const hist = historyAt(lon, lat).filter(m => m.a <= P_END).map(m => ({ n: m.n, a: m.a, b: Math.min(m.b, P_END) }));
+  const big = document.createElement('canvas'); big.width = PW; big.height = 8200; const c = big.getContext('2d');
+  c.fillStyle = INK; c.fillRect(0, 0, PW, big.height); c.textBaseline = 'alphabetic';
+  const font = (w, px, fam) => { c.font = `${w} ${px}px ${fam}`; };
+  const text = (s, x, y, col, align) => { c.fillStyle = col; c.textAlign = align || 'left'; c.fillText(s, x, y); };
+  const wrap = (s, maxW) => {
+    const lines = []; let cur = '';
+    for (const ch of s) {
+      if (c.measureText(cur + ch).width <= maxW || !cur) { cur += ch; continue; }
+      // 行首不放标点：把上一行最后一个字带下来
+      if ('，。、；：）》”’！？'.includes(ch) && [...cur].length > 1) { const a = [...cur]; const tail = a.pop(); lines.push(a.join('')); cur = tail + ch; }
+      else if ('“‘（《'.includes(cur.slice(-1)) && [...cur].length > 1) { lines.push(cur.slice(0, -1)); cur = cur.slice(-1) + ch; }   // 行尾不留前引号
+      else { lines.push(cur); cur = ch; }
+    }
+    if (cur) lines.push(cur); return lines;
+  };
+  const para = (s, x, y, maxW, lh, col) => { for (const ln of wrap(s, maxW)) { text(ln, x, y, col); y += lh; } return y; };
+  const fit = (s, maxW) => { if (c.measureText(s).width <= maxW) return s; let t = [...s]; while (t.length > 1 && c.measureText(t.join('') + '…').width > maxW) t.pop(); return t.join('') + '…'; };
+  const rr = (x, y, w, h, r) => { c.beginPath(); c.moveTo(x + r, y); c.arcTo(x + w, y, x + w, y + h, r); c.arcTo(x + w, y + h, x, y + h, r); c.arcTo(x, y + h, x, y, r); c.arcTo(x, y, x + w, y, r); c.closePath(); };
+  const eyebrow = (s, y) => { font(700, 24, SERIF); text(s, M, y, GOLD); const w = c.measureText(s).width; c.fillStyle = 'rgba(214,186,122,.28)'; c.fillRect(M + w + 18, y - 9, IW - w - 18, 1); };
+
+  // ---- header ----
+  c.lineWidth = 2.5; c.strokeStyle = RED; rr(M, 64, 62, 62, 12); c.stroke(); c.fillStyle = 'rgba(224,96,63,.07)'; c.fill();
+  font(900, 22, SERIF); text('坤', M + 31, 91, RED, 'center'); text('舆', M + 31, 116, RED, 'center');
+  font(900, 34, SERIF); let bx = M + 84; for (const ch of '坤舆纪年') { text(ch, bx, 96, FG); bx += 44; }
+  font(400, 18, SANS); text('中国与世界历史地球', M + 84, 124, FG3);
+  font(700, 26, SERIF); text('家乡三千年', PW - M, 96, GOLD, 'right'); font(400, 18, SANS); text('公元前800年 — 1911年', PW - M, 124, FG3, 'right');
+
+  // ---- globe ----
+  const GR = 250, gx = PW / 2, gy = 440; const snap = snapGlobe(lon, lat, 1024);
+  const dw = 1024 * GR / (0.94 * 512);   // 快照里地球半径是 0.94×512，缩放到 GR
+  c.save(); c.beginPath(); c.arc(gx, gy, GR + 15, 0, Math.PI * 2); c.clip(); c.drawImage(snap, gx - dw / 2, gy - dw / 2, dw, dw); c.restore();
+  const fade = c.createRadialGradient(gx, gy, GR + 2, gx, gy, GR + 15); fade.addColorStop(0, 'rgba(10,19,23,0)'); fade.addColorStop(1, INK);
+  c.fillStyle = fade; c.beginPath(); c.arc(gx, gy, GR + 20, 0, Math.PI * 2); c.arc(gx, gy, GR + 2, 0, Math.PI * 2, true); c.fill();
+  c.strokeStyle = 'rgba(10,19,23,.85)'; c.lineWidth = 7; c.beginPath(); c.arc(gx, gy, 15, 0, Math.PI * 2); c.stroke();
+  c.strokeStyle = '#f5d68c'; c.lineWidth = 3.5; c.beginPath(); c.arc(gx, gy, 15, 0, Math.PI * 2); c.stroke();
+  c.fillStyle = '#f5d68c'; c.beginPath(); c.arc(gx, gy, 4.5, 0, Math.PI * 2); c.fill();
+
+  // ---- title ----
+  const nl = [...name].length; const ts = nl <= 3 ? 124 : nl <= 5 ? 104 : nl <= 7 ? 84 : 64;
+  font(900, ts, SERIF); let y = 760 + ts * 0.86; text(fit(name, IW), PW / 2, y, FG, 'center');
+  y += 52; font(400, 24, SANS); text(coordText(lon, lat), PW / 2, y, FG3, 'center');
+
+  // ---- summary ----
+  y += 76; font(400, 28, SANS);
+  const dur = new Map(); for (const m of hist) dur.set(m.n, (dur.get(m.n) || 0) + ay(m.b) - ay(m.a) + 1);
+  if (hist.length) {
+    const top = [...dur].sort((a, b) => b[1] - a[1]); const first = hist[0];
+    let s = `从公元前800年到1911年，数据集先后把这里画进 ${dur.size} 个政权的范围。`;
+    s += `最早的记录是${fy(first.a)}年的“${D.names[first.n].zh}”；停留最久的是“${D.names[top[0][0]].zh}”，前后 ${top[0][1]} 年`;
+    s += top.length > 1 ? `，其次是“${D.names[top[1][0]].zh}”，${top[1][1]} 年。` : '。';
+    y = para(s, M, y, IW, 48, FG2);
+  } else y = para('从公元前800年到1911年，数据集没有在这一点记录过任何政权。海洋、极地和资料稀疏的地区都会这样，并不代表这里无人居住。', M, y, IW, 48, FG2);
+
+  // ---- names of the city ----
+  let city = null, cd = 0.35; const kk = Math.cos(lat * D2R);
+  for (const ct of D.cities) { const d = Math.hypot((ct[0] - lon) * kk, ct[1] - lat); if (d < cd) { cd = d; city = ct; } }
+  const segs = city ? city[2].filter(s => s[0] <= P_END) : [];
+  if (segs.length > 1) {
+    y += 36; eyebrow('名称沿革', y); y += 56; let x = M;
+    segs.forEach((s, i) => {
+      font(700, 30, SERIF); const w1 = c.measureText(s[2]).width; font(400, 19, SANS); const yr = s[1] > P_END ? fy(s[0]) + ' 起' : yearSpan(s[0], s[1]); const w2 = c.measureText(yr).width;
+      const w = Math.max(w1, w2) + (i < segs.length - 1 ? 54 : 0);
+      if (x + Math.max(w1, w2) > PW - M) { x = M; y += 84; }
+      font(700, 30, SERIF); text(s[2], x, y, FG); font(400, 19, SANS); text(yr, x, y + 30, FG3);
+      if (i < segs.length - 1) { font(400, 24, SANS); text('→', x + Math.max(w1, w2) + 16, y - 2, GOLD); }
+      x += w;
+    });
+    y += 54;
+  }
+
+  // ---- gantt chart ----
+  y += 40; eyebrow('归属履历', y); y += 34;
+  const X0 = M + 400, X1 = PW - M, A0 = ay(-800), A1 = ay(P_END) + 1; const X = (yr) => X0 + (ay(yr) - A0) / (A1 - A0) * (X1 - X0);
+  const bandY = y; const bounds = [];
+  for (const [a, b, n] of D.cnb) {
+    if (a > P_END) break; const x0 = X(a), x1 = Math.min(X1, X(Math.min(b, P_END)) + (X1 - X0) / (A1 - A0)); bounds.push(x0);
+    c.fillStyle = BANDC[n] || '#8a6a4a'; c.fillRect(x0, bandY, Math.max(1, x1 - x0 - 1), 30);
+    font(500, 15, SANS); const need = c.measureText(n).width + 6; const lab = x1 - x0 >= need ? n : (x1 - x0 >= 20 ? [...n][0] : ''); if (lab) text(lab, (x0 + x1) / 2, bandY + 21, 'rgba(255,248,232,.94)', 'center');
+  }
+  font(400, 16, SANS); for (const t of [-800, -221, 220, 618, 960, 1368]) text(fy(t), X(t), bandY + 54, FG3, t === -800 ? 'left' : 'center');
+  text(String(P_END), X1, bandY + 54, FG3, 'right');
+  font(400, 16, SANS); text('中国朝代', M, bandY + 21, FG3);
+  y = bandY + 78;
+  let rows = hist.slice(); let dropped = 0; const MAXR = 64;
+  if (rows.length > MAXR) { const keep = new Set(rows.slice().sort((p, q) => (ay(q.b) - ay(q.a)) - (ay(p.b) - ay(p.a))).slice(0, MAXR)); dropped = rows.length - MAXR; rows = rows.filter(r => keep.has(r)); }
+  const rowsTop = y;
+  c.fillStyle = 'rgba(255,255,255,.045)'; for (const bxx of bounds) c.fillRect(Math.round(bxx), rowsTop - 8, 1, rows.length * 46 + 8);
+  for (const m of rows) {
+    const nm = D.names[m.n]; const cy = y + 15;
+    c.fillStyle = nm.c; rr(M, cy - 8, 16, 16, 3); c.fill();
+    font(400, 17, SANS); const yrs = yearSpan(m.a, m.b); const yw = c.measureText(yrs).width; text(yrs, X0 - 22, cy + 6, FG3, 'right');
+    font(700, 24, SERIF); text(fit(nm.zh, X0 - 22 - yw - 14 - (M + 28)), M + 28, cy + 8, FG);
+    const x0 = X(m.a), x1 = Math.max(x0 + 4, Math.min(X1, X(m.b) + (X1 - X0) / (A1 - A0)));
+    c.globalAlpha = 0.95; c.fillStyle = nm.c; rr(x0, cy - 8, x1 - x0, 16, 3); c.fill(); c.globalAlpha = 1;
+    y += 46;
+  }
+  if (!rows.length) { font(400, 22, SANS); text('（没有记录）', M, y + 18, FG3); y += 46; }
+  if (dropped) { font(400, 18, SANS); text(`另有 ${dropped} 个存续较短的政权从略。`, M, y + 16, FG3); y += 40; }
+
+  // ---- birth year ----
+  if (birth) {
+    const g = chronOf(birth).g; const SX2 = buildSearch(); const all = SX2.gz.get(g).filter(v => v <= P_END).sort((a, b) => b - a);
+    const pickY = []; for (let i = 0; i < all.length && pickY.length < 9; i += 5) pickY.push(all[i]);
+    y += 44; eyebrow('生年干支', y); y += 60;
+    font(700, 34, SERIF); text(`${birth}年是${g}年，属${ZODIAC[g[1]]}`, M, y, FG); y += 44;
+    font(400, 22, SANS); y = para(`往前每隔三百年（五个甲子）看一个${g}年，这里是这样的：`, M, y, IW, 36, FG2); y += 14;
+    for (const v of pickY) {
+      const ch = chronOf(v); const who = hist.filter(m => m.a <= v && v <= m.b).map(m => D.names[m.n].zh);
+      font(700, 24, SERIF); text(fy(v) + '年', M, y, GOLD);
+      font(400, 22, SANS); text(fit(ch.m[0] || ch.p, 330), M + 150, y, FG);
+      text(fit(who.length ? '此地属' + who.slice(0, 2).join('、') : '此地无记录', IW - 500), M + 500, y, FG2);
+      y += 42;
+    }
+    y += 4; font(400, 18, SANS); y = para('干支按公历年对应；正月初一以前出生的，按农历算属上一年。', M, y + 8, IW, 30, FG3);
+  }
+
+  // ---- notes & footer ----
+  y += 40; c.fillStyle = 'rgba(214,186,122,.28)'; c.fillRect(M, y, IW, 1); y += 44;
+  const notes = []; for (const m of hist) { const nt = D.names[m.n].note; if (nt && !notes.includes(nt)) notes.push(nt); }
+  font(400, 19, SANS);
+  for (const nt of notes.slice(0, 3)) { const y0 = y; y = para(nt, M + 18, y, IW - 18, 32, FG3); c.fillStyle = GOLD; c.fillRect(M, y0 - 20, 3, y - y0 - 6); y += 14; }
+  y = para('色块取自学术数据集 Cliopatria（Seshat Global History Databank，CC BY 4.0），表示“当时的势力范围”，是近似，不是精确国界；同一时期可能有多个政权的范围在此重叠。1912年以后从略。底图是今天的地形。', M, y, IW, 32, FG3);
+  y += 40; font(900, 26, SERIF); text('坤舆纪年', M, y, GOLD); font(400, 20, SANS); text('wanglu2016.github.io/kunyu-jinian', PW - M, y, FG2, 'right');
+  y += 64;
+
+  const out = document.createElement('canvas'); out.width = PW; out.height = Math.ceil(y); const o = out.getContext('2d');
+  o.drawImage(big, 0, 0); o.strokeStyle = 'rgba(214,186,122,.22)'; o.lineWidth = 2; o.strokeRect(26, 26, PW - 52, out.height - 52);
+  return out;
+}
+async function makePoster() {
+  if (!hPick) return; const { lon, lat } = hPick;
+  const name = ($('hName').value.trim() || nearPlace(lon, lat, 0.8) || '此地').slice(0, 12);
+  let birth = parseInt($('hBirth').value, 10); if (!(birth >= 1900 && birth <= 2024)) birth = null;
+  store.home = { lon: +lon.toFixed(3), lat: +lat.toFixed(3), name, birth }; saveStore();
+  const btn = $('hMake'); btn.disabled = true; btn.textContent = '正在绘制…';
+  try { await Promise.all(['900 40px "Noto Serif SC"', '700 40px "Noto Serif SC"', '400 20px "Noto Sans SC"', '500 20px "Noto Sans SC"'].map(f => document.fonts.load(f, name + '坤舆纪年'))); } catch (_) {}
+  await new Promise(r => setTimeout(r, 30));
+  try {
+    const cv = drawPoster(lon, lat, name, birth);
+    cv.toBlob((blob) => {
+      btn.disabled = false; btn.textContent = '重新生成'; if (!blob) { toast('生成失败，请再试一次'); return; }
+      posterBlob = blob; posterName = name + '三千年-坤舆纪年.png'; if (posterUrl) URL.revokeObjectURL(posterUrl); posterUrl = URL.createObjectURL(blob);
+      $('hImg').src = posterUrl; $('hOut').hidden = false;
+      let can = false; try { can = !!(navigator.canShare && navigator.canShare({ files: [new File([blob], posterName, { type: 'image/png' })] })); } catch (_) {}
+      $('hShare').hidden = !can; $('hOut').scrollIntoView({ behavior: REDUCED ? 'auto' : 'smooth', block: 'start' });
+    }, 'image/png');
+  } catch (err) { console.error(err); btn.disabled = false; btn.textContent = '生成长图'; toast('生成失败：' + (err && err.message ? err.message : err)); }
+}
+$('hMake').addEventListener('click', makePoster);
+$('hSave').addEventListener('click', () => { if (!posterUrl) return; const a = document.createElement('a'); a.href = posterUrl; a.download = posterName; document.body.appendChild(a); a.click(); a.remove(); });
+$('hShare').addEventListener('click', async () => { if (!posterBlob) return; try { await navigator.share({ files: [new File([posterBlob], posterName, { type: 'image/png' })], title: '坤舆纪年 · 家乡三千年' }); } catch (_) {} });
 
 /* ---------------- boot ---------------- */
 async function boot() {
@@ -1050,8 +1887,13 @@ async function boot() {
     texPol[0] = mkTex(2, null); texPol[1] = mkTex(3, null);
     S.dist = fitDist();
     buildTimeline();
-    obstacleEls = ['card', 'sync', 'timeline', 'layers', 'place', 'mtabs'].map($).concat([document.querySelector('.yearbox'), document.querySelector('.brand'), document.querySelector('.toolbar')]);
-    setYear(-221, true);
+    obstacleEls = ['card', 'sync', 'timeline', 'layers', 'place', 'mtabs', 'more', 'search', 'guessHead'].map($).concat([document.querySelector('.yearbox'), document.querySelector('.brand'), document.querySelector('.toolbar')]);
+    // 链接里带着画面就照链接来；否则回到上次离开的地方；都没有就是前221年的东亚
+    const st0 = parseHash(location.hash) || cleanState(store.last);
+    setYear(st0 && st0.y !== undefined ? st0.y : -221, true);
+    if (st0) applyState(st0, false);
+    renderFavs(); setInterval(syncUrl, 700); addEventListener('hashchange', onHash);
+    if (/^#guess\b/.test(location.hash)) startGuess(true);
     drawOverlay(); mix = mixTarget;
     setLoad(1, '');
     $('loading').classList.add('done');
