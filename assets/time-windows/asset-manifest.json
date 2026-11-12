@@ -1,0 +1,52 @@
+{
+  "qufu": {
+    "image": "images/qufu.webp",
+    "thumbnail": "thumbs/qufu.webp",
+    "sha256": "595c41c082f970f937d4df6ba2cb7e20b7f6dc2528c7ffdee9d3cdb345131c0e"
+  },
+  "linzi": {
+    "image": "images/linzi.webp",
+    "thumbnail": "thumbs/linzi.webp",
+    "sha256": "663fc9789ccd126df35f1e7200dd643839b0cbb23cc1d8547d9cdbda12061d71"
+  },
+  "xianyang": {
+    "image": "images/xianyang.webp",
+    "thumbnail": "thumbs/xianyang.webp",
+    "sha256": "8cdcb616f0fea23e7c789a0e930916f36e42180771c770772d406519114d977f"
+  },
+  "changan-han": {
+    "image": "images/changan-han.webp",
+    "thumbnail": "thumbs/changan-han.webp",
+    "sha256": "4a6f3a2d96e5b58f34c68c50a88276c4021630753daaf0f5ad7dcdf8635c1b3e"
+  },
+  "luoyang-han": {
+    "image": "images/luoyang-han.webp",
+    "thumbnail": "thumbs/luoyang-han.webp",
+    "sha256": "ef0caf8c3720dd5347fc3081b76054b8f15fde2b3436db8d45b1271d7e9ca576"
+  },
+  "chengdu-han": {
+    "image": "images/chengdu-han.webp",
+    "thumbnail": "thumbs/chengdu-han.webp",
+    "sha256": "cbac8b2637034e40135972eb1f0ffb8bd23902f92e118f5eb71c1aa9631f2b99"
+  },
+  "jianye": {
+    "image": "images/jianye.webp",
+    "thumbnail": "thumbs/jianye.webp",
+    "sha256": "6df32f94b9aee5848f0c15286bad4436250617e34d13fb224b5865a46f7d0d08"
+  },
+  "luoyang-wei": {
+    "image": "images/luoyang-wei.webp",
+    "thumbnail": "thumbs/luoyang-wei.webp",
+    "sha256": "21ab54660384209b77bd74785a62a480df10e3fd8c28f830db03f76c54f3c9e7"
+  },
+  "jiankang": {
+    "image": "images/jiankang.webp",
+    "thumbnail": "thumbs/jiankang.webp",
+    "sha256": "43504d678294a7704428a19e5e1f94498d3f1656024c77fc1fd670df29375d0e"
+  },
+  "daxing": {
+    "image": "images/daxing.webp",
+    "thumbnail": "thumbs/daxing.webp",
+    "sha256": "f29af014f4b5bbe3dea8762562db62c9313b37f2c474b9a6230593b3ab642d64"
+  }
+}
