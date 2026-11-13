@@ -7,6 +7,24 @@
 
 ![坤舆纪年截图](assets/preview.jpg)
 
+## 时空之窗
+
+**[打开15幅城市生活图册 →](https://wanglu2016.github.io/kunyu-jinian/time-windows.html)**
+
+从约公元前500年的曲阜到约公元1200年的临安。支持搜索城市、朝代或年份，按年代筛选，查看大图、收藏、下载单幅，以及任选两幅并排比较。地球首页右上角也有“图册”入口；图册详情可跳回对应年代与城市视角。
+
+画面是 AI 创作的历史情境插画，年代为约数，细节可能有误，未经专家逐项审定。适合观察与提出问题，不作为历史复原或史料。
+
+点击下方任一图片进入对应场景。
+
+| | | |
+|---|---|---|
+| [![曲阜 · 前500年](assets/time-windows/thumbs/qufu.webp)](https://wanglu2016.github.io/kunyu-jinian/time-windows.html#window=qufu)<br>**曲阜 · 春秋** · 约前500年<br>竹简与车轮 | [![临淄 · 前300年](assets/time-windows/thumbs/linzi.webp)](https://wanglu2016.github.io/kunyu-jinian/time-windows.html#window=linzi)<br>**临淄 · 战国** · 约前300年<br>市集与手艺 | [![咸阳 · 前220年](assets/time-windows/thumbs/xianyang.webp)](https://wanglu2016.github.io/kunyu-jinian/time-windows.html#window=xianyang)<br>**咸阳 · 秦** · 约前220年<br>秩序与劳作 |
+| [![长安 · 前100年](assets/time-windows/thumbs/changan-han.webp)](https://wanglu2016.github.io/kunyu-jinian/time-windows.html#window=changan-han)<br>**长安 · 西汉** · 约前100年<br>车马入城 | [![洛阳 · 150年](assets/time-windows/thumbs/luoyang-han.webp)](https://wanglu2016.github.io/kunyu-jinian/time-windows.html#window=luoyang-han)<br>**洛阳 · 东汉** · 约150年<br>街头的百姓 | [![成都 · 200年](assets/time-windows/thumbs/chengdu-han.webp)](https://wanglu2016.github.io/kunyu-jinian/time-windows.html#window=chengdu-han)<br>**成都 · 汉末** · 约200年<br>织机旁的人 |
+| [![建业 · 250年](assets/time-windows/thumbs/jianye.webp)](https://wanglu2016.github.io/kunyu-jinian/time-windows.html#window=jianye)<br>**建业 · 三国·吴** · 约250年<br>江岸码头 | [![洛阳 · 520年](assets/time-windows/thumbs/luoyang-wei.webp)](https://wanglu2016.github.io/kunyu-jinian/time-windows.html#window=luoyang-wei)<br>**洛阳 · 北魏** · 约520年<br>佛寺外的街道 | [![建康 · 550年](assets/time-windows/thumbs/jiankang.webp)](https://wanglu2016.github.io/kunyu-jinian/time-windows.html#window=jiankang)<br>**建康 · 南朝·梁** · 约550年<br>雨后的巷口 |
+| [![大兴 · 610年](assets/time-windows/thumbs/daxing.webp)](https://wanglu2016.github.io/kunyu-jinian/time-windows.html#window=daxing)<br>**大兴 · 隋** · 约610年<br>新都的一日 | [![长安 · 650年](assets/time-windows/thumbs/changan-650.webp)](https://wanglu2016.github.io/kunyu-jinian/time-windows.html#window=changan-650)<br>**长安 · 唐** · 约650年<br>坊门清晨 | [![长安 · 750年](assets/time-windows/thumbs/changan-750.webp)](https://wanglu2016.github.io/kunyu-jinian/time-windows.html#window=changan-750)<br>**长安 · 唐** · 约750年<br>西市的人群 |
+| [![扬州 · 850年](assets/time-windows/thumbs/yangzhou-tang.webp)](https://wanglu2016.github.io/kunyu-jinian/time-windows.html#window=yangzhou-tang)<br>**扬州 · 唐** · 约850年<br>水边的生意 | [![汴京 · 1100年](assets/time-windows/thumbs/bianjing.webp)](https://wanglu2016.github.io/kunyu-jinian/time-windows.html#window=bianjing)<br>**汴京 · 北宋** · 约1100年<br>桥下桥上 | [![临安 · 1200年](assets/time-windows/thumbs/linan.webp)](https://wanglu2016.github.io/kunyu-jinian/time-windows.html#window=linan)<br>**临安 · 南宋** · 约1200年<br>夜市烟火 |
+
 ## 能做什么
 
 - **转动地球：** 鼠标拖动或手指滑动旋转，滚轮或双指捏合缩放。
