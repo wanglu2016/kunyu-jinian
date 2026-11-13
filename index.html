@@ -109,6 +109,7 @@ button { font: inherit; color: inherit; }
 .tbtn[aria-pressed="true"] { border-color: var(--gold); color: var(--gold); }
 .tbtn svg { width: 17px; height: 17px; stroke: currentColor; fill: none; stroke-width: 1.6; }
 
+.gallerylink { text-decoration:none; color:var(--gold); border-color:rgba(199,166,106,.5); }
 /* layers */
 .layers { position: absolute; top: calc(max(18px, env(safe-area-inset-top, 0px)) + 52px); right: max(20px, env(safe-area-inset-right, 0px)); width: 320px; padding: 16px 18px; z-index: 5; max-height: calc(100vh - var(--tl-h,150px) - 100px); overflow-y: auto; }
 .layers h3, .place h3 { margin: 0 0 4px; font-family: var(--serif); font-size: 16px; font-weight: 900; letter-spacing: .12em; }
@@ -407,6 +408,7 @@ body:not(.guessing) .guesshead, body:not(.guessing) .tl-guess, body:not(.guessin
   </div>
 
   <div class="toolbar">
+    <a class="tbtn wide gallerylink" href="time-windows.html" title="时空图册 · 15幅城市生活" aria-label="打开时空图册，15幅城市生活"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8" cy="8" r="1.5"/><path d="m4 18 5-6 4 4 3-5 5 7"/></svg><span>图册<span class="lbl"> · 15幅</span></span></a>
     <button class="tbtn" id="bSearch" type="button" title="搜索年份、年号、政权、城市、大事（快捷键 /）"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/></svg><span class="lbl">搜索</span></button>
     <button class="tbtn" id="bGuess" type="button" title="每日一猜：看疆域猜年份"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M9.6 9.4a2.5 2.5 0 1 1 3.6 2.3c-.8.4-1.2 1-1.2 1.9M12 16.6v.4"/></svg><span class="lbl">每日一猜</span></button>
     <button class="tbtn" id="bLayers" type="button" aria-pressed="false" title="图层"><svg viewBox="0 0 24 24"><path d="M12 3 3 8l9 5 9-5-9-5z"/><path d="m3 13 9 5 9-5"/></svg><span class="lbl">图层</span></button>
@@ -425,6 +427,7 @@ body:not(.guessing) .guesshead, body:not(.guessing) .tl-guess, body:not(.guessin
     <button class="mi" id="mFav" type="button"><svg viewBox="0 0 24 24"><path d="m12 4 2.4 5 5.4.7-4 3.8 1 5.4-4.8-2.6-4.8 2.6 1-5.4-4-3.8 5.4-.7z"/></svg>收藏当前画面</button>
     <button class="mi" id="mShare" type="button"><svg viewBox="0 0 24 24"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></svg>复制当前画面的链接</button>
     <button class="mi" id="mPoster" type="button"><svg viewBox="0 0 24 24"><path d="M6 3.5h12v17H6zM9 8h6M9 11.5h6M9 15h4"/></svg>家乡三千年<small>生成长图</small></button>
+    <a class="mi narrow" href="time-windows.html"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8" cy="8" r="1.5"/><path d="m4 18 5-6 4 4 3-5 5 7"/></svg>时空图册<small>15 幅城市生活</small></a>
     <button class="mi narrow" id="mEast" type="button"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h17M12 3.5c2.6 2.4 3.8 5.2 3.8 8.5s-1.2 6.1-3.8 8.5c-2.6-2.4-3.8-5.2-3.8-8.5s1.2-6.1 3.8-8.5z"/></svg>回到东亚视角</button>
     <button class="mi" id="bFull" type="button"><svg viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>全屏</button>
     <button class="mi narrow" id="mAbout" type="button"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg>资料与边界</button>
@@ -599,7 +602,7 @@ body:not(.guessing) .guesshead, body:not(.guessing) .tl-guess, body:not(.guessin
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-  <div class="loading" id="loading"><div class="box"><div class="t">坤舆纪年</div><div class="bar"><i id="ldBar"></i></div><div class="s" id="ldTxt">正在载入疆域数据</div></div></div>
+  <div class="loading" id="loading"><div class="box"><div class="t">坤舆纪年</div><div class="bar"><i id="ldBar"></i></div><div class="s" id="ldTxt">正在载入疆域数据</div><a class="tbtn gallerylink" style="margin-top:22px" href="time-windows.html">先看时空图册 · 15幅 ↗</a></div></div>
 </div>
 
 <script>
@@ -1313,6 +1316,15 @@ function parseHash(h) {
   return (st.y !== undefined || st.lon !== undefined) ? st : null;
 }
 const cleanState = (st) => { try { return st ? parseHash(stateHash(st)) : null; } catch (_) { return null; } };
+// “时空图册”跳回地球用 index.html?year=&lat=&lon=：转到那一年，拉近到那座城市，并打开“此地归属”标出位置
+function queryState() {
+  const q = new URLSearchParams(location.search); const st = {};
+  const y = Math.round(Number(q.get('year')));
+  if (q.has('year') && Number.isFinite(y)) st.y = clamp(y === 0 ? 1 : y, -800, 2024);
+  const lat = Number(q.get('lat')), lon = Number(q.get('lon'));
+  if (q.has('lat') && q.has('lon') && Number.isFinite(lat) && Number.isFinite(lon) && Math.abs(lat) <= 90) { st.lon = normLon(lon); st.lat = clamp(lat, -75, 80); st.z = 0.7; st.p = [normLon(lon), lat]; }
+  return (st.y !== undefined || st.lon !== undefined) ? st : null;
+}
 function fly(lon, lat, dist) { flyTo = { lon, lat: clamp(lat, -75, 80), dist: dist || S.dist, t0: performance.now(), from: { lon: S.lon, lat: S.lat, dist: S.dist } }; S.vlon = S.vlat = 0; }
 function applyState(st, animate) {
   if (!st) return; setPlaying(false);
@@ -1888,8 +1900,8 @@ async function boot() {
     S.dist = fitDist();
     buildTimeline();
     obstacleEls = ['card', 'sync', 'timeline', 'layers', 'place', 'mtabs', 'more', 'search', 'guessHead'].map($).concat([document.querySelector('.yearbox'), document.querySelector('.brand'), document.querySelector('.toolbar')]);
-    // 链接里带着画面就照链接来；否则回到上次离开的地方；都没有就是前221年的东亚
-    const st0 = parseHash(location.hash) || cleanState(store.last);
+    // 打开时定位的顺序：地址里 # 后的画面（分享链接、收藏）→ 时空图册跳过来的 ?year=&lat=&lon= → 上次离开的地方 → 前221年的东亚
+    const st0 = parseHash(location.hash) || queryState() || cleanState(store.last);
     setYear(st0 && st0.y !== undefined ? st0.y : -221, true);
     if (st0) applyState(st0, false);
     renderFavs(); setInterval(syncUrl, 700); addEventListener('hashchange', onHash);
