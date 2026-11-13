@@ -41,7 +41,7 @@
 
 ## 下载
 
-- **离线版网页（约 5.6 MB）：** [kunyu-jinian-site.zip](https://github.com/wanglu2016/kunyu-jinian/raw/main/download/kunyu-jinian-site.zip)。解压后双击 `index.html` 即可使用，不需要联网或安装任何软件。
+- **离线版网页（约 14 MB，含时空之窗图册）：** [kunyu-jinian-site.zip](https://github.com/wanglu2016/kunyu-jinian/raw/main/download/kunyu-jinian-site.zip)。解压后双击 `index.html` 即可使用，不需要联网或安装任何软件。
 - **讲解视频（41 MB）：** [坤舆纪年_使用讲解.mp4](https://github.com/wanglu2016/kunyu-jinian/raw/main/video/kunyu-jinian-guide.mp4)，也可以在[视频页](https://wanglu2016.github.io/kunyu-jinian/video.html)点“下载视频”。
 - **全部源代码：** 页面右上角绿色的 **Code → Download ZIP**（含视频，约 45 MB；解压后同样可以双击 `index.html` 离线使用）。
 

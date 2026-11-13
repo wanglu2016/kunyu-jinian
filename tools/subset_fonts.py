@@ -12,7 +12,8 @@ import glob, os
 from fontTools import subset
 from fontTools.ttLib import TTFont
 
-SRC = ['../index.html', '../video.html', '../assets/data.js']
+SRC = ['../index.html', '../video.html', '../assets/data.js',
+       '../time-windows.html', '../assets/time-windows/data.js', '../assets/time-windows/catalog.js']   # 时空之窗图册也用这套字体
 chars = set(range(0x20, 0x7f))
 for f in SRC:
     chars |= {ord(c) for c in open(f, encoding='utf8').read() if ord(c) >= 0xa0}
